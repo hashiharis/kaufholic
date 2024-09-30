@@ -1,0 +1,137 @@
+:root{
+    --fw-400:400;
+    --fw-500:500;
+    --fs-header:1.25rem;
+    --fs-form:0.875rem;
+    --fs-forminput:0.75rem;
+
+    --spacing:1em;
+
+}
+
+
+#signUpHeader{
+    font-weight: var(--fw-500);
+    font-size: var(--fs-header);
+    margin-bottom:var(--spacing); 
+}
+.imgSection{
+    background-image: url('../../../assets/images/happy-people-shopping-online.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-width:100%;
+    min-height:300px;
+}
+.signUpSection{
+    width:100%;
+    margin-block:var(--spacing);  
+}
+.form{
+    max-width:80%;
+    margin:0 auto;
+    color:#262626!important;
+    font-weight:var(--fw-400);
+    font-size:var(--fs-form)!important;
+}
+
+.input,.signUpBtn,.formInput{
+    width: 100%;
+}
+.formInput{
+    padding-block:0.625em;
+    padding-inline:var(--spacing);
+    color:#555555;
+    font-size:var(--fs-forminput);
+    font-weight:var(--fw-400);
+    margin-top:0.5em;
+}
+.form-heading{
+   margin-top:var(--spacing);
+}
+.iconImg{
+    position: relative;
+    left: 90%;
+    bottom: 30px; 
+}
+
+.label sup{
+    color:#FF2E00;
+}
+
+.signUpBtn{  
+    border:none;
+    border-radius:4px ;
+    color:#FFFFFF;
+    padding-block:1.5em;
+    padding-inline:2em;
+}
+
+.ordSignUp{
+    background-color:#4172DC;
+    text-transform: uppercase;
+}
+
+.googleSignUp{
+    background-color: #434343;
+}
+
+.googleIcon{
+    padding-inline:1em;
+    max-height:20px;
+}
+.divider{
+    font-size:var(--fs-form);
+    color:#9D9D9D;
+    display:flex;
+    align-items: center;
+}
+.divider::before, .divider::after {
+    flex: 1;
+    content: '';
+    padding: 0.001em;
+    background-color: #9D9D9D;
+    margin: 5px;
+  }
+
+  @media (min-width:700px){
+    .signUpContainer{
+        display:flex;
+        flex-direction: row;
+        justify-content:center;
+    }
+    .imgSection{
+       width:100%;
+       background-size: contain;
+       align-self: center;
+    }
+    .signUpSection{
+        width:100%;
+        margin-block:var(--spacing);  
+    }
+  }
+
+  @media (min-width:1000px){
+    .imgSection{
+        width:100%;
+        background-size: cover;
+        min-height:500px;
+     }
+
+  }
+  @media (min-width:1400px){
+    .signUpContainer{
+      align-items:center;
+        justify-content:center;
+    }
+    .imgSection{
+        width:100%;
+        background-size: cover;
+        min-height: 80vh;
+        align-self: center;
+     }
+     .iconImg{
+        left: 93%;
+        bottom: 25px; 
+    }
+
+  }
