@@ -9,7 +9,6 @@
 
 }
 
-
 #signUpHeader{
     font-weight: var(--fw-500);
     font-size: var(--fs-header);
@@ -44,6 +43,7 @@
     font-size:var(--fs-forminput);
     font-weight:var(--fw-400);
     margin-top:0.5em;
+    margin-bottom: 1.5em;
 }
 .form-heading{
    margin-top:var(--spacing);
@@ -51,7 +51,7 @@
 .iconImg{
     position: relative;
     left: 90%;
-    bottom: 30px; 
+    bottom: 43px; 
 }
 
 .label sup{
@@ -84,6 +84,7 @@
     color:#9D9D9D;
     display:flex;
     align-items: center;
+    margin-block: 1em;
 }
 .divider::before, .divider::after {
     flex: 1;
