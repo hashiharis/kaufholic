@@ -1,0 +1,143 @@
+:root{
+
+    --fw-400:400;
+    --fw-500:500;
+    --fs-header:1.25rem;
+    --fs-form:0.875rem;
+    --fs-forminput:0.75rem;
+
+    --spacing:1em;
+
+    --link-color:#4172DC;
+    --form-color:#262626;
+    --form-input:#555555;
+    --btn-text:#FFFFFF;
+    --btn2-color:#434343;
+    --divider-color:#9D9D9D;
+    --required:#FF2E00;
+}
+
+.imgSection{
+    background-image: url('../../../assets/images/online-shopping-concept-landing-page.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-width:100%;
+    min-height:350px;
+}
+.signinSection{
+    width:100%;
+    margin-block:1em;
+}
+.form{
+    max-width:80%;
+    margin:0 auto;
+    color:var(--form-color)!important;
+    font-weight:var(--fw-400);
+    font-size:var(--fs-form)!important;
+}
+.input,.formInput,.signInBtn{
+    width:100%;
+}
+.signinHeader{
+    font-size: var(--fs-header);
+    font-weight: var(--fw-500);
+    margin-bottom: var(--spacing);
+}
+.formInput{
+    padding-block:0.625em;
+    padding-inline:var(--spacing);
+    color:var(--form-input);
+    font-size:var(--fs-forminput);
+    font-weight:var(--fw-400);
+    margin-top:0.5em;
+    margin-bottom: 1em;
+}
+.iconImg{
+    position: relative;
+    left: 90%;
+    bottom: 40px; 
+}
+
+.signInBtn{
+    border:none;
+    border-radius:4px ;
+    color:var(--btn-text);
+    padding-block:1.5em;
+    padding-inline:2em;
+}
+
+.colorSignIn{
+    background-color:var(--link-color);
+    text-transform: uppercase;
+}
+
+.googleSignIn{
+    background-color: var(--btn2-color);
+}
+
+.googleIcon{
+    padding-inline:1em;
+    max-height:20px;
+}
+
+.divider{
+    font-size:var(--fs-form);
+    color:var(--divider-color);
+    display:flex;
+    align-items: center;
+    margin-block: 1em;
+}
+.divider::before, .divider::after {
+    flex: 1;
+    content: '';
+    padding: 0.01em;
+    background-color:var(--divider-color);
+    margin: 5px;
+  }
+
+  .forgotPassword{
+    text-align: right;
+    margin-bottom:2em;
+  }
+
+  .forgotPassword a{
+    color:var(--link-color);
+  }
+
+.label sup{
+   color: var(--required);
+}
+
+@media (min-width:700px){
+    .signInContainer{
+        display:flex;
+    }
+    .imgSection{
+        background-size: cover;
+        width:100%;
+        align-self: center;
+        min-height: 350px;
+    }
+}
+
+@media (min-width:1000px){
+    .imgSection{
+        min-height: 500px;
+    }
+}
+@media (min-width:1400px){
+    .imgSection{
+        min-height: 80vh;
+        width:50%;
+    }
+    .iconImg{
+        left: 93%;
+    }
+    .signinSection{
+        width:30%;
+    }
+    .signInContainer{
+        margin-top:2em;
+    }
+}

@@ -7,6 +7,14 @@
 
     --spacing:1em;
 
+    --btn1-color:#4172DC;
+    --form-color:#262626;
+    --form-input:#555555;
+    --btn-text:#FFFFFF;
+    --btn2-color:#434343;
+    --divider-color:#9D9D9D;
+    --required:#FF2E00;
+
 }
 
 #signUpHeader{
@@ -16,8 +24,9 @@
 }
 .imgSection{
     background-image: url('../../../assets/images/happy-people-shopping-online.png');
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
     max-width:100%;
     min-height:300px;
 }
@@ -28,7 +37,7 @@
 .form{
     max-width:80%;
     margin:0 auto;
-    color:#262626!important;
+    color:var(--form-color)!important;
     font-weight:var(--fw-400);
     font-size:var(--fs-form)!important;
 }
@@ -39,7 +48,7 @@
 .formInput{
     padding-block:0.625em;
     padding-inline:var(--spacing);
-    color:#555555;
+    color:var(--form-input);
     font-size:var(--fs-forminput);
     font-weight:var(--fw-400);
     margin-top:0.5em;
@@ -55,24 +64,24 @@
 }
 
 .label sup{
-    color:#FF2E00;
+    color:var(--required);
 }
 
 .signUpBtn{  
     border:none;
     border-radius:4px ;
-    color:#FFFFFF;
+    color:var(--btn-text);
     padding-block:1.5em;
     padding-inline:2em;
 }
 
 .ordSignUp{
-    background-color:#4172DC;
+    background-color:var(--btn1-color);
     text-transform: uppercase;
 }
 
 .googleSignUp{
-    background-color: #434343;
+    background-color: var(--btn2-color);
 }
 
 .googleIcon{
@@ -81,7 +90,7 @@
 }
 .divider{
     font-size:var(--fs-form);
-    color:#9D9D9D;
+    color:var(--divider-color);
     display:flex;
     align-items: center;
     margin-block: 1em;
@@ -90,7 +99,7 @@
     flex: 1;
     content: '';
     padding: 0.001em;
-    background-color: #9D9D9D;
+    background-color:var(--divider-color);
     margin: 5px;
   }
 
@@ -102,7 +111,7 @@
     }
     .imgSection{
        width:100%;
-       background-size: contain;
+       background-size: cover;
        align-self: center;
     }
     .signUpSection{
@@ -132,7 +141,7 @@
      }
      .iconImg{
         left: 93%;
-        bottom: 25px; 
+        bottom: 45px; 
     }
 
   }
