@@ -1,18 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
+import styles from "./bsignin.module.css";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-import styles from "./signin.module.css";
 import hidePassIcon from "../../../assets/svg/hidePassIcon.svg";
 import googleIcon from "../../../assets/svg/googleLogo.svg";
-export const SignIn = () => {
+export const BSignIn = () => {
   return (
-    <div className={styles.signInContainer}>
+    <div className={styles.bsignInContainer}>
       <div className={styles.imgSection}></div>
-      <div className={styles.signinSection}>
+      <div className={styles.bsignInSection}>
         <Form className={styles.form}>
-          <header className={styles.signinHeader}>Sign In </header>
-
+          <header className={styles.bsigninHeader}>Sign In </header>
           <Form.Group>
             <Form.Label className={styles.label}>
               Email <sup>*</sup>
@@ -47,11 +46,11 @@ export const SignIn = () => {
           <div className={styles.forgotPassword}>
             <a href="">Forgot Password</a>
           </div>
-          <Button className={`${styles.signInBtn} ${styles.colorSignIn}`}>
+          <Button className={`${styles.bsignInBtn} ${styles.colorSignIn}`}>
             Sign In
           </Button>
           <div className={styles.divider}>OR</div>
-          <Button className={`${styles.signInBtn} ${styles.googleSignIn}`}>
+          <Button className={`${styles.bsignInBtn} ${styles.googleSignIn}`}>
             <img
               src={googleIcon}
               alt="icon-svg"
@@ -60,8 +59,8 @@ export const SignIn = () => {
             Sign in by Google
           </Button>
         </Form>
-        <div className={styles.signUpLink}>
-          Don't have an account?  <a href="#">Sign up</a>
+        <div className={styles.bsignUpLink}>
+          Don't have an account? <a href="#">Sign up</a>
         </div>
       </div>
     </div>

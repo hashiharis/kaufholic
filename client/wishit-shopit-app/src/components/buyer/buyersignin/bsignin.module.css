@@ -1,5 +1,4 @@
 :root{
-
     --fw-400:400;
     --fw-500:500;
     --fw-700:700;
@@ -21,14 +20,14 @@
 }
 
 .imgSection{
-    background-image: url('../../../assets/images/online-shopping-concept-landing-page.png');
+    background-image: url('../../../assets/images/add-cart-concept-illustration.png');
     background-size: contain;
-    background-repeat: no-repeat;
     background-position: center;
-    max-width:100%;
-    min-height:350px;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    min-height: 300px;
 }
-.signinSection{
+.bsignInSection{
     width:100%;
     margin-block:1em;
 }
@@ -39,10 +38,10 @@
     font-weight:var(--fw-400);
     font-size:var(--fs-form)!important;
 }
-.input,.formInput,.signInBtn{
+.input,.formInput,.bsignInBtn{
     width:100%;
 }
-.signinHeader{
+.bsigninHeader{
     font-size: var(--fs-header);
     font-weight: var(--fw-500);
     margin-bottom: var(--spacing);
@@ -62,7 +61,7 @@
     bottom: 40px; 
 }
 
-.signInBtn{
+.bsignInBtn{
     border:none;
     border-radius:4px ;
     color:var(--btn-text);
@@ -111,20 +110,19 @@
 .label sup{
    color: var(--required);
 }
-.signUpLink{
+.bsignUpLink{
     text-align: center;
     margin-block:1em;
     font-size: var(--fs-form);
 }
-.signUpLink a{
+.bsignUpLink a{
     color:var(--signup);
     font-size: var(--fs-signup);
     font-weight: var(--fw-700);
     text-decoration: none;
 }
-
 @media (min-width:700px){
-    .signInContainer{
+    .bsignInContainer{
         display:flex;
     }
     .imgSection{
@@ -137,21 +135,23 @@
 
 @media (min-width:1000px){
     .imgSection{
-        min-height: 500px;
+        min-height: 100vh;
     }
+    
+  
 }
 @media (min-width:1400px){
     .imgSection{
-        min-height: 80vh;
+        min-height: 90vh;
         width:50%;
     }
     .iconImg{
         left: 93%;
     }
-    .signinSection{
+    .bsignInSection{
         width:30%;
     }
-    .signInContainer{
+    .bsignInContainer{
         margin-top:2em;
     }
 }

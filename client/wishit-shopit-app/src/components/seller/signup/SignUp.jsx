@@ -8,8 +8,7 @@ import styles from "./signup.module.css";
 export const SignUp = () => {
   return (
     <div className={styles.signUpContainer}>
-      <div className={styles.imgSection}>
-      </div>
+      <div className={styles.imgSection}></div>
       <div className={`${styles.signUpSection}`}>
         <Form className={styles.form}>
           <header id={styles.signUpHeader}>Sign up</header>
