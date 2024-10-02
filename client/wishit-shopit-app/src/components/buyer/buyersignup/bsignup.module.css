@@ -14,23 +14,22 @@
     --btn2-color:#434343;
     --divider-color:#9D9D9D;
     --required:#FF2E00;
-
 }
 
-.signUpHeader{
+.imgSection{
+    background-image: url('../../../assets/images/tiny-woman-choosing-dress-online-store-via-laptop-computer-bag-clothes-flat-vector-illustration-shopping-digital-technology.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width:100%;
+    min-height:300px;
+}
+.bsignUpHeader{
     font-weight: var(--fw-500);
     font-size: var(--fs-header);
     margin-bottom:var(--spacing); 
 }
-.imgSection{
-    background-image: url('../../../assets/images/happy-people-shopping-online.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    max-width:100%;
-    min-height:300px;
-}
-.signUpSection{
+.bSignUpSection{
     width:100%;
     margin-block:var(--spacing);  
 }
@@ -42,7 +41,7 @@
     font-size:var(--fs-form)!important;
 }
 
-.input,.signUpBtn,.formInput{
+.input,.bsignUpBtn,.formInput{
     width: 100%;
 }
 .formInput{
@@ -67,7 +66,7 @@
     color:var(--required);
 }
 
-.signUpBtn{  
+.bsignUpBtn{  
     border:none;
     border-radius:4px ;
     color:var(--btn-text);
@@ -101,47 +100,34 @@
     padding: 0.001em;
     background-color:var(--divider-color);
     margin: 5px;
-  }
+}
 
-  @media (min-width:700px){
-    .signUpContainer{
+@media (min-width:700px){
+    .bSignupContainer{
         display:flex;
-        flex-direction: row;
-        justify-content:center;
     }
     .imgSection{
-       width:100%;
-       background-size: cover;
-       align-self: center;
-    }
-    .signUpSection{
+        background-size: contain;
         width:100%;
-        margin-block:var(--spacing);  
-    }
-  }
-
-  @media (min-width:1000px){
-    .imgSection{
-        width:100%;
-        background-size: cover;
-        min-height:500px;
-     }
-
-  }
-  @media (min-width:1400px){
-    .signUpContainer{
-      align-items:center;
-        justify-content:center;
-    }
-    .imgSection{
-        width:100%;
-        background-size: cover;
-        min-height: 80vh;
         align-self: center;
-     }
-     .iconImg{
-        left: 93%;
-        bottom: 45px; 
     }
+}
 
-  }
+@media (min-width:1000px){
+    .imgSection{
+        min-height: 500px;
+    }
+}
+@media (min-width:1400px){
+    .imgSection{
+        background-size: cover;
+        min-height: 50vh;
+        width:100%;
+    }
+    .iconImg{
+        left: 95%;
+    }
+    .bSignupContainer{
+        margin-top:2em;
+    }
+}

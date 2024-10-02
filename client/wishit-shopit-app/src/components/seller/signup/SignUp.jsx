@@ -11,7 +11,7 @@ export const SignUp = () => {
       <div className={styles.imgSection}></div>
       <div className={`${styles.signUpSection}`}>
         <Form className={styles.form}>
-          <header id={styles.signUpHeader}>Sign up</header>
+          <header className={styles.signUpHeader}>Sign up</header>
           <Form.Group className="mb-3">
             <Form.Label className="label">
               Name<sup>*</sup>
