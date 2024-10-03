@@ -2,7 +2,7 @@
 import './App.css'
 import { BSignIn } from './components/buyer/buyersignin/BSignIn'
 import { BSignup } from './components/buyer/buyersignup/BSignUp'
-import { Navbar } from './components/navbar/Navbar'
+import { Navbar } from './components/navbar/signup-signin-navbar/Navbar'
 import { SignIn } from './components/seller/signin/SignIn'
 import { SignUp } from './components/seller/signup/SignUp'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
