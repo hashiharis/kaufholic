@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import styles from "./signin.module.css";
 import hidePassIcon from "../../../assets/svg/hidePassIcon.svg";
 import googleIcon from "../../../assets/svg/googleLogo.svg";
+import { Link } from "react-router-dom";
 export const SignIn = () => {
   return (
     <div className={styles.signInContainer}>
@@ -61,7 +62,7 @@ export const SignIn = () => {
           </Button>
         </Form>
         <div className={styles.signUpLink}>
-          Don't have an account?  <a href="#">Sign up</a>
+          Don't have an account?  <Link to="#">Sign up</Link>
         </div>
       </div>
     </div>
