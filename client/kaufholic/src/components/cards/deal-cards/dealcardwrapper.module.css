@@ -1,0 +1,24 @@
+.cardCarousal{
+    display:flex;
+    gap:0.5em;
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-snap-type: x mandatory;
+    padding-bottom:0.5em;
+}
+
+@media (min-width:768px){
+    .cardCarousal{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        /* gap:1em; */
+    }
+
+}
+@media (min-width:1024px){
+    .cardCarousal{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        /* gap:1em; */
+    }
+}
