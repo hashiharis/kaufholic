@@ -1,35 +1,37 @@
 :root{
     --fw-400:400;
     --fw-500:500;
-    --fw-700:700;
     --fs-header:1.25rem;
     --fs-form:0.875rem;
     --fs-forminput:0.75rem;
-    --fs-signup:1rem;
 
     --spacing:1em;
 
-    --link-color:#4172DC;
+    --btn1-color:#4172DC;
     --form-color:#262626;
     --form-input:#555555;
     --btn-text:#FFFFFF;
     --btn2-color:#434343;
     --divider-color:#9D9D9D;
     --required:#FF2E00;
-    --signup:#FF7A00;
 }
 
 .imgSection{
-    background-image: url('../../../assets/images/add-cart-concept-illustration.png');
+    background-image: url('../../../assets/images/tiny-woman-choosing-dress-online-store-via-laptop-computer-bag-clothes-flat-vector-illustration-shopping-digital-technology.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    max-width: 100%;
-    min-height: 300px;
+    max-width:100%;
+    min-height:300px;
 }
-.bsignInSection{
+.bsignUpHeader{
+    font-weight: var(--fw-500);
+    font-size: var(--fs-header);
+    margin-bottom:var(--spacing); 
+}
+.bSignUpSection{
     width:100%;
-    margin-block:1em;
+    margin-block:var(--spacing);  
 }
 .form{
     max-width:80%;
@@ -38,13 +40,9 @@
     font-weight:var(--fw-400);
     font-size:var(--fs-form)!important;
 }
-.input,.formInput,.bsignInBtn{
-    width:100%;
-}
-.bsigninHeader{
-    font-size: var(--fs-header);
-    font-weight: var(--fw-500);
-    margin-bottom: var(--spacing);
+
+.input,.bsignUpBtn,.formInput{
+    width: 100%;
 }
 .formInput{
     padding-block:0.625em;
@@ -53,15 +51,22 @@
     font-size:var(--fs-forminput);
     font-weight:var(--fw-400);
     margin-top:0.5em;
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
+}
+.form-heading{
+   margin-top:var(--spacing);
 }
 .iconImg{
     position: relative;
     left: 90%;
-    bottom: 40px; 
+    bottom: 43px; 
 }
 
-.bsignInBtn{
+.label sup{
+    color:var(--required);
+}
+
+.bsignUpBtn{  
     border:none;
     border-radius:4px ;
     color:var(--btn-text);
@@ -69,12 +74,12 @@
     padding-inline:2em;
 }
 
-.colorSignIn{
-    background-color:var(--link-color);
+.ordSignUp{
+    background-color:var(--btn1-color);
     text-transform: uppercase;
 }
 
-.googleSignIn{
+.googleSignUp{
     background-color: var(--btn2-color);
 }
 
@@ -82,7 +87,6 @@
     padding-inline:1em;
     max-height:20px;
 }
-
 .divider{
     font-size:var(--fs-form);
     color:var(--divider-color);
@@ -93,65 +97,37 @@
 .divider::before, .divider::after {
     flex: 1;
     content: '';
-    padding: 0.01em;
+    padding: 0.001em;
     background-color:var(--divider-color);
     margin: 5px;
-  }
-
-  .forgotPassword{
-    text-align: right;
-    margin-bottom:2em;
-  }
-
-  .forgotPassword a{
-    color:var(--link-color);
-  }
-
-.label sup{
-   color: var(--required);
 }
-.bsignUpLink{
-    text-align: center;
-    margin-block:1em;
-    font-size: var(--fs-form);
-}
-.bsignUpLink a{
-    color:var(--signup);
-    font-size: var(--fs-signup);
-    font-weight: var(--fw-700);
-    text-decoration: none;
-}
+
 @media (min-width:700px){
-    .bsignInContainer{
+    .bSignupWrapper{
         display:flex;
     }
     .imgSection{
-        background-size: cover;
+        background-size: contain;
         width:100%;
         align-self: center;
-        min-height: 350px;
     }
 }
 
 @media (min-width:1000px){
     .imgSection{
-        min-height: 100vh;
+        min-height: 500px;
     }
-    
-  
 }
 @media (min-width:1400px){
     .imgSection{
-        min-height: 90vh;
-        width:50%;
+        background-size: cover;
+        min-height: 50vh;
+        width:100%;
     }
     .iconImg{
-        left: 93%;
+        left: 95%;
     }
-    .bsignInSection{
-        width:30%;
-    }
-    .bsignInContainer{
+    .bSignupContainer{
         margin-top:2em;
     }
 }

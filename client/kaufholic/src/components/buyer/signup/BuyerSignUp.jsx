@@ -1,20 +1,22 @@
-/* eslint-disable react/no-unescaped-entities */
-import styles from "./bsignin.module.css";
+import styles from "./buyersignup.module.css";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import hidePassIcon from "../../../assets/svg/hidePassIcon.svg";
 import googleIcon from "../../../assets/svg/googleLogo.svg";
-export const BSignIn = () => {
+import { LandingNavbar } from "../../navbar/landingnavbar/LandingNavbar";
+export const BuyerSignUp = () => {
   return (
-    <div className={styles.bsignInContainer}>
+    <>
+    <LandingNavbar/>
+    <div className={styles.bSignupWrapper}>
       <div className={styles.imgSection}></div>
-      <div className={styles.bsignInSection}>
+      <div className={styles.bSignUpSection}>
         <Form className={styles.form}>
-          <header className={styles.bsigninHeader}>Sign In </header>
-          <Form.Group>
+          <header className={styles.bsignUpHeader}>Sign up</header>
+          <Form.Group className="mb-3">
             <Form.Label className={styles.label}>
-              Email <sup>*</sup>
+              Name<sup>*</sup>
             </Form.Label>
             <InputGroup className={styles.input}>
               <Form.Control
@@ -24,14 +26,26 @@ export const BSignIn = () => {
               />
             </InputGroup>
           </Form.Group>
-          <Form.Group>
+          <Form.Group className="mb-3">
             <Form.Label className={styles.label}>
-              Password <sup>*</sup>
+              Email<sup>*</sup>
+            </Form.Label>
+            <InputGroup className={styles.input}>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                className={styles.formInput}
+              />
+            </InputGroup>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label className={styles.label}>
+              Password<sup>*</sup>
             </Form.Label>
             <InputGroup className={styles.input}>
               <Form.Control
                 type="password"
-                placeholder="Enter password"
+                placeholder="Enter Password"
                 className={styles.formInput}
               />
               <InputGroup.Text>
@@ -43,26 +57,29 @@ export const BSignIn = () => {
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
-          <div className={styles.forgotPassword}>
-            <a href="">Forgot Password</a>
-          </div>
-          <Button className={`${styles.bsignInBtn} ${styles.colorSignIn}`}>
-            Sign In
+          <Button
+            variant="primary"
+            type="submit"
+            className={`${styles.bsignUpBtn} ${styles.ordSignUp}`}
+          >
+            Sign up
           </Button>
           <div className={styles.divider}>OR</div>
-          <Button className={`${styles.bsignInBtn} ${styles.googleSignIn}`}>
+          <Button
+            variant="primary"
+            type="submit"
+            className={`${styles.bsignUpBtn} ${styles.googleSignUp}`}
+          >
             <img
               src={googleIcon}
               alt="icon-svg"
               className={styles.googleIcon}
             />
-            Sign in by Google
+            Sign up by Google
           </Button>
         </Form>
-        <div className={styles.bsignUpLink}>
-          Don't have an account? <a href="#">Sign up</a>
-        </div>
       </div>
     </div>
+  </>
   );
 };

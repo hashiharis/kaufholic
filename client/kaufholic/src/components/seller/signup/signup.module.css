@@ -104,7 +104,7 @@
   }
 
   @media (min-width:700px){
-    .signUpContainer{
+    .signUpWrapper{
         display:flex;
         flex-direction: row;
         justify-content:center;

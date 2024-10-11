@@ -124,7 +124,7 @@
 }
 
 @media (min-width:700px){
-    .signInContainer{
+    .signInWrapper{
         display:flex;
     }
     .imgSection{

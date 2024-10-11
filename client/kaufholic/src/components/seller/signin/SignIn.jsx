@@ -8,7 +8,7 @@ import googleIcon from "../../../assets/svg/googleLogo.svg";
 import { Link } from "react-router-dom";
 export const SignIn = () => {
   return (
-    <div className={styles.signInContainer}>
+    <div className={styles.signInWrapper}>
       <div className={styles.imgSection}></div>
       <div className={styles.signinSection}>
         <Form className={styles.form}>
