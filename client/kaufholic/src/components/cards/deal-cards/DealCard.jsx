@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import styles from "./dealcard.module.css";
 
-// eslint-disable-next-line react/prop-types
+
 export const DealCard = ({ cardDetails }) => {
     console.log(cardDetails)
   return (

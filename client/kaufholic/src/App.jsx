@@ -6,16 +6,14 @@ import { BuyerSignUp } from './components/buyer/signup/BuyerSignUp'
 import { SignIn } from './components/seller/signin/SignIn'
 import { SignUp } from './components/seller/signup/SignUp'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import { DealCard } from './components/cards/deal-cards/DealCard';
-import CardLayout from './components/CardLayout';
-import { DealCardWrapper } from './components/cards/deal-cards/DealCardWrapper';
+import { TrendingCardWrapper } from './components/cards/trending-cards/TrendingCardWrapper';
 
 function App() {
 
   return (
     <BrowserRouter>
     <Routes>
-      <Route path='/' element={<DealCardWrapper/>}/>
+      <Route path='/' element={<TrendingCardWrapper/>}/>
       <Route path='/seller/signup' element={<SignUp/>}/>
       <Route path='/seller/signin' element={<SignIn/>}/>
       <Route path='/buyer/signin'  element={<BuyerSignIn/>}/>

@@ -1,0 +1,18 @@
+.trendingCardCarousal{
+    display:flex;
+    gap:0.5em;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+@media (min-width:768px){
+    .trendingCardCarousal{
+        flex-direction: column;
+    }
+}
+
+@media (min-width:1024px){
+    .trendingCardCarousal{
+        flex-direction: row;
+    }
+}

@@ -5,7 +5,10 @@
     white-space: nowrap;
     scroll-snap-type: x mandatory;
     padding-bottom:0.5em;
+    /* Hide scrollbar for WebKit browsers */
+    -webkit-overflow-scrolling: touch;/* Smooth scrolling on mobile */
 }
+
 
 @media (min-width:768px){
     .cardCarousal{
