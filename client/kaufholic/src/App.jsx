@@ -6,6 +6,7 @@ import { BuyerSignUp } from './components/buyer/signup/BuyerSignUp'
 import { SignIn } from './components/seller/signin/SignIn'
 import { SignUp } from './components/seller/signup/SignUp'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import { CategoryCardWrapper } from './components/cards/category-cards/CategoryCardWrapper';
 import { TrendingCardWrapper } from './components/cards/trending-cards/TrendingCardWrapper';
 
 function App() {
