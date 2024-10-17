@@ -45,21 +45,32 @@
     width: 100%;
 }
 .formInput{
-    padding-block:0.625em;
-    padding-inline:var(--spacing);
+    /* padding-block:0.625em;
+    padding-inline:var(--spacing); */
     color:var(--form-input);
     font-size:var(--fs-forminput);
     font-weight:var(--fw-400);
-    margin-top:0.5em;
-    margin-bottom: 1.5em;
+    /* margin-top:0.5em; 
+    margin-bottom: 1.5em; */
+    height:100%;
+    padding: 0.375rem 0.75rem;
 }
 .form-heading{
    margin-top:var(--spacing);
 }
+
 .iconImg{
-    position: relative;
+    /* position: relative;
     left: 90%;
-    bottom: 43px; 
+    bottom: 43px;  */
+    width:20px;
+    /* height:15px; */
+}
+
+
+.symbol{
+    cursor: pointer;   
+    height:100%;  
 }
 
 .label sup{
@@ -124,9 +135,9 @@
         min-height: 50vh;
         width:100%;
     }
-    .iconImg{
+    /* .iconImg{
         left: 95%;
-    }
+    } */
     .bSignupContainer{
         margin-top:2em;
     }

@@ -36,7 +36,7 @@ export const SignIn = () => {
                 placeholder="Enter password"
                 className={styles.formInput}
               />
-              <InputGroup.Text>
+              <InputGroup.Text className={styles.symbol}>
                 <img
                   src={hidePassIcon}
                   alt="icon-svg"

@@ -1,0 +1,19 @@
+
+h6{
+    font-size: 1.75rem;
+    padding-left:0.5em;
+}
+
+.headers{
+    margin-block:1em;
+    display:flex;
+    justify-content: space-between;
+}
+
+
+
+@media (min-width:768px){
+    .cardSection{
+        padding-inline:2em;
+    }
+}

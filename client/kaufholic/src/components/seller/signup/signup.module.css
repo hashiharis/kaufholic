@@ -46,21 +46,24 @@
     width: 100%;
 }
 .formInput{
-    padding-block:0.625em;
-    padding-inline:var(--spacing);
+    /* padding-block:0.625em;
+    padding-inline:var(--spacing); */
     color:var(--form-input);
     font-size:var(--fs-forminput);
     font-weight:var(--fw-400);
-    margin-top:0.5em;
-    margin-bottom: 1.5em;
+    /* margin-top:0.5em;
+    margin-bottom: 1.5em; */
 }
 .form-heading{
    margin-top:var(--spacing);
 }
 .iconImg{
-    position: relative;
+    /* position: relative;
     left: 90%;
-    bottom: 43px; 
+    bottom: 43px;  */
+    height:100%;
+    cursor:pointer;
+    width:20px;
 }
 
 .label sup{
@@ -139,9 +142,9 @@
         min-height: 80vh;
         align-self: center;
      }
-     .iconImg{
+     /* .iconImg{
         left: 93%;
         bottom: 45px; 
-    }
+    } */
 
   }

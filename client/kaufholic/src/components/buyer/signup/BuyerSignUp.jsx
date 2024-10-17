@@ -48,7 +48,7 @@ export const BuyerSignUp = () => {
                 placeholder="Enter Password"
                 className={styles.formInput}
               />
-              <InputGroup.Text>
+              <InputGroup.Text className={styles.symbol}>
                 <img
                   src={hidePassIcon}
                   alt="icon-svg"

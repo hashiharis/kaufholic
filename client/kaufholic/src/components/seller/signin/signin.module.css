@@ -53,13 +53,16 @@
     color:var(--form-input);
     font-size:var(--fs-forminput);
     font-weight:var(--fw-400);
-    margin-top:0.5em;
-    margin-bottom: 1em;
+    /* margin-top:0.5em;
+    margin-bottom: 1em; */
 }
 .iconImg{
-    position: relative;
+    /* position: relative;
     left: 90%;
-    bottom: 40px; 
+    bottom: 40px;  */
+    height:100%;
+    cursor: pointer;
+    width:20px;
 }
 
 .signInBtn{

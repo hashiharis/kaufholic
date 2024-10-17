@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import styles from './category.module.css'
 export const CategoryCard=({categories})=>{

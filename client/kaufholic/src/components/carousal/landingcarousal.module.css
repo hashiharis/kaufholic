@@ -1,0 +1,20 @@
+.sliderContainer{
+    max-width:100%;
+    height:auto;
+    overflow: hidden;
+}
+.carousalImgSection img{
+  width:100%;
+  object-fit: contain;
+  height: auto;
+}
+
+/* @media (min-width:1024px){
+    .sliderContainer{
+        overflow:hidden;
+    }
+    .carousalImgSection img{
+       width:100%;
+       height:auto;
+      }
+} */
