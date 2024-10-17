@@ -5,45 +5,65 @@ import Button from "react-bootstrap/Button";
 import hidePassIcon from "../../../assets/svg/hidePassIcon.svg";
 import googleIcon from "../../../assets/svg/googleLogo.svg";
 import { LandingNavbar } from "../../navbar/landingnavbar/LandingNavbar";
+import { useState } from "react";
 export const BuyerSignUp = () => {
+
+  const [validated,setValidated]=useState(false);
+
+  const handleSubmit=(event)=>{
+    const form = event.currentTarget;
+    if(form.checkValidity()===false){
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+    }
+
   return (
     <>
     <LandingNavbar/>
     <div className={styles.bSignupWrapper}>
       <div className={styles.imgSection}></div>
       <div className={styles.bSignUpSection}>
-        <Form className={styles.form}>
+        <Form noValidate validated={validated} className={styles.form} onSubmit={handleSubmit}>
           <header className={styles.bsignUpHeader}>Sign up</header>
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-3" controlId="validationCustom01">
             <Form.Label className={styles.label}>
               Name<sup>*</sup>
             </Form.Label>
-            <InputGroup className={styles.input}>
+            <InputGroup className={styles.input} hasValidation>
               <Form.Control
+                required
                 type="text"
                 placeholder="Enter name"
                 className={styles.formInput}
               />
+              <Form.Control.Feedback type="invalid">Please enter name</Form.Control.Feedback>
             </InputGroup>
+          
           </Form.Group>
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-3"  controlId="validationcustom02">
             <Form.Label className={styles.label}>
               Email<sup>*</sup>
             </Form.Label>
-            <InputGroup className={styles.input}>
+            <InputGroup className={styles.input} hasValidation>
               <Form.Control
+                required
                 type="email"
                 placeholder="Enter email"
                 className={styles.formInput}
               />
+               <Form.Control.Feedback type="invalid">Please enter email</Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-3" controlId="validationcustom03">
             <Form.Label className={styles.label}>
               Password<sup>*</sup>
             </Form.Label>
-            <InputGroup className={styles.input}>
+            <InputGroup className={styles.input} hasValidation>
               <Form.Control
+                required
                 type="password"
                 placeholder="Enter Password"
                 className={styles.formInput}
@@ -55,6 +75,7 @@ export const BuyerSignUp = () => {
                   className={styles.iconImg}
                 />
               </InputGroup.Text>
+              <Form.Control.Feedback type="invalid">Password is required</Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
           <Button

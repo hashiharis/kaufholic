@@ -6,33 +6,48 @@ import Button from "react-bootstrap/Button";
 import hidePassIcon from "../../../assets/svg/hidePassIcon.svg";
 import googleIcon from "../../../assets/svg/googleLogo.svg";
 import { LandingNavbar } from "../../navbar/landingnavbar/LandingNavbar";
+import { useState } from "react";
 export const BuyerSignIn = () => {
+  const [validated,setValidated]=useState(false);
+
+  const handleSubmit=(event)=>{
+    const form = event.currentTarget;
+    if(form.checkValidity()===false){
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+    }
   return (
     <>
     <LandingNavbar/>
     <div className={styles.bsignInWrapper}>
       <div className={styles.imgSection}></div>
       <div className={styles.bsignInSection}>
-        <Form className={styles.form}>
+        <Form noValidate className={styles.form} validated={validated} onSubmit={handleSubmit}>
           <header className={styles.bsigninHeader}>Sign In </header>
-          <Form.Group>
+          <Form.Group id="validationcustom01">
             <Form.Label className={styles.label}>
               Email <sup>*</sup>
             </Form.Label>
-            <InputGroup className={styles.input}>
+            <InputGroup className={styles.input} hasValidation>
               <Form.Control
+                required
                 type="text"
                 placeholder="Enter name"
                 className={styles.formInput}
               />
+             <Form.Control.Feedback type="invalid">Email is required</Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
-          <Form.Group>
+          <Form.Group id="validationcustom02">
             <Form.Label className={styles.label}>
               Password <sup>*</sup>
             </Form.Label>
-            <InputGroup className={styles.input}>
+            <InputGroup className={styles.input} hasValidation>
               <Form.Control
+                required
                 type="password"
                 placeholder="Enter password"
                 className={styles.formInput}
@@ -44,16 +59,17 @@ export const BuyerSignIn = () => {
                   className={styles.iconImg}
                 />
               </InputGroup.Text>
+              <Form.Control.Feedback type="invalid">Password is required</Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
           <div className={styles.forgotPassword}>
             <a href="">Forgot Password</a>
           </div>
-          <Button className={`${styles.bsignInBtn} ${styles.colorSignIn}`}>
+          <Button className={`${styles.bsignInBtn} ${styles.colorSignIn}`}   type="submit">
             Sign In
           </Button>
           <div className={styles.divider}>OR</div>
-          <Button className={`${styles.bsignInBtn} ${styles.googleSignIn}`}>
+          <Button className={`${styles.bsignInBtn} ${styles.googleSignIn}`}   type="submit">
             <img
               src={googleIcon}
               alt="icon-svg"
