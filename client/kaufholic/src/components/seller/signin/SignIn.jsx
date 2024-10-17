@@ -4,9 +4,23 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import styles from "./signin.module.css";
 import hidePassIcon from "../../../assets/svg/hidePassIcon.svg";
+import showPassIcon from "../../../assets/svg/showpassIcon.svg";
 import googleIcon from "../../../assets/svg/googleLogo.svg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 export const SignIn = () => {
+
+  const [showPassword,setShowPassword]=useState("password");
+  const handleShowPassword=(e)=>{
+    e.preventDefault();
+    if(showPassword=="password"){
+      setShowPassword("text")
+    }
+    else{
+      setShowPassword("password")
+    }
+  }
+
   return (
     <div className={styles.signInWrapper}>
       <div className={styles.imgSection}></div>
@@ -32,16 +46,19 @@ export const SignIn = () => {
             </Form.Label>
             <InputGroup className={styles.input}>
               <Form.Control
-                type="password"
+                type={showPassword}
                 placeholder="Enter password"
                 className={styles.formInput}
+                onChange={(e)=>setShowPassword(e.target.type)}
               />
               <InputGroup.Text className={styles.symbol}>
+              <button className={styles.iconBtn} onClick={handleShowPassword}>
                 <img
-                  src={hidePassIcon}
+                  src={showPassword=="text"?`${hidePassIcon}`:`${showPassIcon}`}
                   alt="icon-svg"
                   className={styles.iconImg}
                 />
+                </button>
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>

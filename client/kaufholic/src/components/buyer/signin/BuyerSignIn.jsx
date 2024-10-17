@@ -4,10 +4,13 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import hidePassIcon from "../../../assets/svg/hidePassIcon.svg";
+import showPassIcon from "../../../assets/svg/showpassIcon.svg"
 import googleIcon from "../../../assets/svg/googleLogo.svg";
 import { LandingNavbar } from "../../navbar/landingnavbar/LandingNavbar";
 import { useState } from "react";
 export const BuyerSignIn = () => {
+
+  const [showPassword,setShowPassword]=useState("password");
   const [validated,setValidated]=useState(false);
 
   const handleSubmit=(event)=>{
@@ -19,6 +22,16 @@ export const BuyerSignIn = () => {
 
     setValidated(true);
     }
+
+    const handleShowPassword=()=>{
+      if(showPassword=="password"){
+        setShowPassword("text")
+      }
+      else{
+        setShowPassword("password")
+      }
+    }
+
   return (
     <>
     <LandingNavbar/>
@@ -48,16 +61,19 @@ export const BuyerSignIn = () => {
             <InputGroup className={styles.input} hasValidation>
               <Form.Control
                 required
-                type="password"
+                type={showPassword}
                 placeholder="Enter password"
                 className={styles.formInput}
+                onChange={(e)=>setShowPassword(e.target.type)}
               />
               <InputGroup.Text className={styles.symbol}>
+              <button className={styles.iconBtn} onClick={handleShowPassword}>
                 <img
-                  src={hidePassIcon}
+                  src={showPassword=="text"? `${hidePassIcon}`:`${showPassIcon}`}
                   alt="icon-svg"
                   className={styles.iconImg}
                 />
+                </button>
               </InputGroup.Text>
               <Form.Control.Feedback type="invalid">Password is required</Form.Control.Feedback>
             </InputGroup>

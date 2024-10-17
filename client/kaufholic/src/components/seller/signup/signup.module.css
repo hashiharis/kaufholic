@@ -65,6 +65,10 @@
     cursor:pointer;
     width:20px;
 }
+.iconBtn{
+    border:none;
+    background: none;
+}
 
 .label sup{
     color:var(--required);

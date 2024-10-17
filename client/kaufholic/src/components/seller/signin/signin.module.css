@@ -64,6 +64,10 @@
     cursor: pointer;
     width:20px;
 }
+.iconBtn{
+    border:none;
+    background: none;
+}
 
 .signInBtn{
     border:none;
