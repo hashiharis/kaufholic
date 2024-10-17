@@ -9,17 +9,15 @@ import googleIcon from "../../../assets/svg/googleLogo.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 export const SignIn = () => {
-
-  const [showPassword,setShowPassword]=useState("password");
-  const handleShowPassword=(e)=>{
+  const [showPassword, setShowPassword] = useState("password");
+  const handleShowPassword = (e) => {
     e.preventDefault();
-    if(showPassword=="password"){
-      setShowPassword("text")
+    if (showPassword == "password") {
+      setShowPassword("text");
+    } else {
+      setShowPassword("password");
     }
-    else{
-      setShowPassword("password")
-    }
-  }
+  };
 
   return (
     <div className={styles.signInWrapper}>
@@ -49,15 +47,19 @@ export const SignIn = () => {
                 type={showPassword}
                 placeholder="Enter password"
                 className={styles.formInput}
-                onChange={(e)=>setShowPassword(e.target.type)}
+                onChange={(e) => setShowPassword(e.target.type)}
               />
               <InputGroup.Text className={styles.symbol}>
-              <button className={styles.iconBtn} onClick={handleShowPassword}>
-                <img
-                  src={showPassword=="text"?`${hidePassIcon}`:`${showPassIcon}`}
-                  alt="icon-svg"
-                  className={styles.iconImg}
-                />
+                <button className={styles.iconBtn} onClick={handleShowPassword}>
+                  <img
+                    src={
+                      showPassword == "text"
+                        ? `${hidePassIcon}`
+                        : `${showPassIcon}`
+                    }
+                    alt="icon-svg"
+                    className={styles.iconImg}
+                  />
                 </button>
               </InputGroup.Text>
             </InputGroup>
@@ -79,7 +81,7 @@ export const SignIn = () => {
           </Button>
         </Form>
         <div className={styles.signUpLink}>
-          Don't have an account?  <Link to="#">Sign up</Link>
+          Don't have an account? <Link to="#">Sign up</Link>
         </div>
       </div>
     </div>

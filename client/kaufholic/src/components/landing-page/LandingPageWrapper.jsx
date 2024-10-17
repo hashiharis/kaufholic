@@ -10,7 +10,7 @@ export const LandingPageWrapper = () => {
     <div className={styles.landingPageWrapper}>
       <LandingCarousal />
       <div className={styles.cardSection}>
-        <div  className={styles.headers}>
+        <div className={styles.headers}>
           <h6>Flash Sales</h6>
           <Link>View all</Link>
         </div>

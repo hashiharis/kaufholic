@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import banner1 from "../../assets/images/banner5.png";
 import banner2 from "../../assets/images/banner4.png";
-import styles from './landingcarousal.module.css'
+import styles from "./landingcarousal.module.css";
 
 export const LandingCarousal = () => {
   var settings = {
@@ -22,7 +22,7 @@ export const LandingCarousal = () => {
           infinite: true,
           dots: true,
           autoplay: true,
-          autoplaySpeed:1000
+          autoplaySpeed: 1000,
         },
       },
       {
@@ -33,7 +33,7 @@ export const LandingCarousal = () => {
           slidesToScroll: 1,
           infinite: true,
           autoplay: true,
-          autoplaySpeed:1000
+          autoplaySpeed: 1000,
         },
       },
       {
@@ -43,7 +43,7 @@ export const LandingCarousal = () => {
           slidesToScroll: 1,
           infinite: true,
           autoplay: true,
-          autoplaySpeed:1000
+          autoplaySpeed: 1000,
         },
       },
     ],
@@ -52,26 +52,24 @@ export const LandingCarousal = () => {
   const carousalImages = [
     {
       id: 0,
-      imgUrl: banner1
+      imgUrl: banner1,
     },
     {
       id: 1,
-      imgUrl: banner2
+      imgUrl: banner2,
     },
   ];
 
   return (
     <div className={styles.sliderContainer}>
       <Slider {...settings}>
-        {
-            carousalImages.map((carousal)=>
-                <div key={carousal.id}>
-                    <div className={styles.carousalImgSection}>
-                        <img src={carousal.imgUrl} alt="carousal banner"/>
-                    </div>
-                </div>
-            )
-        }
+        {carousalImages.map((carousal) => (
+          <div key={carousal.id}>
+            <div className={styles.carousalImgSection}>
+              <img src={carousal.imgUrl} alt="carousal banner" />
+            </div>
+          </div>
+        ))}
       </Slider>
     </div>
   );
