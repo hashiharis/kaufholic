@@ -19,7 +19,7 @@ buyerRouter.post(
   buyerSignup
 );
 
-buyerRouter.get(
+buyerRouter.post(
   "/signin",
   validateEmailPasswordRequired,
   validatePassword,

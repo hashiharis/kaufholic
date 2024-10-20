@@ -37,9 +37,7 @@ const buyerSignin = async (req, res) => {
         .json({ message: "Incorrect email id and password" });
     }
 
-    return res
-      .status(200)
-      .json({ message: "Login successfull", buyer: buyerFound });
+    return res.status(200).json({ message: "Login successfull" });
   } catch (error) {
     console.log("Error on sign in ", error);
     return res.status(500).json({ message: "Server error" });

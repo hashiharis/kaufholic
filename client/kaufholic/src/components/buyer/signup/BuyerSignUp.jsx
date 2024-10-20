@@ -7,11 +7,22 @@ import showPassIcon from "../../../assets/svg/showpassIcon.svg";
 import googleIcon from "../../../assets/svg/googleLogo.svg";
 import { LandingNavbar } from "../../navbar/landingnavbar/LandingNavbar";
 import { useState } from "react";
+import { axiosInstance } from "../../../apis/axiosInstance";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 export const BuyerSignUp = () => {
   const [validated, setValidated] = useState(false);
   const [showPassword, setShowPassword] = useState("password");
+  const [buyerDetails, setBuyerDetails] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -19,9 +30,13 @@ export const BuyerSignUp = () => {
     }
 
     setValidated(true);
+    sendDataToServer();
   };
 
-  const handleShowPassword = () => {
+  const handleShowPassword = (e) => {
+    setShowPassword(e.target.type);
+    e.preventDefault();
+
     if (showPassword == "password") {
       setShowPassword("text");
     } else {
@@ -29,6 +44,33 @@ export const BuyerSignUp = () => {
     }
   };
 
+  const handleChanges = (e) => {
+    setBuyerDetails({
+      ...buyerDetails,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  console.log(buyerDetails);
+
+  const sendDataToServer = async () => {
+    try {
+      const res = await axiosInstance.post("buyer/signup", buyerDetails);
+      console.log("Response", res);
+      if (res.status === 201) {
+        toast.success("Registration is successful");
+        navigate("/buyer/signin");
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on signup frontend", error);
+    }
+  };
   return (
     <>
       <LandingNavbar />
@@ -50,8 +92,10 @@ export const BuyerSignUp = () => {
                 <Form.Control
                   required
                   type="text"
+                  name="name"
                   placeholder="Enter name"
                   className={styles.formInput}
+                  onChange={handleChanges}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please enter name
@@ -66,8 +110,10 @@ export const BuyerSignUp = () => {
                 <Form.Control
                   required
                   type="email"
+                  name="email"
                   placeholder="Enter email"
                   className={styles.formInput}
+                  onChange={handleChanges}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please enter email
@@ -82,9 +128,13 @@ export const BuyerSignUp = () => {
                 <Form.Control
                   required
                   type={showPassword}
+                  name="password"
                   placeholder="Enter Password"
                   className={styles.formInput}
-                  onChange={(e) => setShowPassword(e.target.type)}
+                  onChange={(e) => {
+                    handleShowPassword;
+                    handleChanges(e);
+                  }}
                 />
                 <InputGroup.Text className={styles.symbol}>
                   <button

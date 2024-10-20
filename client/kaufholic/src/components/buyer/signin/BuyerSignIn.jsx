@@ -8,11 +8,17 @@ import showPassIcon from "../../../assets/svg/showpassIcon.svg";
 import googleIcon from "../../../assets/svg/googleLogo.svg";
 import { LandingNavbar } from "../../navbar/landingnavbar/LandingNavbar";
 import { useState } from "react";
+import { axiosInstance } from "../../../apis/axiosInstance";
+import toast from "react-hot-toast";
 export const BuyerSignIn = () => {
   const [showPassword, setShowPassword] = useState("password");
   const [validated, setValidated] = useState(false);
-
+  const [buyerLoginDetails, setBuyerLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
   const handleSubmit = (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -20,9 +26,12 @@ export const BuyerSignIn = () => {
     }
 
     setValidated(true);
+    fetchDataFromServer();
   };
 
-  const handleShowPassword = () => {
+  const handleShowPassword = (e) => {
+    e.preventDefault();
+    setShowPassword(e.target.type);
     if (showPassword == "password") {
       setShowPassword("text");
     } else {
@@ -30,6 +39,31 @@ export const BuyerSignIn = () => {
     }
   };
 
+  const handleChanges = (e) => {
+    setBuyerLoginDetails({
+      ...buyerLoginDetails,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  console.log(buyerLoginDetails);
+
+  const fetchDataFromServer = async () => {
+    try {
+      const res = await axiosInstance.post("buyer/signin", buyerLoginDetails);
+      if (res.status === 200) {
+        toast.success("You are logged in");
+      }
+    } catch (error) {
+      const statusCode = error.response.statusCode;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error in sign in", error);
+    }
+  };
   return (
     <>
       <LandingNavbar />
@@ -50,9 +84,11 @@ export const BuyerSignIn = () => {
               <InputGroup className={styles.input} hasValidation>
                 <Form.Control
                   required
-                  type="text"
-                  placeholder="Enter name"
+                  type="email"
+                  placeholder="Enter email"
                   className={styles.formInput}
+                  name="email"
+                  onChange={handleChanges}
                 />
                 <Form.Control.Feedback type="invalid">
                   Email is required
@@ -69,7 +105,11 @@ export const BuyerSignIn = () => {
                   type={showPassword}
                   placeholder="Enter password"
                   className={styles.formInput}
-                  onChange={(e) => setShowPassword(e.target.type)}
+                  onChange={(e) => {
+                    handleShowPassword;
+                    handleChanges(e);
+                  }}
+                  name="password"
                 />
                 <InputGroup.Text className={styles.symbol}>
                   <button
