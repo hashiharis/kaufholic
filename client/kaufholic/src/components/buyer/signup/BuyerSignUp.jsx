@@ -28,9 +28,40 @@ export const BuyerSignUp = () => {
       event.preventDefault();
       event.stopPropagation();
     }
-
     setValidated(true);
-    sendDataToServer();
+    if (validationSignup()) {
+      sendDataToServer();
+    }
+  };
+
+  const validationSignup = () => {
+    const { name, email, password } = buyerDetails;
+
+    if (!name || !email || !password) {
+      alert("Please fill all required fields");
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Email is invalid");
+      return false;
+    }
+
+    if (password.length < 8) {
+      alert("Password must be atleast 8 characters long");
+      return false;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+
+    if (!passwordRegex.test(password)) {
+      alert(
+        "Password must contain atleast one small letter, one capital letter and one number"
+      );
+      return false;
+    }
+    return true;
   };
 
   const handleShowPassword = (e) => {

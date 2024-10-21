@@ -10,6 +10,7 @@ import { LandingNavbar } from "../../navbar/landingnavbar/LandingNavbar";
 import { useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 export const BuyerSignIn = () => {
   const [showPassword, setShowPassword] = useState("password");
   const [validated, setValidated] = useState(false);
@@ -17,6 +18,8 @@ export const BuyerSignIn = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -26,9 +29,41 @@ export const BuyerSignIn = () => {
     }
 
     setValidated(true);
-    fetchDataFromServer();
+
+    if (validationSignin()) {
+      fetchDataFromServer();
+    }
   };
 
+  const validationSignin = () => {
+    const { email, password } = buyerLoginDetails;
+
+    if (!email || !password) {
+      alert("Please enter you email id and password");
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Email is invalid");
+      return false;
+    }
+
+    if (password.length < 8) {
+      alert("Password must be atleast 8 characters long");
+      return false;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+
+    if (!passwordRegex.test(password)) {
+      alert(
+        "Password must contain atleast one small letter, one capital letter and one number"
+      );
+      return false;
+    }
+    return true;
+  };
   const handleShowPassword = (e) => {
     e.preventDefault();
     setShowPassword(e.target.type);
@@ -52,12 +87,16 @@ export const BuyerSignIn = () => {
     try {
       const res = await axiosInstance.post("buyer/signin", buyerLoginDetails);
       if (res.status === 200) {
+        console.log("response", res);
+        const buyerId = res?.data?.logindetails?._id;
+        localStorage.setItem("kh-buyerId", buyerId);
         toast.success("You are logged in");
+        navigate("/");
       }
     } catch (error) {
-      const statusCode = error.response.statusCode;
+      const statusCode = error.response.status;
       if (statusCode === 400 || statusCode === 404) {
-        toast.error("Something went wrong");
+        toast.error("Your email id or password is incorrect");
       } else {
         toast.error("Please try again after sometime");
       }
