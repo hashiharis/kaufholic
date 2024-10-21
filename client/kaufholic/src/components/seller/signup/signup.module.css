@@ -71,7 +71,7 @@
 }
 
 .label sup{
-    color:var(--required);
+    color:var(--required) !important;
 }
 
 .signUpBtn{  
