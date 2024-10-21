@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const buyerRouter = require("./routes/buyer.routes");
 const connectDb = require("./connectDB");
+const sellerRouter = require("./routes/seller.routes");
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/buyer", buyerRouter);
+app.use("/seller", sellerRouter);
 
 connectDb();
 app.listen(PORT, () => {

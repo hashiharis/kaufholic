@@ -7,4 +7,21 @@ const validateRequiredFields = (req, res, next) => {
   next();
 };
 
-module.exports = { validateRequiredFields };
+const validateSellerRequiredFields = (req, res, next) => {
+  const { name, email, password, contact, address, pincode, description } =
+    req.body;
+
+  if (
+    !name ||
+    !email ||
+    !password ||
+    !contact ||
+    !address ||
+    !pincode ||
+    !description
+  ) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+  next();
+};
+module.exports = { validateRequiredFields, validateSellerRequiredFields };

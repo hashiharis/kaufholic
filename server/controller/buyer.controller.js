@@ -1,13 +1,20 @@
 const BuyerModel = require("../model/buyer.model");
+const { comparePassword } = require("../utils/comparePassword");
 
 const buyerSignup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email } = req.body;
+
+    const isEmailTaken = await BuyerModel.findOne({ email });
+
+    if (isEmailTaken) {
+      return res.status(400).json({ message: "Email id already exist" });
+    }
 
     let newBuyer = new BuyerModel({
       name,
       email,
-      password,
+      password: req.hashedPassword,
     });
 
     await newBuyer.save();
@@ -28,16 +35,25 @@ const buyerSignin = async (req, res) => {
     if (!buyerFound) {
       return res
         .status(404)
-        .json({ message: "Incorrect email id and password" });
+        .json({ message: "Incorrect email id or password" });
     }
 
-    if (buyerFound.password !== password) {
+    const isPasswordMatch = await comparePassword(
+      password,
+      buyerFound.password
+    );
+
+    if (!isPasswordMatch) {
       return res
         .status(400)
-        .json({ message: "Incorrect email id and password" });
+        .json({ message: "Incorrect email id or password" });
     }
 
-    return res.status(200).json({ message: "Login successfull" });
+    const buyerDetails = buyerFound.toObject();
+    delete buyerDetails.password;
+    return res
+      .status(200)
+      .json({ message: "Login successful", logindetails: buyerDetails });
   } catch (error) {
     console.log("Error on sign in ", error);
     return res.status(500).json({ message: "Server error" });
