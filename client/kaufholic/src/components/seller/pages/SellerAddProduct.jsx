@@ -1,0 +1,135 @@
+import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Row from "react-bootstrap/Row";
+import styles from "./selleraddproduct.module.css";
+import { axiosInstance } from "../../../apis/axiosInstance";
+import toast from "react-hot-toast";
+export const SellerAddProduct = () => {
+  const [validated, setValidated] = useState(false);
+  const [productData, setProductData] = useState({
+    name: "",
+    category: "",
+    price: "",
+    description: "",
+    sellerId: localStorage.getItem("kh-sellerId"),
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
+    if (validationProductFields()) {
+      addProductDataToServer();
+    }
+  };
+
+  const handleChange = (e) => {
+    setProductData({
+      ...productData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const validationProductFields = () => {
+    const { name, category, price, description } = productData;
+
+    if (!name || !category || !price || !description) {
+      alert("Please fill the required fields");
+      return false;
+    }
+    return true;
+  };
+  const addProductDataToServer = async () => {
+    try {
+      const res = await axiosInstance.post("/product/addProduct", productData);
+      console.log("Response", res);
+      if (res.status === 201) {
+        toast.success("Product added successfully");
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on adding product", error);
+    }
+  };
+  return (
+    <div className={styles.productDetailsWrapper}>
+      <h1>Add Your Product</h1>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Row className="mb-3">
+          <Form.Group controlId="validationCustom01">
+            <Form.Label>Product name</Form.Label>
+            <Form.Control
+              required
+              type="text"
+              placeholder="Enter Product name"
+              name="name"
+              onChange={handleChange}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please enter name of the product
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group controlId="validationCustom02">
+            <Form.Label>Category</Form.Label>
+            <Form.Select
+              aria-label="Default select example"
+              required
+              name="category"
+              onChange={handleChange}
+            >
+              <option value="">Open this select menu</option>
+              <option value="Men">Men</option>
+              <option value="Women">Women</option>
+              <option value="Accessories">Accessories</option>
+            </Form.Select>
+            <Form.Control.Feedback type="invalid">
+              Please select a category
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group controlId="validationCustom03">
+            <Form.Label>Price</Form.Label>
+            <InputGroup hasValidation>
+              <Form.Control
+                type="text"
+                placeholder="Price"
+                required
+                name="price"
+                onChange={handleChange}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter price
+              </Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group controlId="validationCustom04">
+            <Form.Label>Product Description</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Product Details"
+              required
+              name="description"
+              onChange={handleChange}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please enter product details
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Button type="submit">Add Product</Button>
+      </Form>
+    </div>
+  );
+};

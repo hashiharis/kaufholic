@@ -7,6 +7,7 @@ import { SignUp } from "./components/seller/signup/SignUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LandingPageWrapper } from "./components/landing-page/LandingPageWrapper";
 import { Toaster } from "react-hot-toast";
+import { SellerDashboard } from "./components/seller/dashboard/SellerDashboard";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/seller/signin" element={<SignIn />} />
         <Route path="/buyer/signin" element={<BuyerSignIn />} />
         <Route path="/buyer/signup" element={<BuyerSignUp />} />
+        <Route path="/seller/dashboard" element={<SellerDashboard />} />
       </Routes>
     </BrowserRouter>
   );

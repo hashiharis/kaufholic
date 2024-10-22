@@ -1,0 +1,16 @@
+.sellerMainContentActive{
+     width:100%;
+     margin:0 auto;
+}
+
+.sellerMainContentHide{
+    display: none;
+}
+
+
+@media(min-width:1024px){
+    .sellerDashboardWrapper{
+          display: grid;
+          grid-template-columns: repeat(2,1fr);
+    }
+}
