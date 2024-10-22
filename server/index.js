@@ -6,6 +6,7 @@ const cors = require("cors");
 const buyerRouter = require("./routes/buyer.routes");
 const connectDb = require("./connectDB");
 const sellerRouter = require("./routes/seller.routes");
+const productRouter = require("./routes/product.routes");
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 
 app.use("/buyer", buyerRouter);
 app.use("/seller", sellerRouter);
+app.use("/product", productRouter);
 
 connectDb();
 app.listen(PORT, () => {
