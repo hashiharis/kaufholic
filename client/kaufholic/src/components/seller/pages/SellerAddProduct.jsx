@@ -1,12 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
 import styles from "./selleraddproduct.module.css";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
-export const SellerAddProduct = () => {
+export const SellerAddProduct = ({ changeActivePage }) => {
   const [validated, setValidated] = useState(false);
   const [productData, setProductData] = useState({
     name: "",
@@ -51,6 +51,7 @@ export const SellerAddProduct = () => {
       console.log("Response", res);
       if (res.status === 201) {
         toast.success("Product added successfully");
+        changeActivePage("My Products");
       }
     } catch (error) {
       const statusCode = error.response.status;
@@ -64,71 +65,75 @@ export const SellerAddProduct = () => {
   };
   return (
     <div className={styles.productDetailsWrapper}>
-      <h1>Add Your Product</h1>
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Row className="mb-3">
-          <Form.Group controlId="validationCustom01">
-            <Form.Label>Product name</Form.Label>
+      <div className={styles.addPrdtImg}></div>
+      <Form
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+        className={styles.addProductForm}
+      >
+        <h1>Add Your Product</h1>
+        <Form.Group controlId="validationCustom01" className="mb-3">
+          <Form.Label>Product name</Form.Label>
+          <Form.Control
+            required
+            type="text"
+            placeholder="Enter Product name"
+            name="name"
+            onChange={handleChange}
+          />
+          <Form.Control.Feedback type="invalid">
+            Please enter name of the product
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group controlId="validationCustom02" className="mb-3">
+          <Form.Label>Category</Form.Label>
+          <Form.Select
+            aria-label="Default select example"
+            required
+            name="category"
+            onChange={handleChange}
+          >
+            <option value="">Open this select menu</option>
+            <option value="Men">Men</option>
+            <option value="Women">Women</option>
+            <option value="Accessories">Accessories</option>
+          </Form.Select>
+          <Form.Control.Feedback type="invalid">
+            Please select a category
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group controlId="validationCustom03" className="mb-3">
+          <Form.Label>Price</Form.Label>
+          <InputGroup hasValidation>
             <Form.Control
-              required
               type="text"
-              placeholder="Enter Product name"
-              name="name"
+              placeholder="Price"
+              required
+              name="price"
               onChange={handleChange}
             />
             <Form.Control.Feedback type="invalid">
-              Please enter name of the product
+              Please enter price
             </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="validationCustom02">
-            <Form.Label>Category</Form.Label>
-            <Form.Select
-              aria-label="Default select example"
-              required
-              name="category"
-              onChange={handleChange}
-            >
-              <option value="">Open this select menu</option>
-              <option value="Men">Men</option>
-              <option value="Women">Women</option>
-              <option value="Accessories">Accessories</option>
-            </Form.Select>
-            <Form.Control.Feedback type="invalid">
-              Please select a category
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="validationCustom03">
-            <Form.Label>Price</Form.Label>
-            <InputGroup hasValidation>
-              <Form.Control
-                type="text"
-                placeholder="Price"
-                required
-                name="price"
-                onChange={handleChange}
-              />
-              <Form.Control.Feedback type="invalid">
-                Please enter price
-              </Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
-        </Row>
-        <Row className="mb-3">
-          <Form.Group controlId="validationCustom04">
-            <Form.Label>Product Description</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Product Details"
-              required
-              name="description"
-              onChange={handleChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter product details
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Button type="submit">Add Product</Button>
+          </InputGroup>
+        </Form.Group>
+        <Form.Group controlId="validationCustom04" className="mb-3">
+          <Form.Label>Product Description</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Product Details"
+            required
+            name="description"
+            onChange={handleChange}
+          />
+          <Form.Control.Feedback type="invalid">
+            Please enter product details
+          </Form.Control.Feedback>
+        </Form.Group>
+        <div className={styles.addProductBtn}>
+          <Button type="submit">Add Product</Button>
+        </div>
       </Form>
     </div>
   );

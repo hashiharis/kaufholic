@@ -1,16 +1,26 @@
-.sellerMainContentActive{
+/* .sellerMainContentActive{
      width:100%;
      margin:0 auto;
+} */
+
+.sidebarParent{
+    background:#3E60C9;
 }
 
-.sellerMainContentHide{
-    display: none;
+.sidebarParentResp{
+    background:none;
+    box-shadow:0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
+@media (min-width:768px){
+    .sidebarParentResp{
+        box-shadow: none;
+    }
+}
 
-@media(min-width:1024px){
-    .sellerDashboardWrapper{
-          display: grid;
-          grid-template-columns: repeat(2,1fr);
+@media (min-width:1024px){
+    .sidebarParentResp{
+        background-color:#3E60C9;
+        box-shadow:none;
     }
 }

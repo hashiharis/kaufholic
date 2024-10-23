@@ -2,6 +2,7 @@ import Card from "react-bootstrap/Card";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
+import styles from "./sellerproductview.module.css";
 
 export const SellerProductView = () => {
   const [products, setProducts] = useState();
@@ -32,10 +33,13 @@ export const SellerProductView = () => {
   };
   console.log(products);
   return (
-    <div>
-      <h1>Products</h1>
+    <div className={styles.sellerProductView}>
       {products?.map((item, index) => (
-        <Card key={index} style={{ width: "18rem" }}>
+        <Card
+          className={styles.productViewCard}
+          key={index}
+          style={{ width: "18rem" }}
+        >
           <Card.Body>
             <Card.Title>{item.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">

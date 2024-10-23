@@ -6,6 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { IoMdHome } from "react-icons/io";
 import styles from "./sidebar.module.css";
+
 export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
   const sideBarData = [
     {
@@ -32,7 +33,7 @@ export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
   ];
 
   return (
-    <div className={styles.sidebarWrapper}>
+    <div className={`${styles.sidebarWrapper}`}>
       <nav className={showMenu ? `${styles.sidebar}` : `${styles.sidebarHide}`}>
         {showMenu ? (
           <IoClose onClick={toggleMenu} size={30} className={styles.navIcon} />

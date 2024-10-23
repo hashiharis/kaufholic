@@ -1,0 +1,42 @@
+.sellerProductView{
+    margin-block:1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:0.5em;
+}
+
+.productViewCard{
+margin-inline:1em;
+}
+
+@media (min-width:768px){
+    .productViewCard{
+        margin-inline:0;
+        }
+    .sellerProductView{
+        flex-direction: row;
+    }
+}
+
+@media (min-width:1024px){
+    .sellerProductView{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        justify-items: center;
+        align-content: center;
+    }
+   
+}
+
+
+@media (min-width:1440px){
+    .sellerProductView{
+        display: flex;
+        /* grid-template-columns: repeat(2,1fr);
+        justify-items: center;
+        align-content: center; */
+    }
+   
+}

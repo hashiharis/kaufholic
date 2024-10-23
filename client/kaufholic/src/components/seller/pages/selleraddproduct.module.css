@@ -2,4 +2,35 @@
     width:100%;
     margin:0 auto;
     padding-inline:2em;
+    margin-block:1em;
 }
+
+.productDetailsWrapper h1{
+    text-align: center;
+}
+
+.addProductBtn{
+   text-align: center;
+}
+
+.addPrdtImg{
+background-image: url('../../../assets/images/sellerprdtadd.png');
+background-size:contain;
+background-position: center;
+background-repeat: no-repeat;
+width:100%;
+min-height:300px;
+}
+
+@media(min-width:1024px){
+    .productDetailsWrapper{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        justify-items: center;
+    }
+    .addPrdtImg{
+        grid-area:1/2/2/3;
+        background-size:cover;
+    }
+}
+
