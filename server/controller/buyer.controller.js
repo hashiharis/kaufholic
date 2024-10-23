@@ -59,4 +59,20 @@ const buyerSignin = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
-module.exports = { buyerSignup, buyerSignin };
+
+const getBuyerById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const buyerFound = await BuyerModel.findById(id);
+
+    if (!buyerFound) {
+      return res.status(404).json({ message: "Buyer not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Buyer details fetched", data: buyerFound });
+  } catch (error) {}
+};
+module.exports = { buyerSignup, buyerSignin, getBuyerById };

@@ -1,7 +1,11 @@
 const express = require("express");
 const { validateEmail } = require("../middlewares/validateEmail");
 const { validatePassword } = require("../middlewares/validatePassword");
-const { buyerSignup, buyerSignin } = require("../controller/buyer.controller");
+const {
+  buyerSignup,
+  buyerSignin,
+  getBuyerById,
+} = require("../controller/buyer.controller");
 const {
   validateRequiredFields,
 } = require("../middlewares/validateRequiredFields");
@@ -25,5 +29,7 @@ buyerRouter.post(
   validatePassword,
   buyerSignin
 );
+
+buyerRouter.get("/fetchCurrentBuyer/:id", getBuyerById);
 
 module.exports = buyerRouter;
