@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LandingPageWrapper } from "./components/landing-page/LandingPageWrapper";
 import { Toaster } from "react-hot-toast";
 import { SellerDashboard } from "./components/seller/dashboard/SellerDashboard";
+import { BuyerNav } from "./components/navbar/usernavbar/buyernavbar/BuyerNav";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Toaster />
       </div>
       <Routes>
-        <Route path="/" element={<LandingPageWrapper />} />
+        <Route path="/" element={<BuyerNav />} />
+        {/* <Route path="/" element={<LandingPageWrapper />} /> */}
         <Route path="/seller/signup" element={<SignUp />} />
         <Route path="/seller/signin" element={<SignIn />} />
         <Route path="/buyer/signin" element={<BuyerSignIn />} />
