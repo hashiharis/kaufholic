@@ -33,10 +33,10 @@ margin-inline:1em;
 
 @media (min-width:1440px){
     .sellerProductView{
-        display: flex;
-        /* grid-template-columns: repeat(2,1fr);
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
         justify-items: center;
-        align-content: center; */
+        align-content: center;
     }
    
 }
