@@ -10,6 +10,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { FaRegHeart } from "react-icons/fa";
 import { IoPersonOutline } from "react-icons/io5";
+import { FaTags } from "react-icons/fa";
 
 export const BuyerNav = () => {
   const [buyerData, setBuyerData] = useState({
@@ -73,6 +74,7 @@ export const BuyerNav = () => {
             <Offcanvas.Body>
               <Nav className={`justify-content-end flex-grow-1 pe-3`}>
                 <Nav.Link href="#action1" className={`${styles.link}`}>
+                  <FaTags size="20px" className={styles.icon} />
                   Products
                 </Nav.Link>
                 <Nav.Link href="#action1" className={`${styles.link}`}>

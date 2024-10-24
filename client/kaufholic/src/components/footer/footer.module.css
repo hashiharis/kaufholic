@@ -1,0 +1,36 @@
+
+
+
+
+.footerWrapper{
+    background-color:#D1E2EB;
+    padding-top:2em;
+    padding-inline:10em;
+    color:#555555;
+    font-size:0.875rem;
+}
+.footerHeader{
+    font-weight:900;
+    color:#262626;
+}
+.footerWrapper a{
+    text-decoration: none;
+    color:#555555;
+}
+
+.info{
+
+    padding-top:1em;
+}
+.klogo{
+    background-image:url("../../assets/svg/logo-no-background.svg");
+    background-repeat: no-repeat;
+    background-position:left;
+    background-size: contain;
+    width:100%;
+    min-height:50px;
+}
+
+.copyRight{
+    text-align: center;
+}

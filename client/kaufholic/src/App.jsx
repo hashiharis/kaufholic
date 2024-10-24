@@ -8,7 +8,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LandingPageWrapper } from "./components/landing-page/LandingPageWrapper";
 import { Toaster } from "react-hot-toast";
 import { SellerDashboard } from "./components/seller/dashboard/SellerDashboard";
-import { BuyerNav } from "./components/navbar/usernavbar/buyernavbar/BuyerNav";
+import { ProductCard } from "./components/cards/product-view-cards/ProductCard";
+import { ProductCardWrapper } from "./components/cards/product-view-cards/ProductCardWrapper";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Toaster />
       </div>
       <Routes>
-        <Route path="/" element={<BuyerNav />} />
+        <Route path="/" element={<ProductCardWrapper />} />
         {/* <Route path="/" element={<LandingPageWrapper />} /> */}
         <Route path="/seller/signup" element={<SignUp />} />
         <Route path="/seller/signin" element={<SignIn />} />

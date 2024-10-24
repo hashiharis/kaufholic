@@ -4,10 +4,13 @@ import { TrendingCardWrapper } from "../cards/trending-cards/TrendingCardWrapper
 import { CategoryCardWrapper } from "../cards/category-cards/CategoryCardWrapper";
 import { Link } from "react-router-dom";
 import styles from "./landingpagewrapper.module.css";
+import { BuyerNav } from "../navbar/usernavbar/buyernavbar/BuyerNav";
+import { Footer } from "../footer/Footer";
 
 export const LandingPageWrapper = () => {
   return (
     <div className={styles.landingPageWrapper}>
+      <BuyerNav />
       <LandingCarousal />
       <div className={styles.cardSection}>
         <div className={styles.headers}>
@@ -27,6 +30,7 @@ export const LandingPageWrapper = () => {
         </div>
         <CategoryCardWrapper />
       </div>
+      <Footer />
     </div>
   );
 };

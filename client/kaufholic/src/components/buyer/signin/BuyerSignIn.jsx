@@ -11,6 +11,7 @@ import { useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "../../footer/Footer";
 export const BuyerSignIn = () => {
   const [showPassword, setShowPassword] = useState("password");
   const [validated, setValidated] = useState(false);
@@ -198,6 +199,7 @@ export const BuyerSignIn = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

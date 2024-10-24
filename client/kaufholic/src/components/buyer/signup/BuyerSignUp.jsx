@@ -10,6 +10,7 @@ import { useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Footer } from "../../footer/Footer";
 export const BuyerSignUp = () => {
   const [validated, setValidated] = useState(false);
   const [showPassword, setShowPassword] = useState("password");
@@ -211,6 +212,7 @@ export const BuyerSignUp = () => {
           </Form>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
