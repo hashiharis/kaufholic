@@ -18,20 +18,55 @@ export const BuyerNav = () => {
     email: "",
   });
 
-  const { crntBuyer } = useSelector(selectCurrentBuyerDetails);
+  // const { crntBuyer } = useSelector(selectCurrentBuyerDetails);
   const dispatch = useDispatch();
 
-  const buyerId = localStorage.getItem("kh-buyerId");
-
   useEffect(() => {
-    if (buyerId) {
-      fetchCurrentBuyerDetails(buyerId);
+    // if (buyerId) {
+    //   fetchCurrentBuyerDetails(buyerId);
+    // }
+    const buyerId = localStorage.getItem("kh-buyerId") || null;
+
+    const token = localStorage.getItem("kh-buyerToken") || null;
+
+    if (token && buyerId) {
+      fetchCurrentBuyerByToken(token, buyerId);
+    } else {
+      setBuyerData({});
     }
   }, []);
 
-  const fetchCurrentBuyerDetails = async (id) => {
+  // const fetchCurrentBuyerDetails = async (id) => {
+  //   try {
+  //     const res = await axiosInstance.get(`/buyer/fetchCurrentBuyer/${id}`);
+  //     if (res.status === 200) {
+  //       setBuyerData({
+  //         ...buyerData,
+  //         name: res?.data?.data?.name,
+  //         email: res?.data?.data?.email,
+  //       });
+  //       dispatch(saveBuyerDetails(buyerData));
+  //       console.log(res);
+  //       console.log(crntBuyer);
+  //     }
+  //   } catch (error) {
+  //     const statusCode = error.response.status;
+  //     if (statusCode === 400 || statusCode === 404) {
+  //       toast.error("Something went wrong");
+  //     } else {
+  //       toast.error("Please try again after sometime");
+  //     }
+  //     console.log("Error on fetching buyer details", error);
+  //   }
+  // };
+
+  const fetchCurrentBuyerByToken = async (token, id) => {
     try {
-      const res = await axiosInstance.get(`/buyer/fetchCurrentBuyer/${id}`);
+      const res = await axiosInstance.get(`/buyer/currentuser/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (res.status === 200) {
         setBuyerData({
           ...buyerData,
@@ -39,13 +74,12 @@ export const BuyerNav = () => {
           email: res?.data?.data?.email,
         });
         dispatch(saveBuyerDetails(buyerData));
-        console.log(res);
-        console.log(crntBuyer);
+        // console.log("redux", crntBuyer);
       }
     } catch (error) {
       const statusCode = error.response.status;
-      if (statusCode === 400 || statusCode === 404) {
-        toast.error("Something went wrong");
+      if (statusCode === 400 || statusCode === 404 || statusCode === 403) {
+        toast.error("Error on getting current buyer data");
       } else {
         toast.error("Please try again after sometime");
       }
@@ -77,9 +111,12 @@ export const BuyerNav = () => {
                   <FaTags size="20px" className={styles.icon} />
                   Products
                 </Nav.Link>
-                <Nav.Link href="#action1" className={`${styles.link}`}>
+                <Nav.Link
+                  href={buyerData.name ? `#home` : `/buyer/signin`}
+                  className={`${styles.link}`}
+                >
                   <IoPersonOutline size="20px" className={styles.icon} />
-                  {buyerData && `Hi ${buyerData.name}`}
+                  {buyerData.name ? `Hi ${buyerData.name}` : `SignIn`}
                 </Nav.Link>
                 <Nav.Link href="#action2" className={`${styles.link}`}>
                   <FaRegHeart size="20px" className={styles.icon} />

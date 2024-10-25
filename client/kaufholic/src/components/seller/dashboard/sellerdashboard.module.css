@@ -1,10 +1,7 @@
-/* .sellerMainContentActive{
-     width:100%;
-     margin:0 auto;
-} */
+
 
 .sidebarParent{
-    background:#3E60C9;
+    background:#663366;
 }
 
 .sidebarParentResp{
@@ -20,7 +17,7 @@
 
 @media (min-width:1024px){
     .sidebarParentResp{
-        background-color:#3E60C9;
+        background-color:#663366;
         box-shadow:none;
     }
 }

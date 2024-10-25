@@ -8,7 +8,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LandingPageWrapper } from "./components/landing-page/LandingPageWrapper";
 import { Toaster } from "react-hot-toast";
 import { SellerDashboard } from "./components/seller/dashboard/SellerDashboard";
-import { ProductCard } from "./components/cards/product-view-cards/ProductCard";
 import { ProductCardWrapper } from "./components/cards/product-view-cards/ProductCardWrapper";
 
 function App() {

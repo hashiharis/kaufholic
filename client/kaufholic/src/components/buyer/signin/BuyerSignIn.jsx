@@ -89,8 +89,10 @@ export const BuyerSignIn = () => {
       const res = await axiosInstance.post("buyer/signin", buyerLoginDetails);
       if (res.status === 200) {
         console.log("response", res);
-        const buyerId = res?.data?.logindetails?._id;
+        const buyerId = res?.data?.loginDetails?._id;
+        const token = res?.data?.token;
         localStorage.setItem("kh-buyerId", buyerId);
+        localStorage.setItem("kh-buyerToken", token);
         toast.success("You are logged in");
         navigate("/");
       }

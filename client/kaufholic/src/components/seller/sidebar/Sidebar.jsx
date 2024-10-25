@@ -10,6 +10,11 @@ import styles from "./sidebar.module.css";
 export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
   const sideBarData = [
     {
+      sidebarLink: "",
+      icon: "",
+      cName: "logo",
+    },
+    {
       sidebarLink: "Home",
       icon: <IoMdHome />,
       cName: "sidebarLink",
@@ -28,6 +33,11 @@ export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
     {
       sidebarLink: "My Products",
       icon: <IoBagCheck />,
+      cName: "sidebarLink",
+    },
+    {
+      sidebarLink: "Logout",
+      icon: <IoIosPerson />,
       cName: "sidebarLink",
     },
   ];

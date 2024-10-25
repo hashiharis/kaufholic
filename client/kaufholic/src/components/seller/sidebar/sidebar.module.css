@@ -3,7 +3,7 @@
     font-weight:500;
 }
 .sidebar{
-    background-color: #3E60C9;
+    background-color: #663366;
     color:#FFFFFF;
     height: 100vh;
     padding-left:1em;
@@ -32,6 +32,17 @@
     color:#FFFFFF;
 }
 
+.logo{
+
+   background-image: url('../../../assets/svg/logo-no-background.svg');
+   /* background-position:center; */
+   background-size:contain;
+   background-repeat: no-repeat;
+   width:100%;
+   min-height:50px;
+   margin-block:0.2em;
+}
+
 @media (min-width:768px){
   
    .sidebarHide{
@@ -54,14 +65,13 @@
         margin-top: 2em;
     }
     .sidebarHide{
-        background-color: #3E60C9;
+        background-color:  #663366;
         color:#FFFFFF;
         height: 100vh;
-        padding-left:1em;
+        padding:0;
         padding-block:1em;
     }
     .navIcon{
         display: none;
     }
-   
 }
