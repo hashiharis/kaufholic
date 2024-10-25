@@ -11,6 +11,12 @@
 
 .addProductBtn{
    text-align: center;
+   
+}
+
+.addProductBtn button{
+    background:#663366;
+    border:none;
 }
 
 .addPrdtImg{

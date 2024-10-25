@@ -9,9 +9,10 @@ import toast from "react-hot-toast";
 export const SellerAddProduct = ({ changeActivePage }) => {
   const [validated, setValidated] = useState(false);
   const [productData, setProductData] = useState({
-    name: "",
+    title: "",
     category: "",
-    price: "",
+    actualPrice: "",
+    discountPercent: "",
     description: "",
     sellerId: localStorage.getItem("kh-sellerId"),
   });
@@ -37,9 +38,16 @@ export const SellerAddProduct = ({ changeActivePage }) => {
   };
 
   const validationProductFields = () => {
-    const { name, category, price, description } = productData;
+    const { title, category, actualPrice, discountPercent, description } =
+      productData;
 
-    if (!name || !category || !price || !description) {
+    if (
+      !title ||
+      !category ||
+      !actualPrice ||
+      !discountPercent ||
+      !description
+    ) {
       alert("Please fill the required fields");
       return false;
     }
@@ -74,16 +82,16 @@ export const SellerAddProduct = ({ changeActivePage }) => {
       >
         <h1>Add Your Product</h1>
         <Form.Group controlId="validationCustom01" className="mb-3">
-          <Form.Label>Product name</Form.Label>
+          <Form.Label>Product Title</Form.Label>
           <Form.Control
             required
             type="text"
             placeholder="Enter Product name"
-            name="name"
+            name="title"
             onChange={handleChange}
           />
           <Form.Control.Feedback type="invalid">
-            Please enter name of the product
+            Please enter a title for the product
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="validationCustom02" className="mb-3">
@@ -104,13 +112,13 @@ export const SellerAddProduct = ({ changeActivePage }) => {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="validationCustom03" className="mb-3">
-          <Form.Label>Price</Form.Label>
+          <Form.Label>Actual Price</Form.Label>
           <InputGroup hasValidation>
             <Form.Control
               type="text"
               placeholder="Price"
               required
-              name="price"
+              name="actualPrice"
               onChange={handleChange}
             />
             <Form.Control.Feedback type="invalid">
@@ -119,6 +127,21 @@ export const SellerAddProduct = ({ changeActivePage }) => {
           </InputGroup>
         </Form.Group>
         <Form.Group controlId="validationCustom04" className="mb-3">
+          <Form.Label>Discount Percentage</Form.Label>
+          <InputGroup hasValidation>
+            <Form.Control
+              type="text"
+              placeholder="Discount"
+              required
+              name="discountPercent"
+              onChange={handleChange}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please enter a value
+            </Form.Control.Feedback>
+          </InputGroup>
+        </Form.Group>
+        <Form.Group controlId="validationCustom05" className="mb-3">
           <Form.Label>Product Description</Form.Label>
           <Form.Control
             type="text"
