@@ -10,6 +10,7 @@ export const SellerAddProduct = ({ changeActivePage }) => {
   const [validated, setValidated] = useState(false);
   const [productData, setProductData] = useState({
     title: "",
+    subtitle: "",
     category: "",
     actualPrice: "",
     discountPercent: "",
@@ -38,11 +39,18 @@ export const SellerAddProduct = ({ changeActivePage }) => {
   };
 
   const validationProductFields = () => {
-    const { title, category, actualPrice, discountPercent, description } =
-      productData;
+    const {
+      title,
+      subtitle,
+      category,
+      actualPrice,
+      discountPercent,
+      description,
+    } = productData;
 
     if (
       !title ||
+      !subtitle ||
       !category ||
       !actualPrice ||
       !discountPercent ||
@@ -94,6 +102,19 @@ export const SellerAddProduct = ({ changeActivePage }) => {
             Please enter a title for the product
           </Form.Control.Feedback>
         </Form.Group>
+        <Form.Group controlId="validationCustom01" className="mb-3">
+          <Form.Label>Product Subtitle</Form.Label>
+          <Form.Control
+            required
+            type="text"
+            placeholder="Enter Product sub title"
+            name="subtitle"
+            onChange={handleChange}
+          />
+          <Form.Control.Feedback type="invalid">
+            Please enter a subtitle for the product
+          </Form.Control.Feedback>
+        </Form.Group>
         <Form.Group controlId="validationCustom02" className="mb-3">
           <Form.Label>Category</Form.Label>
           <Form.Select
@@ -115,7 +136,7 @@ export const SellerAddProduct = ({ changeActivePage }) => {
           <Form.Label>Actual Price</Form.Label>
           <InputGroup hasValidation>
             <Form.Control
-              type="text"
+              type="number"
               placeholder="Price"
               required
               name="actualPrice"
@@ -130,7 +151,7 @@ export const SellerAddProduct = ({ changeActivePage }) => {
           <Form.Label>Discount Percentage</Form.Label>
           <InputGroup hasValidation>
             <Form.Control
-              type="text"
+              type="number"
               placeholder="Discount"
               required
               name="discountPercent"

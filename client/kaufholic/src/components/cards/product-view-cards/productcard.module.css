@@ -13,7 +13,7 @@
 }
 
 .productImg{
-    background-image: url('../../../assets/images/photo-removebg-preview.png');
+    /* background-image: url('../../../assets/images/photo-removebg-preview.png'); */
     background-repeat: no-repeat;
     background-color: #F7F7F7;
     background-position: center;
@@ -38,11 +38,16 @@
 .favIcon{
     grid-area:2/2/3/3;
     justify-self: center;
+    cursor: pointer;
 }
 
 .ratingCount{
     padding-left: 1em;
     font-size: 0.75rem;
+}
+.ratingStars{
+    display:flex;
+    align-items: center;
 }
 
 .pricingSection{
@@ -59,6 +64,7 @@
 
 .price2{
     color:#9D9D9D;
+    text-decoration: line-through;
 }
 .percent{
     font-size:0.75rem ;

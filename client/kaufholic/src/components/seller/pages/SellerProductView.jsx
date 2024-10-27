@@ -41,11 +41,13 @@ export const SellerProductView = () => {
           style={{ width: "18rem" }}
         >
           <Card.Body>
-            <Card.Title>{item.name}</Card.Title>
+            <Card.Title>{item.title}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
               {item.category}
             </Card.Subtitle>
-            <Card.Text>{item.price}</Card.Text>
+            <Card.Text>Offer Price:{item.currentPrice}</Card.Text>
+            <Card.Text>Original Price:{item.actualPrice}</Card.Text>
+            <Card.Text>Discount: {item.discountPercent}</Card.Text>
             <Card.Text>{item.description}</Card.Text>
           </Card.Body>
         </Card>
