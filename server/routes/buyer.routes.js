@@ -5,6 +5,7 @@ const {
   buyerSignup,
   buyerSignin,
   getBuyerById,
+  getBuyerByToken,
 } = require("../controller/buyer.controller");
 const {
   validateRequiredFields,
@@ -12,6 +13,7 @@ const {
 const {
   validateEmailPasswordRequired,
 } = require("../middlewares/validateEmailPasswordRequired");
+const { protectRoute } = require("../middlewares/validateToken");
 
 const buyerRouter = express.Router();
 
@@ -30,6 +32,7 @@ buyerRouter.post(
   buyerSignin
 );
 
-buyerRouter.get("/fetchCurrentBuyer/:id", getBuyerById);
+// buyerRouter.get("/fetchCurrentBuyer/:id", getBuyerById);
+buyerRouter.get("/currentuser/:id", protectRoute, getBuyerByToken);
 
 module.exports = buyerRouter;

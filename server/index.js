@@ -2,13 +2,12 @@ const express = require("express");
 const app = express();
 
 const dotenv = require("dotenv");
+dotenv.config();
 const cors = require("cors");
 const buyerRouter = require("./routes/buyer.routes");
 const connectDb = require("./connectDB");
 const sellerRouter = require("./routes/seller.routes");
 const productRouter = require("./routes/product.routes");
-
-dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 

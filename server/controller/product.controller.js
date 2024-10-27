@@ -4,21 +4,32 @@ const ProductModel = require("../model/product.model");
 
 const addProduct = async (req, res) => {
   try {
-    const { name, category, price, description, sellerId } = req.body;
+    const {
+      title,
+      subtitle,
+      category,
+      actualPrice,
+      discountPercent,
+      description,
+      sellerId,
+    } = req.body;
 
     if (!isValidId(sellerId)) {
       return res.status(404).json({ message: "Seller not found" });
     }
 
     const newProduct = new ProductModel({
-      name,
+      title,
+      subtitle,
       category,
-      price,
+      actualPrice,
+      discountPercent,
+      currentPrice: req.currentPrice,
+      discountPriceApplied: req.discountPriceApplied,
       description,
       sellerId,
     });
     await newProduct.save();
-
     return res.status(201).json({ message: "Product added successfully" });
   } catch (error) {
     console.log("Error on seller adding product", error);
@@ -50,4 +61,21 @@ const fetchProductsBySeller = async (req, res) => {
   }
 };
 
-module.exports = { addProduct, fetchProductsBySeller };
+const getProducts = async (req, res) => {
+  try {
+    const products = await ProductModel.find();
+
+    if (products.length === 0 || products.isSold) {
+      return res.status(404).json({ message: "Products is not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Products fetched successfully", data: products });
+  } catch (error) {
+    console.log("Error on fetching products", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+module.exports = { addProduct, fetchProductsBySeller, getProducts };

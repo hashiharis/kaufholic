@@ -1,5 +1,6 @@
 const BuyerModel = require("../model/buyer.model");
 const { comparePassword } = require("../utils/comparePassword");
+const generateAccessToken = require("../utils/generateToken");
 
 const buyerSignup = async (req, res) => {
   try {
@@ -51,9 +52,14 @@ const buyerSignin = async (req, res) => {
 
     const buyerDetails = buyerFound.toObject();
     delete buyerDetails.password;
-    return res
-      .status(200)
-      .json({ message: "Login successful", logindetails: buyerDetails });
+
+    const accessToken = generateAccessToken(buyerDetails);
+
+    return res.status(200).json({
+      message: "Login successful",
+      token: accessToken,
+      loginDetails: buyerDetails,
+    });
   } catch (error) {
     console.log("Error on sign in ", error);
     return res.status(500).json({ message: "Server error" });
@@ -73,6 +79,28 @@ const getBuyerById = async (req, res) => {
     return res
       .status(200)
       .json({ message: "Buyer details fetched", data: buyerFound });
-  } catch (error) {}
+  } catch (error) {
+    console.log("Error on fetching buyer data ", error);
+    return res.status(500).json({ message: "Server error" });
+  }
 };
-module.exports = { buyerSignup, buyerSignin, getBuyerById };
+
+const getBuyerByToken = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const buyerFound = await BuyerModel.findById(id);
+
+    if (!buyerFound) {
+      return res.status(404).json({ message: "Buyer not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Buyer details fetched", data: req.buyer });
+  } catch (error) {
+    console.log("Error on fetching buyer data ", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+module.exports = { buyerSignup, buyerSignin, getBuyerById, getBuyerByToken };
