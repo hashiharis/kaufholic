@@ -3,12 +3,12 @@ import { ProductCard } from "./ProductCard";
 import styles from "./productwrapper.module.css";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
+import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
 
 export const ProductCardWrapper = () => {
   const [productView, setProductView] = useState();
 
   useEffect(() => {
-    console.log("hi");
     showProducts();
   }, []);
 
@@ -33,10 +33,13 @@ export const ProductCardWrapper = () => {
   console.log("product", productView);
 
   return (
-    <div className={styles.productCardWrapper}>
-      {productView?.map((item, index) => (
-        <ProductCard key={index} item={item} />
-      ))}
-    </div>
+    <>
+      <BuyerNav />
+      <div className={styles.productCardWrapper}>
+        {productView?.map((item, index) => (
+          <ProductCard key={index} item={item} />
+        ))}
+      </div>
+    </>
   );
 };
