@@ -115,7 +115,7 @@ export const ProductCard = ({ item }) => {
                 onClick={() => {
                   setIsFav(() => !isFav);
                   removeFromFavourites(buyerId);
-                  updateProductDislike(buyerId);
+                  // updateProductDislike(buyerId);
                 }}
               />
             ) : (
@@ -124,7 +124,7 @@ export const ProductCard = ({ item }) => {
                 onClick={() => {
                   setIsFav(() => !isFav);
                   console.log("clicked");
-                  updateProductLiked(buyerId);
+                  // updateProductLiked(buyerId);
                   addToFavourites(buyerId);
                 }}
               />

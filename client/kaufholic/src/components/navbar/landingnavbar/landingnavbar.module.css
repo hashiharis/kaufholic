@@ -24,13 +24,25 @@
     background-color: var(--navbar-background);
     color:var(--navbar-color);
 }
-
-.link:nth-child(3),.link:last-child{
- padding-left:0.3em;
+.signDropdown a:nth-child(1)[aria-expanded]{
+  color:var(--navbar-color);
 }
+.buyerSignin{
+    color:#212529 !important;
+}
+
+/* .link:nth-child(3),.link:last-child{
+ padding-left:0.3em;
+} */
 .icon{
     margin-right:0.5em;
 }
+
+.personIcon{
+    padding-top:0.5em;
+    display: flex;
+    align-items: center;
+  }
 
 @media (min-width:1000px){
     .landingNavWrapper{
@@ -43,6 +55,16 @@
     }
     .link{
         color:var(--navbar-color)!important;
+        padding-top:1em;
+    }
+
+    .signDropdown{
+        color:var(--navbar-color)!important;
+        padding-right:0.1em;
+      }
+
+      .icon{
+        margin-right:0em;
     }
    
 }

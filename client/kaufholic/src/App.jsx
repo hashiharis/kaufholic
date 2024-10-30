@@ -18,13 +18,13 @@ function App() {
         <Toaster />
       </div>
       <Routes>
-        <Route path="/" element={<WishlistWrapper />} />
-        <Route path="/buyer/viewproducts" element={<ProductCardWrapper />} />
-        {/* <Route path="/" element={<LandingPageWrapper />} /> */}
+        <Route path="/" element={<LandingPageWrapper />} />
         <Route path="/seller/signup" element={<SignUp />} />
         <Route path="/seller/signin" element={<SignIn />} />
         <Route path="/buyer/signin" element={<BuyerSignIn />} />
         <Route path="/buyer/signup" element={<BuyerSignUp />} />
+        <Route path="/buyer/wishlist" element={<WishlistWrapper />} />
+        <Route path="/buyer/viewproducts" element={<ProductCardWrapper />} />
         <Route path="/seller/dashboard" element={<SellerDashboard />} />
       </Routes>
     </BrowserRouter>

@@ -4,6 +4,8 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import NavDropdown from "react-bootstrap/NavDropdown";
+
 import { BsPersonCircle } from "react-icons/bs";
 export const LandingNavbar = () => {
   return (
@@ -30,16 +32,70 @@ export const LandingNavbar = () => {
             ></Offcanvas.Header>
             <Offcanvas.Body>
               <Nav
-                className={`justify-content-end flex-grow-1 pe-3 ${styles.navRightSection}`}
+                className={`justify-content-end flex-grow-1 pe-3  ${styles.navRightSection}`}
               >
-                <Nav.Link href="#action1" className={`${styles.link}`}>
+                {/* <Nav.Link href="#action1" className={`${styles.link}`}>
+                Sign in
+                <Nav.Link/> */}
+                <div className={styles.personIcon}>
                   <BsPersonCircle size="20px" className={styles.icon} />
-                  Sign in
-                </Nav.Link>
-                <Nav.Link href="#action1" className={`${styles.link}`}>
+                  <NavDropdown
+                    title="Sign in"
+                    id="basic-nav-dropdown"
+                    className={`${styles.signDropdown}`}
+                  >
+                    <NavDropdown.Item
+                      href="/buyer/signin"
+                      className={styles.buyerSignin}
+                    >
+                      Buyer
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/seller/signin">
+                      Seller
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
+
+                {/* <Nav.Link href="#action1" className={`${styles.link}`}>
                   <BsPersonCircle size="20px" className={styles.icon} />
                   Sign up
-                </Nav.Link>
+                </Nav.Link> */}
+                <div className={styles.personIcon}>
+                  <BsPersonCircle size="20px" className={styles.icon} />
+                  <NavDropdown
+                    title="Sign up"
+                    id="basic-nav-dropdown"
+                    className={`${styles.signDropdown}`}
+                  >
+                    <NavDropdown.Item
+                      href="/buyer/signup"
+                      className={styles.buyerSignin}
+                    >
+                      Buyer
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/seller/signup">
+                      Seller
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
+                {/* <NavDropdown
+                  title="Sign up"
+                  id="basic-nav-dropdown"
+                  className={`${styles.signDropdown}`}
+                >
+                  <NavDropdown.Item
+                    href="/buyer/signup"
+                    className={styles.buyerSignin}
+                  >
+                    Buyer
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="/seller/signup">
+                    Seller
+                  </NavDropdown.Item>
+                </NavDropdown> */}
                 <Nav.Link href="#action2" className={`${styles.link}`}>
                   About us
                 </Nav.Link>

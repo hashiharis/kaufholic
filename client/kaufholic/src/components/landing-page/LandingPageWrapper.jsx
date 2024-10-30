@@ -6,11 +6,24 @@ import { Link } from "react-router-dom";
 import styles from "./landingpagewrapper.module.css";
 import { BuyerNav } from "../navbar/usernavbar/buyernavbar/BuyerNav";
 import { Footer } from "../footer/Footer";
+import { useEffect, useState } from "react";
+import { LandingNavbar } from "../navbar/landingnavbar/LandingNavbar";
 
 export const LandingPageWrapper = () => {
+  const [isLogged, setIsLogged] = useState(false);
+
+  useEffect(() => {
+    const buyerId = localStorage.getItem("kh-buyerId") || null;
+
+    if (buyerId) {
+      setIsLogged(() => !isLogged);
+    }
+  }, []);
+
   return (
     <div className={styles.landingPageWrapper}>
-      <BuyerNav />
+      {isLogged ? <BuyerNav /> : <LandingNavbar />}
+
       <LandingCarousal />
       <div className={styles.cardSection}>
         <div className={styles.headers}>

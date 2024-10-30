@@ -3,6 +3,7 @@ import { ProductCard } from "../product-view-cards/ProductCard";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
+import styles from "./wishlistwrapper.module.css";
 
 export const WishlistWrapper = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -34,9 +35,11 @@ export const WishlistWrapper = () => {
   return (
     <>
       <BuyerNav />
-      {wishlist?.map((item, index) => (
-        <ProductCard key={index} item={item.productId} />
-      ))}
+      <div className={styles.wishlistWrapper}>
+        {wishlist?.map((item, index) => (
+          <ProductCard key={index} item={item.productId} />
+        ))}
+      </div>
     </>
   );
 };
