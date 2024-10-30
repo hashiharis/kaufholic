@@ -7,6 +7,7 @@ const {
   addProduct,
   fetchProductsBySeller,
   getProducts,
+  updateFavourite,
 } = require("../controller/product.controller");
 
 const productRouter = express.Router();
@@ -19,5 +20,6 @@ productRouter.post(
 );
 productRouter.get("/fetchProduct/:sellerId", fetchProductsBySeller);
 productRouter.get("/viewall", getProducts);
+productRouter.patch("/updateFavourite/:productId/:buyerId", updateFavourite);
 
 module.exports = productRouter;

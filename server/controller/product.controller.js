@@ -78,4 +78,42 @@ const getProducts = async (req, res) => {
   }
 };
 
-module.exports = { addProduct, fetchProductsBySeller, getProducts };
+const updateFavourite = async (req, res) => {
+  try {
+    const { productId, buyerId } = req.params;
+    const { isLiked } = req.query;
+
+    if (!isValidId(buyerId)) {
+      return res.status(404).json({ message: "Not a valid buyer" });
+    }
+
+    const updatedProductsLiked = await ProductModel.findByIdAndUpdate(
+      productId,
+      { isLiked },
+      {
+        new: true,
+      }
+    );
+
+    if (!updatedProductsLiked) {
+      return res
+        .status(404)
+        .json({ message: "Product not found for updation" });
+    }
+
+    return res.status(200).json({
+      message: "Products Favourite updated successfully",
+      updatedLiked: updatedProductsLiked,
+    });
+  } catch (error) {
+    console.log("Error on product favourite updation", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+module.exports = {
+  addProduct,
+  fetchProductsBySeller,
+  getProducts,
+  updateFavourite,
+};

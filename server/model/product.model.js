@@ -37,6 +37,7 @@ const productSchema = new Schema(
     },
     isLiked: {
       type: Boolean,
+      enum: [true, false],
       default: false,
     },
     isSold: {

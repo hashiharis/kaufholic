@@ -12,13 +12,13 @@ const protectRoute = (req, res, next) => {
   }
 
   jwt.verify(token, TOKEN_SECRET_KEY, (err, data) => {
-    console.log("Error on token authetication", err);
+    // console.log("Error on token authetication", err);
 
     if (err) {
       return res.status(403).json({ message: "Authentication Failed" });
     }
 
-    console.log("JWT", data);
+    // console.log("JWT", data);
     req.buyer = data;
     next();
   });
