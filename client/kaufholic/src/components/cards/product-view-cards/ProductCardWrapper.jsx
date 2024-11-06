@@ -7,9 +7,15 @@ import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
 
 export const ProductCardWrapper = () => {
   const [productView, setProductView] = useState();
+  const [inWishlist, setInWishlist] = useState([]);
+  const [isFav, setIsFav] = useState({});
 
   useEffect(() => {
     showProducts();
+    const buyerId = localStorage.getItem("kh-buyerId") || null;
+    if (buyerId) {
+      fetchWishlistProducts(buyerId);
+    }
   }, []);
 
   const showProducts = async () => {
@@ -32,12 +38,40 @@ export const ProductCardWrapper = () => {
 
   console.log("product", productView);
 
+  const fetchWishlistProducts = async (id) => {
+    try {
+      const res = await axiosInstance.get(`/wishlist/viewwishlist/${id}`);
+      if (res.status === 200) {
+        setInWishlist(res?.data?.data);
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on fetching wishlist", error);
+    }
+  };
+  console.log("wishlist", inWishlist);
+
+  const isProductInWishlist = (productId) => {
+    return isFav[productId] || false;
+    // inWishlist.some((item) => item.id === productId);
+  };
+
   return (
     <>
       <BuyerNav />
       <div className={styles.productCardWrapper}>
         {productView?.map((item, index) => (
-          <ProductCard key={index} item={item} />
+          <ProductCard
+            key={index}
+            item={item}
+            isFav={isProductInWishlist(item.id)}
+            setIsFav={setIsFav}
+          />
         ))}
       </div>
     </>

@@ -6,59 +6,40 @@ import styles from "./productcard.module.css";
 import { useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
-export const ProductCard = ({ item }) => {
-  const [isFav, setIsFav] = useState(false);
+import { Link } from "react-router-dom";
 
+export const ProductCard = ({ item, isFav, setIsFav }) => {
+  // const [isFav, setIsFav] = useState(false);
+  console.log(isFav);
   const ratingChanged = (newRating) => {
     console.log(newRating);
   };
 
+  const handleFavourite = () => {
+    // if (isFav) {
+    //   setIsFav((isFav) => !isFav);
+    //   removeFromFavourites(buyerId);
+    // } else {
+    //   setIsFav((isFav) => !isFav);
+    //   addToFavourites(buyerId);
+    // }
+
+    setIsFav((isFav) => ({
+      ...isFav,
+      [item.id]: !isFav[item.id],
+    }));
+    if (isFav) {
+      removeFromFavourites(buyerId);
+    } else {
+      setIsFav((isFav) => ({
+        ...isFav,
+        [item.id]: !isFav[item.id],
+      }));
+      addToFavourites(buyerId);
+    }
+  };
   const buyerId = localStorage.getItem("kh-buyerId") || null;
   const productId = item._id;
-
-  const updateProductLiked = async (byrId) => {
-    try {
-      const res = await axiosInstance.patch(
-        `/product/updateFavourite/${productId}/${byrId}`,
-        null,
-        { params: { isLiked: true } }
-      );
-
-      if (res.status === 200) {
-        console.log("response", res);
-      }
-    } catch (error) {
-      const statusCode = error.response.status;
-      if (statusCode === 400 || statusCode === 404) {
-        toast.error("Something went wrong");
-      } else {
-        toast.error("Please try again after sometime");
-      }
-      console.log("Error on updating favourite for product", error);
-    }
-  };
-
-  const updateProductDislike = async (byrId) => {
-    try {
-      const res = await axiosInstance.patch(
-        `/product/updateFavourite/${productId}/${byrId}`,
-        null,
-        { params: { isLiked: false } }
-      );
-
-      if (res.status === 200) {
-        console.log("response", res);
-      }
-    } catch (error) {
-      const statusCode = error.response.status;
-      if (statusCode === 400 || statusCode === 404) {
-        toast.error("Something went wrong");
-      } else {
-        toast.error("Please try again after sometime");
-      }
-      console.log("Error on updating favourite for product", error);
-    }
-  };
 
   const addToFavourites = async (byrId) => {
     try {
@@ -109,25 +90,9 @@ export const ProductCard = ({ item }) => {
           <p className={styles.subTitle}>{item.subtitle}</p>
           <p className={styles.favIcon}>
             {isFav ? (
-              <FaHeart
-                size="20px"
-                color="red"
-                onClick={() => {
-                  setIsFav(() => !isFav);
-                  removeFromFavourites(buyerId);
-                  // updateProductDislike(buyerId);
-                }}
-              />
+              <FaHeart size="20px" color="red" onClick={handleFavourite} />
             ) : (
-              <FaRegHeart
-                size="20px"
-                onClick={() => {
-                  setIsFav(() => !isFav);
-                  console.log("clicked");
-                  // updateProductLiked(buyerId);
-                  addToFavourites(buyerId);
-                }}
-              />
+              <FaRegHeart size="20px" onClick={handleFavourite} />
             )}
           </p>
         </div>
@@ -151,6 +116,9 @@ export const ProductCard = ({ item }) => {
           </span>
           <span className={styles.percent}>
             {item.discountPercent && `${item.discountPercent}%`}
+          </span>
+          <span className={styles.viewMore}>
+            <Link>View More</Link>
           </span>
         </div>
       </div>

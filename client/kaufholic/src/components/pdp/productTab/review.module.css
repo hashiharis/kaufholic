@@ -1,0 +1,51 @@
+.reviewWrapper{
+    padding-inline:1em;
+}
+
+.reviewSectionTitle,.reviewAddSectionTitle{
+    font-size:1.25rem;
+    font-weight:700;
+}
+
+.reviewTitle{
+    font-size:1rem;
+    font-weight:600;
+    margin-top:1em;
+}
+
+.buyerInfo{
+    display:grid;
+    grid-template-columns:10%;
+    /* align-items: center; */
+}
+
+.rating{
+   display: flex;
+   grid-area:2/2/3/3;
+}
+
+.reviewDesc{
+    font-size: 0.875rem;
+}
+
+.reviewDate{
+    font-size: 0.75rem;
+}
+
+.ratingSectionTitle{
+    font-weight:600;
+}
+
+.reviewLabel{
+    font-weight: 600;
+}
+
+@media (min-width:768px){
+
+    .buyerInfo{
+        grid-template-columns:5%;
+    }
+}
+
+
+

@@ -1,0 +1,28 @@
+.productDetail{
+    padding-left:1em;
+}
+
+.productDescTitle{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.productDesc,.productSpec,.productCare{
+
+    font-size: 0.875rem;
+}
+@media (min-width:768px){
+
+    .productDetail{
+
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }
+    .productSpec{
+        grid-area:2/1/3/2;
+    }
+    /* .productCare{
+        grid-area: 1/2/2/2;
+    } */
+}
+
