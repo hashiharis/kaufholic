@@ -10,6 +10,7 @@ const {
   getProductById,
   addRatingToProduct,
 } = require("../controller/product.controller");
+const { calculateAvgRating } = require("../middlewares/validateAvgRating");
 
 const productRouter = express.Router();
 
@@ -22,6 +23,10 @@ productRouter.post(
 productRouter.get("/fetchProduct/:sellerId", fetchProductsBySeller);
 productRouter.get("/viewall", getProducts);
 productRouter.get("/productDetail/:productId", getProductById);
-productRouter.patch("/addRating/:buyerId/:productId", addRatingToProduct);
+productRouter.patch(
+  "/addRating/:buyerId/:productId",
+  calculateAvgRating,
+  addRatingToProduct
+);
 
 module.exports = productRouter;
