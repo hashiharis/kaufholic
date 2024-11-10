@@ -35,11 +35,6 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
-    isLiked: {
-      type: Boolean,
-      enum: [true, false],
-      default: false,
-    },
     isSold: {
       type: Boolean,
       default: false,
@@ -78,10 +73,7 @@ const productSchema = new Schema(
   }
 );
 
-// First time product added by seller =>calculation price by discount
-// Second time when seller edits price in my products page, then a separate api call needed for discount updation(calculation)
-// actual Price->passed by seller, discountPercentage-type-number->passed by seller,currentPrice, discountPrice,rating:number,review:array of objects[{buyerId,reviewMsg}] avg review
-// actualPRICE=1000 sdiscount=10 currentPrice=900, discountPrice=100
+// Todo=>Second time when seller edits price in my products page, then a separate api call needed for discount updation(calculation)
 const ProductModel = model("product", productSchema);
 
 module.exports = ProductModel;

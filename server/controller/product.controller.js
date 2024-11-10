@@ -78,35 +78,27 @@ const getProducts = async (req, res) => {
   }
 };
 
-const updateFavourite = async (req, res) => {
+const getProductById = async (req, res) => {
   try {
-    const { productId, buyerId } = req.params;
-    const { isLiked } = req.query;
+    const { productId } = req.params;
 
-    if (!isValidId(buyerId)) {
-      return res.status(404).json({ message: "Not a valid buyer" });
-    }
-
-    const updatedProductsLiked = await ProductModel.findByIdAndUpdate(
-      productId,
-      { isLiked },
-      {
-        new: true,
-      }
-    );
-
-    if (!updatedProductsLiked) {
+    if (!isValidId(productId)) {
       return res
         .status(404)
-        .json({ message: "Product not found for updation" });
+        .json({ message: "Product with this id is not found" });
     }
 
-    return res.status(200).json({
-      message: "Products Favourite updated successfully",
-      updatedLiked: updatedProductsLiked,
-    });
+    const product = await ProductModel.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product Not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Product fetched successfully", data: product });
   } catch (error) {
-    console.log("Error on product favourite updation", error);
+    console.log("Error on fetching product by id", error);
     return res.status(500).json({ message: "Server Error" });
   }
 };
@@ -115,5 +107,5 @@ module.exports = {
   addProduct,
   fetchProductsBySeller,
   getProducts,
-  updateFavourite,
+  getProductById,
 };
