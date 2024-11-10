@@ -11,6 +11,7 @@ import { SellerDashboard } from "./components/seller/dashboard/SellerDashboard";
 import { ProductCardWrapper } from "./components/cards/product-view-cards/ProductCardWrapper";
 import { WishlistWrapper } from "./components/cards/wishlist-cards/WishlistWrapper";
 import { ProductDetail } from "./components/pdp/productfirstdetail/ProductDetail";
+import { ProductCard } from "./components/cards/product-view-cards/ProductCard";
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
         <Route path="/buyer/signup" element={<BuyerSignUp />} />
         <Route path="/buyer/wishlist" element={<WishlistWrapper />} />
         <Route path="/buyer/viewproducts" element={<ProductCardWrapper />} />
-        <Route path="/buyer/productdetail" element={<ProductDetail />} />
+        <Route path="/productdetail/:productId" element={<ProductDetail />} />
+        {/* <Route path="/buyer/productdetail" element={<ProductDetail />} /> */}
         <Route path="/seller/dashboard" element={<SellerDashboard />} />
       </Routes>
     </BrowserRouter>

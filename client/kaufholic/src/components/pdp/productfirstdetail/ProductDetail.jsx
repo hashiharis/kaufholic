@@ -6,8 +6,51 @@ import { BiSolidCartAdd } from "react-icons/bi";
 import { ProductTab } from "../productTab/productTab";
 import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
 import { FaRegHeart } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { axiosInstance } from "../../../apis/axiosInstance";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const ProductDetail = () => {
+  const { productId } = useParams();
+  const [product, setProduct] = useState({});
+
+  const getProduct = async (productId) => {
+    try {
+      const res = await axiosInstance.get(
+        `/product/productDetail/${productId}`
+      );
+
+      if (res.status === 200) {
+        console.log("product", res);
+        setProduct(res?.data?.data);
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on fetching the product", error);
+    }
+  };
+  console.log("state", product);
+
+  useEffect(() => {
+    if (productId) {
+      getProduct(productId);
+    }
+  }, []);
+
+  const {
+    title,
+    subtitle,
+    avgRating,
+    currentPrice,
+    actualPrice,
+    discountPercent,
+  } = product;
   return (
     <>
       <BuyerNav />
@@ -15,16 +58,16 @@ export const ProductDetail = () => {
         <div className={styles.productImg}>Placeholder</div>
         <div className={styles.productIntro}>
           <div className={styles.productTitleSection}>
-            <p>Short Printed Dress</p>
+            <p className={styles.title}>{title}</p>
 
             <FaRegHeart size="20px" />
           </div>
-          <p>Subtitle</p>
-          <p>Avg.Rating Count(Total no of ratings)</p>
-          <p>
-            <span>Current Price</span>
-            <span>Actual Price</span>
-            <span>Discount%</span>
+          <p>{subtitle}</p>
+          <p>{avgRating}(Total no of ratings)</p>
+          <p className={styles.pricing}>
+            <span> ₹{currentPrice}</span>
+            <span> ₹{actualPrice}</span>
+            <span>{discountPercent}%</span>
           </p>
           <Dropdown as={ButtonGroup}>
             <Button variant="secondary">Qty</Button>

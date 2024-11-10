@@ -6,11 +6,14 @@ import styles from "./productcard.module.css";
 import { useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const ProductCard = ({ item, isFav, setIsFav }) => {
   // const [isFav, setIsFav] = useState(false);
   console.log(isFav);
+
+  const navigate = useNavigate();
+
   const ratingChanged = (newRating) => {
     console.log(newRating);
   };
@@ -118,7 +121,7 @@ export const ProductCard = ({ item, isFav, setIsFav }) => {
             {item.discountPercent && `${item.discountPercent}%`}
           </span>
           <span className={styles.viewMore}>
-            <Link>View More</Link>
+            <Link to={`/productdetail/${productId}`}>View More</Link>
           </span>
         </div>
       </div>
