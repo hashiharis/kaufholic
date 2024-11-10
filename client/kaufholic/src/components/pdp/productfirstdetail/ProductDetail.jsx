@@ -50,6 +50,7 @@ export const ProductDetail = () => {
     currentPrice,
     actualPrice,
     discountPercent,
+    review,
   } = product;
   return (
     <>
@@ -63,7 +64,9 @@ export const ProductDetail = () => {
             <FaRegHeart size="20px" />
           </div>
           <p>{subtitle}</p>
-          <p>{avgRating}(Total no of ratings)</p>
+          <p>
+            {avgRating} ({review?.length} ratings)
+          </p>
           <p className={styles.pricing}>
             <span> ₹{currentPrice}</span>
             <span> ₹{actualPrice}</span>
