@@ -53,7 +53,7 @@ const productSchema = new Schema(
         },
         reviewMessage: {
           type: String,
-          required: true,
+          required: false,
         },
         rating: {
           type: Number,

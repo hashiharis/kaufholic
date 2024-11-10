@@ -103,9 +103,71 @@ const getProductById = async (req, res) => {
   }
 };
 
+const addRatingToProduct = async (req, res) => {
+  try {
+    const { rating } = req.body;
+    const { productId, buyerId } = req.params;
+
+    if (!isValidId(productId)) {
+      return res.status(404).json({ message: "Product id is not valid" });
+    }
+
+    if (!isValidId(buyerId)) {
+      return res.status(404).json({ message: "Buyer id is not valid" });
+    }
+
+    // Checking if the product has an existing review from the specific buyer
+    const product = await ProductModel.findOne({
+      _id: productId,
+      "review.buyerId": buyerId, //filtering the review array by the buyerId
+    });
+
+    if (product) {
+      // if review rating already exist for the specific buyer then update the rating
+      await ProductModel.updateOne(
+        { _id: productId, "review.buyerId": buyerId },
+        {
+          $set: {
+            "review.$.rating": rating,
+            "review.$.reviewMessage": null,
+          },
+        }
+      );
+    } else {
+      // if review rating doesn't exist then creating a new entry in the review array for the buyer
+      await ProductModel.updateOne(
+        { _id: productId },
+        {
+          $push: {
+            review: {
+              buyerId: buyerId,
+              rating: rating,
+              reviewMessage: null,
+            },
+          },
+        }
+      );
+    }
+
+    // if (product.length === 0) {
+    //   return res.status(404).json({
+    //     message: "Cannot find product and buyer with specified id's",
+    //   });
+    // }
+
+    return res
+      .status(200)
+      .json({ message: "Rating added successfully", data: product });
+  } catch (error) {
+    console.log("Error on adding rating", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   addProduct,
   fetchProductsBySeller,
   getProducts,
   getProductById,
+  addRatingToProduct,
 };
