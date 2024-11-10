@@ -10,12 +10,18 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const ProductCard = ({ item, isFav, setIsFav }) => {
   // const [isFav, setIsFav] = useState(false);
+  const [rating, setRating] = useState(0);
   console.log(isFav);
 
   const navigate = useNavigate();
 
+  const buyerId = localStorage.getItem("kh-buyerId") || null;
+  const productId = item._id;
+
   const ratingChanged = (newRating) => {
     console.log(newRating);
+    setRating(newRating);
+    addRating(buyerId, newRating);
   };
 
   const handleFavourite = () => {
@@ -41,8 +47,6 @@ export const ProductCard = ({ item, isFav, setIsFav }) => {
       addToFavourites(buyerId);
     }
   };
-  const buyerId = localStorage.getItem("kh-buyerId") || null;
-  const productId = item._id;
 
   const addToFavourites = async (byrId) => {
     try {
@@ -84,6 +88,27 @@ export const ProductCard = ({ item, isFav, setIsFav }) => {
     }
   };
 
+  const addRating = async (byrId, rating) => {
+    try {
+      const res = await axiosInstance.patch(
+        `product/addRating/${byrId}/${productId}`,
+        { rating }
+      );
+
+      if (res.status === 200) {
+        console.log("rating added", rating);
+        toast.success("Rating added succesfully");
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on adding rating", error);
+    }
+  };
   return (
     <div className={styles.productCards}>
       <div className={styles.productImg}>Placeholder</div>
