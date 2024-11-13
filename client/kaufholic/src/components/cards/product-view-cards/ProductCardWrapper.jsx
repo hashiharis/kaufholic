@@ -8,7 +8,7 @@ import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
 export const ProductCardWrapper = () => {
   const [productView, setProductView] = useState([]);
   const [inWishlist, setInWishlist] = useState([]);
-  const [isFav, setIsFav] = useState(false);
+  const isFav = false;
 
   useEffect(() => {
     showProducts();

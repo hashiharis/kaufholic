@@ -18,15 +18,16 @@ export const WishlistWrapper = () => {
     try {
       const res = await axiosInstance.get(`/wishlist/viewwishlist/${id}`);
       if (res.status === 200) {
-        console.log(res.data.data);
+        // console.log(res?.data?.data);
         setWishlist(res?.data?.data);
+      }
+      if (res.data.message === "Your wishlist is empty") {
+        setIsWishlistEmpty(true);
       }
     } catch (error) {
       const statusCode = error.response.status;
-      if (statusCode === 400) {
+      if (statusCode === 400 || statusCode === 404) {
         toast.error("Something went wrong");
-      } else if (statusCode === 404) {
-        setIsWishlistEmpty(true);
       } else {
         toast.error("Please try again after sometime");
       }
