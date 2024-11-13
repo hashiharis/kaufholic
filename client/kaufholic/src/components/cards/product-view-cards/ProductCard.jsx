@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 
 export const ProductCard = ({ fetchWishlistProducts, item, isFav }) => {
   const [rating, setRating] = useState(0);
-
   // console.log("isFav", isFav);
 
   const buyerId = localStorage.getItem("kh-buyerId") || null;

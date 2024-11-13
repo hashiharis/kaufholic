@@ -170,10 +170,70 @@ const addRatingToProduct = async (req, res) => {
   }
 };
 
+const sortByPriceAscending = async (req, res) => {
+  try {
+    const products = await ProductModel.find().sort({ currentPrice: 1 });
+
+    if (!products) {
+      return res.status(400).json({ message: "Products not fetched" });
+    }
+
+    return res.status(200).json({
+      message: "Products sorted from low to high",
+      priceSortLowToHigh: products,
+    });
+  } catch (error) {
+    console.log("Error on sorting low to high", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+const sortByPriceDescending = async (req, res) => {
+  try {
+    const products = await ProductModel.find().sort({ currentPrice: -1 });
+
+    if (!products) {
+      return res.status(400).json({ message: "Products not fetched" });
+    }
+
+    return res.status(200).json({
+      message: "Product sorted from high to low",
+      priceSortHighToLow: products,
+    });
+  } catch (error) {
+    console.log("Error on sorting high to low", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+const filterByCategory = async (req, res) => {
+  try {
+    const { category } = req.query;
+
+    const productByCategory = await ProductModel.find({ category });
+
+    if (!productByCategory) {
+      return res
+        .status(404)
+        .json({ message: "There are no products within this category" });
+    }
+
+    return res.status(200).json({
+      message: "Products in the specified category",
+      category: productByCategory,
+    });
+  } catch (error) {
+    console.log("Error on filtering by category", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
 module.exports = {
   addProduct,
   fetchProductsBySeller,
   getProducts,
   getProductById,
   addRatingToProduct,
+  sortByPriceAscending,
+  sortByPriceDescending,
+  filterByCategory,
 };

@@ -9,6 +9,9 @@ const {
   getProducts,
   getProductById,
   addRatingToProduct,
+  sortByPriceAscending,
+  sortByPriceDescending,
+  filterByCategory,
 } = require("../controller/product.controller");
 const { calculateAvgRating } = require("../middlewares/validateAvgRating");
 const { upload } = require("../middlewares/imgUpload");
@@ -34,5 +37,8 @@ productRouter.patch(
   calculateAvgRating,
   addRatingToProduct
 );
+productRouter.get("/sortByLowToHigh", sortByPriceAscending);
+productRouter.get("/sortByHighToLow", sortByPriceDescending);
+productRouter.get("/filterByCategory", filterByCategory);
 
 module.exports = productRouter;

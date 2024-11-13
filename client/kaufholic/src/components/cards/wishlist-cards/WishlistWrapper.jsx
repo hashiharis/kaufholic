@@ -44,7 +44,12 @@ export const WishlistWrapper = () => {
       ) : (
         <div className={styles.wishlistWrapper}>
           {wishlist?.map((item, index) => (
-            <ProductCard key={index} item={item.productId} />
+            <ProductCard
+              key={index}
+              item={item.productId}
+              isFav={true}
+              fetchWishlistProducts={fetchWishlist}
+            />
           ))}
         </div>
       )}

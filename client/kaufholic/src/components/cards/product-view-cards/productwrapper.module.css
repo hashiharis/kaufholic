@@ -1,5 +1,35 @@
+.filterSortSection{
+    display: flex;
+    justify-content: space-between;
+    padding-inline:1em;
+    padding-top:2em;
+}
 
+.filterSection{
+    padding-top:2em;
+    text-align: center;
+}
 
+.productCardWrapper{
+    margin-top:2em;
+}
+
+.dropdownContainer,.filterBtn{
+    background: none !important;
+    color:var(--navbar-background)!important;
+    border-color:var(--navbar-background)!important;
+}
+.filterBtn{
+    display: flex;
+    align-items: center;
+    gap:0.5em;
+}
+
+.categorySelect{
+    padding-inline:0.75em;
+    padding-block:0.375em;
+    border-radius:5px;
+}
 @media (min-width:768px){
     .productCardWrapper{
         display:grid;
