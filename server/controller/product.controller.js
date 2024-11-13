@@ -14,6 +14,9 @@ const addProduct = async (req, res) => {
       sellerId,
     } = req.body;
 
+    // const { productImage } = req.file.filename;
+
+    console.log("Image details", productImage);
     if (!isValidId(sellerId)) {
       return res.status(404).json({ message: "Seller not found" });
     }
@@ -28,8 +31,11 @@ const addProduct = async (req, res) => {
       discountPriceApplied: req.discountPriceApplied,
       description,
       sellerId,
+      productImage,
     });
+
     await newProduct.save();
+
     return res.status(201).json({ message: "Product added successfully" });
   } catch (error) {
     console.log("Error on seller adding product", error);
@@ -49,7 +55,7 @@ const fetchProductsBySeller = async (req, res) => {
     if (allProducts.length === 0) {
       return res
         .status(404)
-        .send({ message: "No products found for this seller" });
+        .json({ message: "No products found for this seller" });
     }
     return res.status(200).json({
       message: "All products under this seller found",

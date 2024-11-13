@@ -11,7 +11,6 @@ import { SellerDashboard } from "./components/seller/dashboard/SellerDashboard";
 import { ProductCardWrapper } from "./components/cards/product-view-cards/ProductCardWrapper";
 import { WishlistWrapper } from "./components/cards/wishlist-cards/WishlistWrapper";
 import { ProductDetail } from "./components/pdp/productfirstdetail/ProductDetail";
-import { ProductCard } from "./components/cards/product-view-cards/ProductCard";
 
 function App() {
   return (

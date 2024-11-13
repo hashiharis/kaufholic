@@ -11,13 +11,19 @@ const {
   addRatingToProduct,
 } = require("../controller/product.controller");
 const { calculateAvgRating } = require("../middlewares/validateAvgRating");
+const { upload } = require("../middlewares/imgUpload");
 
 const productRouter = express.Router();
 
+// productRouter.post(
+//   "/addProduct",
+//   validateProductAddRequiredFields,
+//   validateDiscount,
+//   addProduct
+// );
 productRouter.post(
-  "/addProduct",
-  validateProductAddRequiredFields,
-  validateDiscount,
+  "/testImageUpload",
+  upload.single("productImage"),
   addProduct
 );
 productRouter.get("/fetchProduct/:sellerId", fetchProductsBySeller);

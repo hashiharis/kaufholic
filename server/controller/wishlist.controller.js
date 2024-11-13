@@ -21,7 +21,11 @@ const addToWishlist = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    let favProduct = await WishlistModel.findOne({ buyerId });
+    let favProduct = await WishlistModel.findOne({ buyerId, productId });
+
+    if (favProduct) {
+      return res.status(400).json({ message: "Product already in wishlist" });
+    }
 
     favProduct = new WishlistModel({
       buyerId,
@@ -52,7 +56,7 @@ const getWishlist = async (req, res) => {
     console.log(wishlist);
 
     if (wishlist.length === 0) {
-      return res.status(404).json({ message: "Your wishlist is empty" });
+      return res.status(200).json({ message: "Your wishlist is empty" });
     }
 
     return res
@@ -75,18 +79,20 @@ const removeFromWishlist = async (req, res) => {
     if (!isValidId(productId)) {
       return res.status(404).json({ message: "Product  not found" });
     }
-    let favProduct = await WishlistModel.findOneAndDelete({ buyerId });
+
+    let favProduct = await WishlistModel.findOneAndDelete({
+      productId,
+      buyerId,
+    });
 
     if (!favProduct) {
       return res.status(404).json({ message: "Favourite product not found" });
     }
 
-    return res
-      .status(200)
-      .json({
-        message: "Product removed from wishlist successfully",
-        removedProduct: favProduct,
-      });
+    return res.status(200).json({
+      message: "Product removed from wishlist successfully",
+      removedProduct: favProduct,
+    });
   } catch (error) {
     console.log("Error on removing from wishlist", error);
     return res.status(500).json({ message: "Server Error" });

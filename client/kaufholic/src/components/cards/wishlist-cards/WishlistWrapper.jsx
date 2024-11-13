@@ -7,6 +7,7 @@ import styles from "./wishlistwrapper.module.css";
 
 export const WishlistWrapper = () => {
   const [wishlist, setWishlist] = useState([]);
+  const [isWishlistEmpty, setIsWishlistEmpty] = useState(false);
 
   useEffect(() => {
     const buyerId = localStorage.getItem("kh-buyerId") || null;
@@ -22,8 +23,10 @@ export const WishlistWrapper = () => {
       }
     } catch (error) {
       const statusCode = error.response.status;
-      if (statusCode === 400 || statusCode === 404) {
+      if (statusCode === 400) {
         toast.error("Something went wrong");
+      } else if (statusCode === 404) {
+        setIsWishlistEmpty(true);
       } else {
         toast.error("Please try again after sometime");
       }
@@ -35,11 +38,15 @@ export const WishlistWrapper = () => {
   return (
     <>
       <BuyerNav />
-      <div className={styles.wishlistWrapper}>
-        {wishlist?.map((item, index) => (
-          <ProductCard key={index} item={item.productId} />
-        ))}
-      </div>
+      {isWishlistEmpty ? (
+        <div className={styles.emptyImage}></div>
+      ) : (
+        <div className={styles.wishlistWrapper}>
+          {wishlist?.map((item, index) => (
+            <ProductCard key={index} item={item.productId} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

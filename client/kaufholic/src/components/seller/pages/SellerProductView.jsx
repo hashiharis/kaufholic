@@ -3,9 +3,11 @@ import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import styles from "./sellerproductview.module.css";
+import emptyIllustration from "../../../assets/images/empty_illustration.png";
 
 export const SellerProductView = () => {
   const [products, setProducts] = useState();
+  const [isProductEmpty, setIsProductEmpty] = useState(false);
 
   useEffect(() => {
     fetchAllProducts();
@@ -25,6 +27,7 @@ export const SellerProductView = () => {
       const statusCode = error.response.status;
       if (statusCode === 400 || statusCode === 404) {
         toast.error("Something went wrong");
+        setIsProductEmpty(true);
       } else {
         toast.error("Please try again after sometime");
       }
@@ -33,25 +36,31 @@ export const SellerProductView = () => {
   };
   console.log(products);
   return (
-    <div className={styles.sellerProductView}>
-      {products?.map((item, index) => (
-        <Card
-          className={styles.productViewCard}
-          key={index}
-          style={{ width: "18rem" }}
-        >
-          <Card.Body>
-            <Card.Title>{item.title}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">
-              {item.category}
-            </Card.Subtitle>
-            <Card.Text>Offer Price:{item.currentPrice}</Card.Text>
-            <Card.Text>Original Price:{item.actualPrice}</Card.Text>
-            <Card.Text>Discount: {item.discountPercent}</Card.Text>
-            <Card.Text>{item.description}</Card.Text>
-          </Card.Body>
-        </Card>
-      ))}
-    </div>
+    <>
+      {isProductEmpty ? (
+        <img src={emptyIllustration} alt="empty illustration" />
+      ) : (
+        <div className={styles.sellerProductView}>
+          {products?.map((item, index) => (
+            <Card
+              className={styles.productViewCard}
+              key={index}
+              style={{ width: "18rem" }}
+            >
+              <Card.Body>
+                <Card.Title>{item.title}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {item.category}
+                </Card.Subtitle>
+                <Card.Text>Offer Price:{item.currentPrice}</Card.Text>
+                <Card.Text>Original Price:{item.actualPrice}</Card.Text>
+                <Card.Text>Discount: {item.discountPercent}</Card.Text>
+                <Card.Text>{item.description}</Card.Text>
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
+      )}
+    </>
   );
 };

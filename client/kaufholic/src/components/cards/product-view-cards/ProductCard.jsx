@@ -6,14 +6,12 @@ import styles from "./productcard.module.css";
 import { useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export const ProductCard = ({ item, isFav, setIsFav }) => {
-  // const [isFav, setIsFav] = useState(false);
+export const ProductCard = ({ fetchWishlistProducts, item, isFav }) => {
   const [rating, setRating] = useState(0);
-  console.log(isFav);
 
-  const navigate = useNavigate();
+  // console.log("isFav", isFav);
 
   const buyerId = localStorage.getItem("kh-buyerId") || null;
   const productId = item._id;
@@ -25,25 +23,9 @@ export const ProductCard = ({ item, isFav, setIsFav }) => {
   };
 
   const handleFavourite = () => {
-    // if (isFav) {
-    //   setIsFav((isFav) => !isFav);
-    //   removeFromFavourites(buyerId);
-    // } else {
-    //   setIsFav((isFav) => !isFav);
-    //   addToFavourites(buyerId);
-    // }
-
-    setIsFav((isFav) => ({
-      ...isFav,
-      [item.id]: !isFav[item.id],
-    }));
     if (isFav) {
       removeFromFavourites(buyerId);
     } else {
-      setIsFav((isFav) => ({
-        ...isFav,
-        [item.id]: !isFav[item.id],
-      }));
       addToFavourites(buyerId);
     }
   };
@@ -56,6 +38,7 @@ export const ProductCard = ({ item, isFav, setIsFav }) => {
 
       if (res.status === 200) {
         console.log("resp wishlist", res);
+        toast.success("Product added to wishlist");
       }
     } catch (error) {
       const statusCode = error.response.status;
@@ -65,6 +48,9 @@ export const ProductCard = ({ item, isFav, setIsFav }) => {
         toast.error("Please try again after sometime");
       }
       console.log("Error on adding to wishlist", error);
+    } finally {
+      console.log("execute finally add");
+      fetchWishlistProducts(buyerId);
     }
   };
 
@@ -76,6 +62,7 @@ export const ProductCard = ({ item, isFav, setIsFav }) => {
 
       if (res.status === 200) {
         console.log("remove res", res);
+        toast.success("Product removed from wishlist");
       }
     } catch (error) {
       const statusCode = error.response.status;
@@ -85,6 +72,9 @@ export const ProductCard = ({ item, isFav, setIsFav }) => {
         toast.error("Please try again after sometime");
       }
       console.log("Error on adding to wishlist", error);
+    } finally {
+      console.log("execute finally remove");
+      fetchWishlistProducts(buyerId);
     }
   };
 
@@ -109,6 +99,7 @@ export const ProductCard = ({ item, isFav, setIsFav }) => {
       console.log("Error on adding rating", error);
     }
   };
+
   return (
     <div className={styles.productCards}>
       <div className={styles.productImg}>Placeholder</div>

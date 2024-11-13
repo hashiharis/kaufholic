@@ -44,6 +44,10 @@ const productSchema = new Schema(
       ref: "seller",
       required: true,
     },
+    productImage: {
+      type: String,
+      required: true,
+    },
     review: [
       {
         buyerId: {
