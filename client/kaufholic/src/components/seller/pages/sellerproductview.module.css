@@ -11,6 +11,12 @@
 margin-inline:1em;
 }
 
+.prodImage{
+    width: 100%!important;
+    height: 300px !important;
+    object-fit: contain!important;
+}
+
 @media (min-width:768px){
     .productViewCard{
         margin-inline:0;

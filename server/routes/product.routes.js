@@ -12,23 +12,25 @@ const {
   sortByPriceAscending,
   sortByPriceDescending,
   filterByCategory,
+  searchProduct,
 } = require("../controller/product.controller");
 const { calculateAvgRating } = require("../middlewares/validateAvgRating");
 const { upload } = require("../middlewares/imgUpload");
 
 const productRouter = express.Router();
 
-// productRouter.post(
-//   "/addProduct",
-//   validateProductAddRequiredFields,
-//   validateDiscount,
-//   addProduct
-// );
 productRouter.post(
-  "/testImageUpload",
+  "/addProduct",
   upload.single("productImage"),
+  validateProductAddRequiredFields,
+  validateDiscount,
   addProduct
 );
+// productRouter.post(
+//   "/testImageUpload",
+//   upload.single("productImage"),
+//   addProduct
+// );
 productRouter.get("/fetchProduct/:sellerId", fetchProductsBySeller);
 productRouter.get("/viewall", getProducts);
 productRouter.get("/productDetail/:productId", getProductById);
@@ -40,5 +42,6 @@ productRouter.patch(
 productRouter.get("/sortByLowToHigh", sortByPriceAscending);
 productRouter.get("/sortByHighToLow", sortByPriceDescending);
 productRouter.get("/filterByCategory", filterByCategory);
+productRouter.get("/search", searchProduct);
 
 module.exports = productRouter;

@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import styles from "./sellerproductview.module.css";
 import emptyIllustration from "../../../assets/images/empty_illustration.png";
+import { BASE_URL } from "../../../apis/baseUrl";
 
 export const SellerProductView = () => {
   const [products, setProducts] = useState();
@@ -48,6 +49,12 @@ export const SellerProductView = () => {
               style={{ width: "18rem" }}
             >
               <Card.Body>
+                <Card.Img
+                  variant="top"
+                  src={`${BASE_URL}/${item.productImage}`}
+                  className={styles.prodImage}
+                />
+                {/* {`${BASE_URL}/${imgPath}`} */}
                 <Card.Title>{item.title}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
                   {item.category}

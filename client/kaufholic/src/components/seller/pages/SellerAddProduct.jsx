@@ -17,6 +17,27 @@ export const SellerAddProduct = ({ changeActivePage }) => {
     description: "",
     sellerId: localStorage.getItem("kh-sellerId"),
   });
+  const [prodImg, setProdImg] = useState(null);
+
+  const {
+    title,
+    subtitle,
+    category,
+    actualPrice,
+    discountPercent,
+    description,
+    sellerId,
+  } = productData;
+
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("subtitle", subtitle);
+  formData.append("category", category);
+  formData.append("actualPrice", actualPrice);
+  formData.append("discountPercent", discountPercent);
+  formData.append("description", description);
+  formData.append("sellerId", sellerId);
+  formData.append("productImage", prodImg);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,7 +48,8 @@ export const SellerAddProduct = ({ changeActivePage }) => {
     }
     setValidated(true);
     if (validationProductFields()) {
-      addProductDataToServer();
+      // addProductDataToServer();
+      addProductDataToServer(formData);
     }
   };
 
@@ -36,6 +58,9 @@ export const SellerAddProduct = ({ changeActivePage }) => {
       ...productData,
       [e.target.name]: e.target.value,
     });
+
+    const imgFile = e.target.files[0];
+    setProdImg(imgFile);
   };
 
   const validationProductFields = () => {
@@ -58,12 +83,19 @@ export const SellerAddProduct = ({ changeActivePage }) => {
     ) {
       alert("Please fill the required fields");
       return false;
+    } else if (!prodImg) {
+      alert("Please upload a product image");
+      return false;
     }
     return true;
   };
-  const addProductDataToServer = async () => {
+  const addProductDataToServer = async (formData) => {
     try {
-      const res = await axiosInstance.post("/product/addProduct", productData);
+      const res = await axiosInstance.post("/product/addProduct", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log("Response", res);
       if (res.status === 201) {
         toast.success("Product added successfully");
@@ -173,6 +205,18 @@ export const SellerAddProduct = ({ changeActivePage }) => {
           />
           <Form.Control.Feedback type="invalid">
             Please enter product details
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group controlId="validationCustom06" className="mb-3">
+          <Form.Label>Product Image</Form.Label>
+          <Form.Control
+            type="file"
+            placeholder="Product Image"
+            required
+            onChange={handleChange}
+          />
+          <Form.Control.Feedback type="invalid">
+            Please upload an image
           </Form.Control.Feedback>
         </Form.Group>
         <div className={styles.addProductBtn}>

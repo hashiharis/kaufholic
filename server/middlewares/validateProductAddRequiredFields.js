@@ -18,6 +18,7 @@ const validateProductAddRequiredFields = (req, res, next) => {
   ) {
     return res.status(400).json({ message: "All fields are required" });
   }
+
   next();
 };
 
@@ -40,7 +41,7 @@ const validateDiscount = (req, res, next) => {
 
     req.currentPrice = Math.round(reducedPrice);
     req.discountPriceApplied = Math.round(discountAmount);
-    console.log("req", req.currentPrice, req.discountPriceApplied);
+    // console.log("req", req.currentPrice, req.discountPriceApplied);
     next();
   } catch (error) {
     console.log("Error in discount calculation", error);

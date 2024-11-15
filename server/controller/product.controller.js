@@ -14,9 +14,10 @@ const addProduct = async (req, res) => {
       sellerId,
     } = req.body;
 
-    // const { productImage } = req.file.filename;
+    // const { productImage } = req.file;
+    // console.log("file", req.file);
 
-    console.log("Image details", productImage);
+    // console.log("Image details", req.file.filename);
     if (!isValidId(sellerId)) {
       return res.status(404).json({ message: "Seller not found" });
     }
@@ -31,12 +32,14 @@ const addProduct = async (req, res) => {
       discountPriceApplied: req.discountPriceApplied,
       description,
       sellerId,
-      productImage,
+      productImage: req.file.filename,
     });
 
     await newProduct.save();
 
-    return res.status(201).json({ message: "Product added successfully" });
+    return res
+      .status(201)
+      .json({ message: "Product added successfully", data: newProduct });
   } catch (error) {
     console.log("Error on seller adding product", error);
     return res.status(500).json({ message: "Server Error" });
@@ -227,6 +230,29 @@ const filterByCategory = async (req, res) => {
     return res.status(500).json({ message: "Server Error" });
   }
 };
+
+const searchProduct = async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query) {
+      return res.status(400).json({ message: "Search query is required" });
+    }
+    const searchTerm = new RegExp(query, "i"); // i ignore case
+    console.log(searchTerm);
+    const results = await ProductModel.find({
+      title: { $regex: new RegExp("^" + searchTerm.toLowerCase(), "i") },
+    });
+
+    if (results.length !== 0) {
+      return res.status(404).json({ message: "No results!!" });
+    }
+
+    return res.status(200).json({ message: "Search result", results: results });
+  } catch (error) {
+    console.log("Error on product search", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
 module.exports = {
   addProduct,
   fetchProductsBySeller,
@@ -236,4 +262,5 @@ module.exports = {
   sortByPriceAscending,
   sortByPriceDescending,
   filterByCategory,
+  searchProduct,
 };
