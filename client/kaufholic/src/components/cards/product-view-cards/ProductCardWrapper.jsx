@@ -7,13 +7,43 @@ import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import { IoFilterOutline } from "react-icons/io5";
+import Slider from "@mui/material/Slider";
 
 export const ProductCardWrapper = () => {
   const [productView, setProductView] = useState([]);
   const [inWishlist, setInWishlist] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
   const [categoryFilterValue, setCategoryFilterValue] = useState("");
+  const [range, setRange] = useState([500, 10000]);
+  const [dropdownValue, setDropdownValue] = useState("");
   const isFav = false;
+
+  const mark = [
+    {
+      value: 500,
+      label: "₹500",
+    },
+    {
+      value: 2500,
+      label: "₹2500",
+    },
+    {
+      value: 5000,
+      label: "₹5000",
+    },
+    {
+      value: 7500,
+      label: "₹7500",
+    },
+    {
+      value: 10000,
+      label: "₹10000",
+    },
+  ];
+
+  const valueText = (value) => {
+    return `₹${value}`;
+  };
 
   useEffect(() => {
     showProducts();
@@ -23,6 +53,13 @@ export const ProductCardWrapper = () => {
       fetchWishlistProducts(buyerId);
     }
   }, [isFav]);
+
+  const handlePriceRange = (e, newValue) => {
+    setRange(newValue);
+    setTimeout(() => {
+      filterByPriceRange(newValue);
+    }, 1000);
+  };
 
   const showProducts = async () => {
     try {
@@ -44,8 +81,9 @@ export const ProductCardWrapper = () => {
 
   // console.log("product", productView);
 
-  const sortByLowToHigh = async () => {
+  const sortByLowToHigh = async (e) => {
     try {
+      setDropdownValue(e.target.text);
       const res = await axiosInstance.get("/product/sortByLowToHigh");
       if (res.status === 200) {
         console.log("sorted", res);
@@ -62,8 +100,9 @@ export const ProductCardWrapper = () => {
     }
   };
 
-  const sortByHighToLow = async () => {
+  const sortByHighToLow = async (e) => {
     try {
+      setDropdownValue(e.target.text);
       const res = await axiosInstance.get("/product/sortByHighToLow");
       if (res.status === 200) {
         console.log("sorted", res);
@@ -80,6 +119,24 @@ export const ProductCardWrapper = () => {
     }
   };
 
+  const sortByRatings = async (e) => {
+    try {
+      setDropdownValue(e.target.text);
+      const res = await axiosInstance.get("/product/sortByRating");
+      if (res.status === 200) {
+        console.log("sorted by rating", res);
+        setProductView(res?.data?.sortedByRating);
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on sorting by rating", error);
+    }
+  };
   const filterByCategory = async (selectedCatgeory) => {
     try {
       const res = await axiosInstance.get(
@@ -100,6 +157,28 @@ export const ProductCardWrapper = () => {
     }
   };
 
+  const filterByPriceRange = async (rangeValues) => {
+    try {
+      const minPrice = rangeValues[0];
+      const maxPrice = rangeValues[1];
+      const res = await axiosInstance.get(
+        `/product/priceRange?minPrice=${minPrice}&maxPrice=${maxPrice}`
+      );
+
+      if (res.status === 200) {
+        console.log("product in price range", res);
+        setProductView(res?.data?.productsByPriceRange);
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("No Products available in this range");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on filtering the product list", error);
+    }
+  };
   const fetchWishlistProducts = async (id) => {
     try {
       const res = await axiosInstance.get(`/wishlist/viewwishlist/${id}`);
@@ -155,15 +234,30 @@ export const ProductCardWrapper = () => {
               id="dropdown-basic"
               className={styles.dropdownContainer}
             >
-              Sort by Price
+              Sort By {`${dropdownValue}`}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item onClick={sortByLowToHigh}>
-                Low to High
+              <Dropdown.Item
+                onClick={(e) => {
+                  sortByLowToHigh(e);
+                }}
+              >
+                Price: Low to High
               </Dropdown.Item>
-              <Dropdown.Item onClick={sortByHighToLow}>
-                High to Low
+              <Dropdown.Item
+                onClick={(e) => {
+                  sortByHighToLow(e);
+                }}
+              >
+                Price: High to Low
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={(e) => {
+                  sortByRatings(e);
+                }}
+              >
+                Customer Ratings
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -188,6 +282,19 @@ export const ProductCardWrapper = () => {
               <option value="Women">Women</option>
               <option value="Accessories">Accessories</option>
             </select>
+          </div>
+          <div className={styles.sliderComponent}>
+            Filter By Price
+            <Slider
+              value={range}
+              onChange={handlePriceRange}
+              valueLabelDisplay="on"
+              min={500}
+              max={10000}
+              step={1000}
+              marks={mark}
+              getAriaValueText={valueText}
+            />
           </div>
         </div>
       )}

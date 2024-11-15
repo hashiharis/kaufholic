@@ -209,6 +209,24 @@ const sortByPriceDescending = async (req, res) => {
   }
 };
 
+const sortByRatingsDescending = async (req, res) => {
+  try {
+    const products = await ProductModel.find().sort({ avgRating: -1 });
+
+    if (products.length === 0) {
+      return res.status(400).json({ message: "Products not fetched" });
+    }
+
+    return res.status(200).json({
+      message: "Sorted on ratings high to low",
+      sortedByRating: products,
+    });
+  } catch (error) {
+    console.log("Error on sorting by rating", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
 const filterByCategory = async (req, res) => {
   try {
     const { category } = req.query;
@@ -238,18 +256,43 @@ const searchProduct = async (req, res) => {
       return res.status(400).json({ message: "Search query is required" });
     }
     const searchTerm = new RegExp(query, "i"); // i ignore case
-    console.log(searchTerm);
+    // console.log(searchTerm);
     const results = await ProductModel.find({
-      title: { $regex: new RegExp("^" + searchTerm.toLowerCase(), "i") },
+      title: searchTerm,
+      // { $regex: new RegExp("^" + searchTerm.toLowerCase(), "i") }
     });
 
-    if (results.length !== 0) {
+    if (results.length === 0) {
       return res.status(404).json({ message: "No results!!" });
     }
 
     return res.status(200).json({ message: "Search result", results: results });
   } catch (error) {
     console.log("Error on product search", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+const priceRangeFilter = async (req, res) => {
+  try {
+    const { minPrice, maxPrice } = req.query;
+
+    const productsInRange = await ProductModel.find({
+      currentPrice: { $gte: minPrice, $lte: maxPrice },
+    });
+
+    if (productsInRange.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No Products available in this price range" });
+    }
+
+    return res.status(200).json({
+      message: "Products in the range",
+      productsByPriceRange: productsInRange,
+    });
+  } catch (error) {
+    console.log("Error on product filtering by price range", error);
     return res.status(500).json({ message: "Server Error" });
   }
 };
@@ -261,6 +304,8 @@ module.exports = {
   addRatingToProduct,
   sortByPriceAscending,
   sortByPriceDescending,
+  sortByRatingsDescending,
   filterByCategory,
   searchProduct,
+  priceRangeFilter,
 };

@@ -13,6 +13,8 @@ const {
   sortByPriceDescending,
   filterByCategory,
   searchProduct,
+  priceRangeFilter,
+  sortByRatingsDescending,
 } = require("../controller/product.controller");
 const { calculateAvgRating } = require("../middlewares/validateAvgRating");
 const { upload } = require("../middlewares/imgUpload");
@@ -41,7 +43,9 @@ productRouter.patch(
 );
 productRouter.get("/sortByLowToHigh", sortByPriceAscending);
 productRouter.get("/sortByHighToLow", sortByPriceDescending);
+productRouter.get("/sortByRating", sortByRatingsDescending);
 productRouter.get("/filterByCategory", filterByCategory);
 productRouter.get("/search", searchProduct);
+productRouter.get("/priceRange", priceRangeFilter);
 
 module.exports = productRouter;

@@ -30,11 +30,16 @@
     padding-block:0.375em;
     border-radius:5px;
 }
+.sliderComponent{
+    padding-inline:5em;
+    padding-block:4em;
+}
 @media (min-width:768px){
     .productCardWrapper{
         display:grid;
         grid-template-columns: repeat(2,1fr);
     }
+
 }
 
 @media (min-width:1024px){
