@@ -1,27 +1,30 @@
+/* eslint-disable react/prop-types */
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import styles from "./sellerproductview.module.css";
 import emptyIllustration from "../../../assets/images/empty_illustration.png";
 import { BASE_URL } from "../../../apis/baseUrl";
+import { useNavigate } from "react-router-dom";
 
-export const SellerProductView = () => {
+export const SellerProductView = ({ changeActivePage, setCurrentProduct }) => {
   const [products, setProducts] = useState();
   const [isProductEmpty, setIsProductEmpty] = useState(false);
 
   useEffect(() => {
-    fetchAllProducts();
+    const sellerId = localStorage.getItem("kh-sellerId");
+    fetchAllProducts(sellerId);
   }, []);
 
-  const sellerId = localStorage.getItem("kh-sellerId");
+  const navigate = useNavigate();
 
-  const fetchAllProducts = async () => {
+  const fetchAllProducts = async (sellerId) => {
     try {
       const res = await axiosInstance.get(`product/fetchProduct/${sellerId}`);
       console.log("product data", res);
       if (res.status === 200) {
-        toast.success("data fetched");
         setProducts(res?.data?.data);
       }
     } catch (error) {
@@ -63,6 +66,16 @@ export const SellerProductView = () => {
                 <Card.Text>Original Price:{item.actualPrice}</Card.Text>
                 <Card.Text>Discount: {item.discountPercent}</Card.Text>
                 <Card.Text>{item.description}</Card.Text>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    // navigate(`/seller/editproductdetails/${item._id}`);
+                    changeActivePage("Edit_Products");
+                    setCurrentProduct(item._id);
+                  }}
+                >
+                  View Details
+                </Button>
               </Card.Body>
             </Card>
           ))}

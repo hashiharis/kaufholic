@@ -15,6 +15,7 @@ const {
   searchProduct,
   priceRangeFilter,
   sortByRatingsDescending,
+  editProductDetails,
 } = require("../controller/product.controller");
 const { calculateAvgRating } = require("../middlewares/validateAvgRating");
 const { upload } = require("../middlewares/imgUpload");
@@ -28,11 +29,13 @@ productRouter.post(
   validateDiscount,
   addProduct
 );
-// productRouter.post(
-//   "/testImageUpload",
-//   upload.single("productImage"),
-//   addProduct
-// );
+productRouter.patch(
+  "/editProductDetails/:productId",
+  upload.single("productImage"),
+  validateProductAddRequiredFields,
+  validateDiscount,
+  editProductDetails
+);
 productRouter.get("/fetchProduct/:sellerId", fetchProductsBySeller);
 productRouter.get("/viewall", getProducts);
 productRouter.get("/productDetail/:productId", getProductById);

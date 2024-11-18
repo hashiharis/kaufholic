@@ -8,10 +8,13 @@ import styles from "./sellerdashboard.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import { SellerProductEdit } from "../pages/SellerProductEdit";
+import { current } from "@reduxjs/toolkit";
 
 export const SellerDashboard = () => {
   const [activePage, setActivePage] = useState("Home");
   const [showMenu, setShowMenu] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState(null);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -42,7 +45,15 @@ export const SellerDashboard = () => {
             {activePage === "Add Product" && (
               <SellerAddProduct changeActivePage={changeActivePage} />
             )}
-            {activePage === "My Products" && <SellerProductView />}
+            {activePage === "My Products" && (
+              <SellerProductView
+                changeActivePage={changeActivePage}
+                setCurrentProduct={setCurrentProduct}
+              />
+            )}
+            {activePage === "Edit_Products" && (
+              <SellerProductEdit currentProduct={currentProduct} />
+            )}
           </Col>
         )}
       </Row>

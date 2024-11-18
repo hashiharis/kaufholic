@@ -1,0 +1,12 @@
+.productDetailEditWrapper{
+    margin:0 auto;
+    width:100%;
+}
+
+.productDetails{
+    padding-inline:2em;
+}
+
+.editFormWrapper{
+    padding-inline: 1em;
+}

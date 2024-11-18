@@ -112,6 +112,53 @@ const getProductById = async (req, res) => {
   }
 };
 
+const editProductDetails = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const {
+      title,
+      subtitle,
+      category,
+      actualPrice,
+      currentPrice,
+      discountPercent,
+      description,
+      productImage,
+    } = req.body;
+
+    if (!isValidId(productId)) {
+      return res
+        .status(404)
+        .json({ message: "Product with this id is not found" });
+    }
+    const updatedProduct = await ProductModel.findByIdAndUpdate(
+      productId,
+      {
+        title,
+        subtitle,
+        category,
+        actualPrice,
+        currentPrice,
+        discountPercent,
+        description,
+        productImage: req?.file?.filename,
+      },
+      { new: true }
+    );
+
+    if (!updatedProduct) {
+      return res.status(400).json({ message: "Product not updated" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Product updated successfully", data: updatedProduct });
+  } catch (error) {
+    console.log("Product details updation error", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
 const addRatingToProduct = async (req, res) => {
   try {
     const { rating } = req.body;
@@ -301,6 +348,7 @@ module.exports = {
   fetchProductsBySeller,
   getProducts,
   getProductById,
+  editProductDetails,
   addRatingToProduct,
   sortByPriceAscending,
   sortByPriceDescending,
