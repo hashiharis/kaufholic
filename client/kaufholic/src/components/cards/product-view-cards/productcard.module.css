@@ -13,13 +13,9 @@
 }
 
 .productImg{
-    /* background-image: url('../../../assets/images/photo-removebg-preview.png'); */
-    background-repeat: no-repeat;
-    background-color: #F7F7F7;
-    background-position: center;
-    background-size:contain;
-    width:100%;
-    min-height:300px;
+    width: 100%!important;
+    height: 300px !important;
+    object-fit: contain!important;
 }
 .productTitle{
     display:grid;

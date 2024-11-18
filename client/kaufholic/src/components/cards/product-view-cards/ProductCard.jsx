@@ -7,6 +7,7 @@ import { useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../../../apis/baseUrl";
 
 export const ProductCard = ({ fetchWishlistProducts, item, isFav }) => {
   const [rating, setRating] = useState(0);
@@ -101,7 +102,10 @@ export const ProductCard = ({ fetchWishlistProducts, item, isFav }) => {
 
   return (
     <div className={styles.productCards}>
-      <div className={styles.productImg}>Placeholder</div>
+      <img
+        className={styles.productImg}
+        src={`${BASE_URL}/${item.productImage}`}
+      />
       <div className={styles.productDetails}>
         <div className={styles.productTitle}>
           <p className={styles.title}>{item.title}</p>
