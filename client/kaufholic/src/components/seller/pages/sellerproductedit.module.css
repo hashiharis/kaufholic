@@ -4,9 +4,21 @@
 }
 
 .productDetails{
-    padding-inline:2em;
+   padding-block:1em;
 }
 
 .editFormWrapper{
     padding-inline: 1em;
+}
+
+@media (min-width:768px){
+    .productDetailEditWrapper{
+       padding-inline: 15em;
+    }
+}
+
+@media (min-width:1024px){
+    .productDetailEditWrapper{
+        padding-inline: 13em;
+    }
 }

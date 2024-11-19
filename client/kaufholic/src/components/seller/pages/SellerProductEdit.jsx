@@ -6,6 +6,7 @@ import styles from "./sellerproductedit.module.css";
 import { BASE_URL } from "../../../apis/baseUrl";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Button from "react-bootstrap/Button";
 
 export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
   const [productDetails, setProductDetails] = useState({});
@@ -161,7 +162,9 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
           <p>Current Price:{currentPrice}</p>
           <p>Discount Percent:{discountPercent}</p>
           <p>Description:{description}</p>
-          <button onClick={handleEdit}>Edit</button>
+          <Button variant="primary" onClick={handleEdit}>
+            Edit
+          </Button>
         </div>
       ) : (
         <div className={styles.editFormWrapper}>
@@ -274,7 +277,9 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
               />
             </Form.Group>
 
-            <button onClick={handleSubmit}>Update</button>
+            <Button variant="primary" onClick={handleSubmit}>
+              Update
+            </Button>
           </Form>
         </div>
       )}

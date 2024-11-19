@@ -310,7 +310,7 @@ const searchProduct = async (req, res) => {
     });
 
     if (results.length === 0) {
-      return res.status(404).json({ message: "No results!!" });
+      return res.status(404).json({ message: "No results found!!" });
     }
 
     return res.status(200).json({ message: "Search result", results: results });

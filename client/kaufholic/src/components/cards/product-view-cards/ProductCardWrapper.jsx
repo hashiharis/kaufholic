@@ -8,6 +8,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import { IoFilterOutline } from "react-icons/io5";
 import Slider from "@mui/material/Slider";
+import { CiSearch } from "react-icons/ci";
+import { Footer } from "../../footer/Footer";
 
 export const ProductCardWrapper = () => {
   const [productView, setProductView] = useState([]);
@@ -16,6 +18,8 @@ export const ProductCardWrapper = () => {
   const [categoryFilterValue, setCategoryFilterValue] = useState("");
   const [range, setRange] = useState([500, 10000]);
   const [dropdownValue, setDropdownValue] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [resultsFound, setResultsFound] = useState("results found");
   const isFav = false;
 
   const mark = [
@@ -53,6 +57,20 @@ export const ProductCardWrapper = () => {
       fetchWishlistProducts(buyerId);
     }
   }, [isFav]);
+
+  //  Debouncing for search results
+  useEffect(() => {
+    const searchResults = setTimeout(() => {
+      if (searchQuery) {
+        getSearchData(searchQuery);
+      } else {
+        setResultsFound("results found");
+        showProducts();
+      }
+    }, 2000);
+
+    return () => clearTimeout(searchResults);
+  }, [searchQuery]);
 
   const handlePriceRange = (e, newValue) => {
     setRange(newValue);
@@ -179,6 +197,27 @@ export const ProductCardWrapper = () => {
       console.log("Error on filtering the product list", error);
     }
   };
+
+  const getSearchData = async (searchTerm) => {
+    try {
+      const res = await axiosInstance.get(
+        `/product/search?query=${searchTerm}`
+      );
+      if (res.status === 200) {
+        // console.log("search data", res?.data?.results);
+        setProductView(res?.data?.results);
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("No Results found");
+        setResultsFound("no results found");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on searching the product list", error);
+    }
+  };
   const fetchWishlistProducts = async (id) => {
     try {
       const res = await axiosInstance.get(`/wishlist/viewwishlist/${id}`);
@@ -224,6 +263,7 @@ export const ProductCardWrapper = () => {
     }
   };
   console.log(categoryFilterValue);
+  console.log("query", searchQuery);
   return (
     <>
       <BuyerNav />
@@ -262,6 +302,18 @@ export const ProductCardWrapper = () => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
+        <div className={styles.searchSection}>
+          <input
+            type="search"
+            placeholder="Search for Products"
+            className={styles.searchBox}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+            }}
+            value={searchQuery}
+          />
+          <CiSearch className={styles.searchIcon} size={"20px"} />
+        </div>
         <div>
           <Button onClick={showFilterOptions} className={styles.filterBtn}>
             <IoFilterOutline />
@@ -298,21 +350,26 @@ export const ProductCardWrapper = () => {
           </div>
         </div>
       )}
-      <div className={styles.productCardWrapper}>
-        {productView?.map((item, index) => {
-          const isFavourite = isProductInWishlist(item._id);
-          return (
-            <ProductCard
-              key={index}
-              item={item}
-              isFav={isFavourite}
-              fetchWishlistProducts={fetchWishlistProducts} // passing the fetchwishlist api function inorder to invoke a rerender of the isFav
-              // when api is triggered, the inwishlist update function is re rendered again, which inturn allows the
-              //execution of the inProductInWishlist function.
-            />
-          );
-        })}
-      </div>
+      {resultsFound === "results found" ? (
+        <div className={styles.productCardWrapper}>
+          {productView?.map((item, index) => {
+            const isFavourite = isProductInWishlist(item._id);
+            return (
+              <ProductCard
+                key={index}
+                item={item}
+                isFav={isFavourite}
+                fetchWishlistProducts={fetchWishlistProducts} // passing the fetchwishlist api function inorder to invoke a rerender of the isFav
+                // when api is triggered, the inwishlist update function is re rendered again, which inturn allows the
+                //execution of the inProductInWishlist function.
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className={styles.noResults}></div>
+      )}
+      <Footer />
     </>
   );
 };

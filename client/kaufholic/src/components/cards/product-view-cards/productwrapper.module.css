@@ -1,8 +1,11 @@
 .filterSortSection{
-    display: flex;
-    justify-content: space-between;
-    padding-inline:1em;
+ 
+    padding-inline:3em;
     padding-top:2em;
+}
+
+.filterSortSection div{
+    padding-bottom:1em;
 }
 
 .filterSection{
@@ -12,12 +15,15 @@
 
 .productCardWrapper{
     margin-top:2em;
+    padding-bottom:2em;
+    
 }
 
 .dropdownContainer,.filterBtn{
     background: none !important;
     color:var(--navbar-background)!important;
     border-color:var(--navbar-background)!important;
+    padding-inline:5em;
 }
 .filterBtn{
     display: flex;
@@ -34,12 +40,64 @@
     padding-inline:5em;
     padding-block:4em;
 }
+
+.searchSection{
+    margin-bottom:1em;
+}
+
+.searchBox{
+    position: absolute;
+    padding-inline: 2em;
+    padding-block:0.2em;
+    border-radius: 20px;
+    border-color: var(--navbar-background);
+    background-color: #f3f3f6;
+    
+}
+.searchBox:focus{
+    border: 2px solid #3584ca !important;
+    outline: none;
+}
+
+.searchBox:hover{
+    background-color:white;
+}
+
+.searchIcon{
+    position: relative;
+    left: 210px;
+    cursor: pointer;
+}
+.noResults{
+    background-image: url('../../../assets/images/no-results-found.png');
+    max-width:100%;
+    min-height: 50vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 @media (min-width:768px){
     .productCardWrapper{
         display:grid;
         grid-template-columns: repeat(2,1fr);
+        padding-inline: 1em;
     }
 
+    .filterSortSection{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top:2em;
+    }
+
+    .dropdownContainer,.filterBtn{
+        padding-inline:1em;
+    }
+
+    .searchSection{
+        padding-right:12em;
+    }
+   
 }
 
 @media (min-width:1024px){
