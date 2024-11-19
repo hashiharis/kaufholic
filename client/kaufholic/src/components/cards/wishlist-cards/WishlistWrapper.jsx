@@ -4,6 +4,7 @@ import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
 import styles from "./wishlistwrapper.module.css";
+import { Footer } from "../../footer/Footer";
 
 export const WishlistWrapper = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -53,6 +54,7 @@ export const WishlistWrapper = () => {
           ))}
         </div>
       )}
+      <Footer />
     </>
   );
 };

@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Footer } from "../../footer/Footer";
 
 export const ProductDetail = () => {
   const { productId } = useParams();
@@ -101,6 +102,7 @@ export const ProductDetail = () => {
         </div>
       </div>
       <ProductTab />
+      <Footer />
     </>
   );
 };
