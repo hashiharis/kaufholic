@@ -11,6 +11,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { FaRegHeart } from "react-icons/fa";
 import { IoPersonOutline } from "react-icons/io5";
 import { FaTags } from "react-icons/fa";
+import { IoCartOutline } from "react-icons/io5";
 
 export const BuyerNav = () => {
   const [buyerData, setBuyerData] = useState({
@@ -20,12 +21,12 @@ export const BuyerNav = () => {
 
   // const { crntBuyer } = useSelector(selectCurrentBuyerDetails);
   const dispatch = useDispatch();
-
+  const buyerId = localStorage.getItem("kh-buyerId") || null;
   useEffect(() => {
     // if (buyerId) {
     //   fetchCurrentBuyerDetails(buyerId);
     // }
-    const buyerId = localStorage.getItem("kh-buyerId") || null;
+    // const buyerId = localStorage.getItem("kh-buyerId") || null;
 
     const token = localStorage.getItem("kh-buyerToken") || null;
 
@@ -93,7 +94,7 @@ export const BuyerNav = () => {
         className={` ${styles.buyerNavWrapper} bg-body-tertiary`}
       >
         <Container>
-          <Navbar.Brand href="#home" className={styles.logo}></Navbar.Brand>
+          <Navbar.Brand href="/" className={styles.logo}></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-lg`}
@@ -107,7 +108,10 @@ export const BuyerNav = () => {
             ></Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className={`justify-content-end flex-grow-1 pe-3`}>
-                <Nav.Link href="#action1" className={`${styles.link}`}>
+                <Nav.Link
+                  href="/buyer/viewproducts"
+                  className={`${styles.link}`}
+                >
                   <FaTags size="20px" className={styles.icon} />
                   Products
                 </Nav.Link>
@@ -118,9 +122,16 @@ export const BuyerNav = () => {
                   <IoPersonOutline size="20px" className={styles.icon} />
                   {buyerData.name ? `Hi ${buyerData.name}` : `SignIn`}
                 </Nav.Link>
-                <Nav.Link href="#action2" className={`${styles.link}`}>
+                <Nav.Link href="/buyer/wishlist" className={`${styles.link}`}>
                   <FaRegHeart size="20px" className={styles.icon} />
                   Wishlist
+                </Nav.Link>
+                <Nav.Link
+                  href={`/cart/${buyerId}`}
+                  className={`${styles.link}`}
+                >
+                  <IoCartOutline size="20px" className={styles.icon} />
+                  Cart
                 </Nav.Link>
               </Nav>
             </Offcanvas.Body>

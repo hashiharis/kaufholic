@@ -17,7 +17,7 @@ export const SellerAddProduct = ({ changeActivePage }) => {
     description: "",
     sellerId: localStorage.getItem("kh-sellerId"),
   });
-  const [prodImg, setProdImg] = useState(null);
+  const [prodImg, setProdImg] = useState("");
 
   const {
     title,
@@ -59,8 +59,10 @@ export const SellerAddProduct = ({ changeActivePage }) => {
       [e.target.name]: e.target.value,
     });
 
-    const imgFile = e.target.files[0];
-    setProdImg(imgFile);
+    if (e.target.files) {
+      const imgFile = e.target.files[0];
+      setProdImg(imgFile);
+    }
   };
 
   const validationProductFields = () => {

@@ -12,6 +12,7 @@ import { ProductCardWrapper } from "./components/cards/product-view-cards/Produc
 import { WishlistWrapper } from "./components/cards/wishlist-cards/WishlistWrapper";
 import { ProductDetail } from "./components/pdp/productfirstdetail/ProductDetail";
 import { SellerProductEdit } from "./components/seller/pages/SellerProductEdit";
+import { CartPaymentTab } from "./components/cartandpayment/CartPaymentTab";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<LandingPageWrapper />} />
+        <Route path="/cart/:buyerId/" element={<CartPaymentTab />} />
         <Route path="/seller/signup" element={<SignUp />} />
         <Route path="/seller/signin" element={<SignIn />} />
         <Route path="/buyer/signin" element={<BuyerSignIn />} />

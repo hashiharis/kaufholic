@@ -8,14 +8,21 @@ import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
 import { FaRegHeart } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../../../apis/axiosInstance";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Footer } from "../../footer/Footer";
+import { BASE_URL } from "../../../apis/baseUrl";
+import { FaArrowRight } from "react-icons/fa";
 
 export const ProductDetail = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
+  const [addedToCart, setAddedToCart] = useState("not added to cart");
+  const buyerId = localStorage.getItem("kh-buyerId") || null;
 
+  const navigate = useNavigate();
+
+  // console.log(productId);
   const getProduct = async (productId) => {
     try {
       const res = await axiosInstance.get(
@@ -38,6 +45,27 @@ export const ProductDetail = () => {
   };
   console.log("state", product);
 
+  const addProductToCart = async (byrId, prdctId) => {
+    try {
+      const res = await axiosInstance.post(
+        `/cart/addToCart/${byrId}/${prdctId}`
+      );
+
+      if (res.status === 200) {
+        toast.success("Product added to cart successfully");
+        setAddedToCart("added to cart");
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on adding product to cart", error);
+    }
+  };
+
   useEffect(() => {
     if (productId) {
       getProduct(productId);
@@ -52,12 +80,16 @@ export const ProductDetail = () => {
     actualPrice,
     discountPercent,
     review,
+    productImage,
   } = product;
   return (
     <>
       <BuyerNav />
       <div className={styles.productFirstSection}>
-        <div className={styles.productImg}>Placeholder</div>
+        <img
+          className={styles.productImg}
+          src={`${BASE_URL}/${productImage}`}
+        />
         <div className={styles.productIntro}>
           <div className={styles.productTitleSection}>
             <p className={styles.title}>{title}</p>
@@ -94,10 +126,27 @@ export const ProductDetail = () => {
             <button className={`${styles.buyBtn} ${styles.pdpBtn}`}>
               Buy Now
             </button>
-            <button className={`${styles.addToCartBtn} ${styles.pdpBtn}`}>
-              <BiSolidCartAdd size={"20px"} />
-              Add to cart
-            </button>
+            {addedToCart === "added to cart" ? (
+              <button
+                className={`${styles.goToCartBtn} ${styles.pdpBtn}`}
+                onClick={() => {
+                  navigate(`/cart/${buyerId}`);
+                }}
+              >
+                Go to Cart
+                <FaArrowRight size={"20px"} />
+              </button>
+            ) : (
+              <button
+                className={`${styles.addToCartBtn} ${styles.pdpBtn}`}
+                onClick={() => {
+                  addProductToCart(buyerId, productId);
+                }}
+              >
+                <BiSolidCartAdd size={"20px"} />
+                Add to cart
+              </button>
+            )}
           </div>
         </div>
       </div>

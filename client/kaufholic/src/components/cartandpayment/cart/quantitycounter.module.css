@@ -1,0 +1,21 @@
+.counterSection{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    gap:1em;
+    border:1px solid #C4C4C4;
+    border-radius:10px;
+    max-width:100%;
+    flex-wrap: nowrap;
+}
+
+.counterBtn{
+    border:none;
+    background: none;
+    cursor: pointer;
+}
+
+.counter{
+    padding-top:0.5em;
+}
+

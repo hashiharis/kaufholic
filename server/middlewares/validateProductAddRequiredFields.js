@@ -29,7 +29,7 @@ const validateDiscount = (req, res, next) => {
     // console.log(typeof discountPercent, typeof actualPrice);
     // let discountPercentNum = parseFloat(discountPercent);
     // let actualPriceNum = parseFloat(actualPrice);
-    if (!(discountPercent > 0 && discountPercent < 100)) {
+    if (!(discountPercent >= 0 && discountPercent < 100)) {
       return res
         .status(400)
         .json({ message: "DiscountPercent is not in the limit" });
