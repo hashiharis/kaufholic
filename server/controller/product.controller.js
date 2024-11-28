@@ -161,7 +161,9 @@ const editProductDetails = async (req, res) => {
 
 const addRatingToProduct = async (req, res) => {
   try {
-    const { rating } = req.body;
+    const { rating, reviewMessage, buyerName } = req.body;
+
+    // console.log("body", rating, reviewMessage, buyerName);
     const { productId, buyerId } = req.params;
 
     if (!isValidId(productId)) {
@@ -185,7 +187,8 @@ const addRatingToProduct = async (req, res) => {
         {
           $set: {
             "review.$.rating": rating,
-            "review.$.reviewMessage": null,
+            "review.$.buyerName": buyerName || null,
+            "review.$.reviewMessage": reviewMessage || null,
           },
         }
       );
@@ -198,7 +201,8 @@ const addRatingToProduct = async (req, res) => {
             review: {
               buyerId: buyerId,
               rating: rating,
-              reviewMessage: null,
+              buyerName: buyerName || null,
+              reviewMessage: reviewMessage || null,
             },
           },
         }
@@ -220,6 +224,28 @@ const addRatingToProduct = async (req, res) => {
   }
 };
 
+const getReviews = async (req, res) => {
+  try {
+    const { productId } = req.params;
+
+    if (!isValidId(productId)) {
+      return res.status(400).json({ message: "Product Id is not valid" });
+    }
+
+    const review = await ProductModel.findById(productId);
+
+    if (review.review.length === 0) {
+      return res.status(404).json({ message: "Review empty" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Review fetched successfully", data: review.review });
+  } catch (error) {
+    console.log("Error on fetching reviews", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
 const sortByPriceAscending = async (req, res) => {
   try {
     const products = await ProductModel.find().sort({ currentPrice: 1 });
@@ -350,6 +376,7 @@ module.exports = {
   getProductById,
   editProductDetails,
   addRatingToProduct,
+  getReviews,
   sortByPriceAscending,
   sortByPriceDescending,
   sortByRatingsDescending,

@@ -22,7 +22,7 @@ export const ProductDetail = () => {
 
   const navigate = useNavigate();
 
-  // console.log(productId);
+  console.log(productId);
   const getProduct = async (productId) => {
     try {
       const res = await axiosInstance.get(
@@ -150,7 +150,7 @@ export const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <ProductTab />
+      <ProductTab productId={productId} />
       <Footer />
     </>
   );

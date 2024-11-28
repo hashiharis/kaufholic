@@ -55,6 +55,10 @@ const productSchema = new Schema(
           ref: "Buyer",
           required: true,
         },
+        buyerName: {
+          type: String,
+          required: false,
+        },
         reviewMessage: {
           type: String,
           required: false,
@@ -64,6 +68,10 @@ const productSchema = new Schema(
           required: true,
           min: 1,
           max: 5,
+        },
+        postedDate: {
+          type: Date,
+          default: Date.now,
         },
       },
     ],

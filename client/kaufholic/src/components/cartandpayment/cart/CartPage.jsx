@@ -58,6 +58,8 @@ export const CartPage = () => {
         toast.error("Please try again after sometime");
       }
       console.log("Error on deleting item from cart", error);
+    } finally {
+      fetchCartItems(buyerId);
     }
   };
 
@@ -95,7 +97,6 @@ export const CartPage = () => {
                       style={{ cursor: "pointer" }}
                       onClick={() => {
                         removeCartItem(buyerId, item.productId._id);
-                        fetchCartItems(buyerId);
                       }}
                     />
                   </p>
@@ -126,6 +127,7 @@ export const CartPage = () => {
                 <td>₹480</td>
               </tr>
             </table>
+            <button className={styles.buyNowBtn}>Shop Now</button>
           </div>
         </div>
       )}

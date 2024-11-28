@@ -1,5 +1,6 @@
 .tab{
     margin-top:1em;
+    padding-inline:2em;
 }
 .tabCcontent{
     height: 60vh !important;
