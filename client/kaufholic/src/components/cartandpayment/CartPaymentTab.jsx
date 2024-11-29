@@ -4,6 +4,7 @@ import { BuyerNav } from "../navbar/usernavbar/buyernavbar/BuyerNav";
 import { Footer } from "../footer/Footer";
 import { CartPage } from "./cart/CartPage";
 import styles from "./cartpaymenttab.module.css";
+import { CustomerDetails } from "./customerdetails/CustomerDetails";
 
 export const CartPaymentTab = () => {
   return (
@@ -18,7 +19,7 @@ export const CartPaymentTab = () => {
           <CartPage />
         </Tab>
         <Tab eventKey="customer_details" title="Customer Details">
-          Tab content for customer details
+          <CustomerDetails />
         </Tab>
         <Tab eventKey="payment" title="Payment">
           Tab content for payment
