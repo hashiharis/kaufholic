@@ -1,29 +1,26 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
 import styles from "./quantitycounter.module.css";
 
-export const QuantityCounter = () => {
-  const [value, setValue] = useState(0);
-
-  const handleIncrement = () => {
-    setValue((prevValue) => prevValue + 1);
-  };
-
-  const handleDecrement = () => {
-    if (value > 0) {
-      setValue((prevValue) => prevValue - 1);
-    } else {
-      setValue(0);
-    }
-  };
+export const QuantityCounter = ({
+  cartProductDetails,
+  handleIncrement,
+  handleDecrement,
+  pId,
+}) => {
   return (
     <div className={styles.counterSection}>
       <button className={styles.counterBtn} onClick={handleIncrement}>
         +
       </button>
-      <p className={styles.counter}>{value}</p>
+      {cartProductDetails?.map((item, index) => (
+        <p key={index} className={styles.counter}>
+          {item?.productId === pId && item.quantity}
+        </p>
+      ))}
       <button className={styles.counterBtn} onClick={handleDecrement}>
         -
       </button>
     </div>
   );
 };
+// {value === 11 ? value - 1 : value}

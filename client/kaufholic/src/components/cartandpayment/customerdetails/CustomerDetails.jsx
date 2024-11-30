@@ -4,10 +4,29 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import styles from "./customerdetails.module.css";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { saveCustomerDetails } from "./customerDetailsSlice";
+import toast from "react-hot-toast";
 
-export const CustomerDetails = () => {
+export const CustomerDetails = ({ setKey }) => {
   const [validated, setValidated] = useState(false);
+  const [checkoutDetails, setCheckoutDetails] = useState({
+    email: "",
+    fName: "",
+    lName: "",
+    stateRegion: "",
+    address: "",
+    contact: "",
+  });
 
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    setCheckoutDetails({
+      ...checkoutDetails,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -16,6 +35,22 @@ export const CustomerDetails = () => {
       event.stopPropagation();
     }
     setValidated(true);
+    console.log("checkoutDetails", checkoutDetails);
+    if (validateEmptyFields()) {
+      dispatch(saveCustomerDetails(checkoutDetails));
+      setKey("payment");
+    }
+  };
+
+  const validateEmptyFields = () => {
+    const { email, fName, lName, stateRegion, address, contact } =
+      checkoutDetails;
+
+    if (!email || !fName || !lName || !stateRegion || !address || !contact) {
+      toast.error("Please fill all required fields!!!");
+      return false;
+    }
+    return true;
   };
   return (
     <div className={styles.customerWrapper}>
@@ -27,7 +62,13 @@ export const CustomerDetails = () => {
           className={styles.formFields}
         >
           <Form.Label>E-mail</Form.Label>
-          <Form.Control required type="email" placeholder="Email" />
+          <Form.Control
+            required
+            type="email"
+            placeholder="Email"
+            name="email"
+            onChange={handleChange}
+          />
           <Form.Control.Feedback type="invalid">
             Please enter your email
           </Form.Control.Feedback>
@@ -35,14 +76,26 @@ export const CustomerDetails = () => {
         <Row>
           <Form.Group as={Col} md="4" controlId="validationCustom02">
             <Form.Label>First Name</Form.Label>
-            <Form.Control required type="text" placeholder="First Name" />
+            <Form.Control
+              required
+              type="text"
+              placeholder="First Name"
+              name="fName"
+              onChange={handleChange}
+            />
             <Form.Control.Feedback type="invalid">
               Please enter first name
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationCustom03">
             <Form.Label>Last Name</Form.Label>
-            <Form.Control required type="text" placeholder="Last Name" />
+            <Form.Control
+              required
+              type="text"
+              placeholder="Last Name"
+              name="lName"
+              onChange={handleChange}
+            />
             <Form.Control.Feedback type="invalid">
               Please enter last name
             </Form.Control.Feedback>
@@ -55,7 +108,13 @@ export const CustomerDetails = () => {
           className={styles.formFields}
         >
           <Form.Label>State/Region</Form.Label>
-          <Form.Control required type="text" placeholder="State/Region" />
+          <Form.Control
+            required
+            type="text"
+            placeholder="State/Region"
+            name="stateRegion"
+            onChange={handleChange}
+          />
           <Form.Control.Feedback type="invalid">
             Please enter state/region
           </Form.Control.Feedback>
@@ -66,7 +125,13 @@ export const CustomerDetails = () => {
           className={styles.formFields}
         >
           <Form.Label>Address</Form.Label>
-          <Form.Control required type="text" placeholder="Address" />
+          <Form.Control
+            required
+            type="text"
+            placeholder="Address"
+            name="address"
+            onChange={handleChange}
+          />
           <Form.Control.Feedback type="invalid">
             Please enter address
           </Form.Control.Feedback>
@@ -77,7 +142,13 @@ export const CustomerDetails = () => {
           className={styles.formFields}
         >
           <Form.Label>Contact No</Form.Label>
-          <Form.Control required type="number" placeholder="Contact number" />
+          <Form.Control
+            required
+            type="number"
+            placeholder="Contact number"
+            name="contact"
+            onChange={handleChange}
+          />
           <Form.Control.Feedback type="invalid">
             Please enter contact number
           </Form.Control.Feedback>

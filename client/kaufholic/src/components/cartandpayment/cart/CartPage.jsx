@@ -6,10 +6,71 @@ import { useParams } from "react-router-dom";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { BASE_URL } from "../../../apis/baseUrl";
-export const CartPage = () => {
+import { useDispatch } from "react-redux";
+import { saveProductDetails } from "../customerdetails/customerDetailsSlice";
+
+export const CartPage = ({ eventKey, setKey }) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartEmpty, setIsCartEmpty] = useState(false);
+  const [cartProductDetails, setCartProductDetails] = useState([
+    {
+      productId: "",
+      quantity: 1,
+    },
+  ]);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      const updCartItems = cartItems.map((item) => ({
+        productId: item.productId._id,
+        quantity: 1,
+      }));
+      setCartProductDetails(updCartItems);
+    }
+  }, [cartItems]);
+
+  console.log("cartProduct", cartProductDetails);
+
   const { buyerId } = useParams();
+
+  const handleIncrement = (pId) => {
+    const incrementQuantity = cartProductDetails.map((product) => {
+      if (product.productId === pId && product.quantity < 10) {
+        return {
+          ...product,
+          quantity: product.quantity + 1,
+        };
+      }
+
+      return product;
+    });
+    setCartProductDetails(incrementQuantity);
+  };
+
+  const [product] = cartProductDetails; //Destructuring cartProductDetails array of objects
+  console.log("quantity", product.productId, product.quantity);
+
+  const handleDecrement = (pId) => {
+    const decrementQuantity = cartProductDetails.map((product) => {
+      if (product.productId === pId && product.quantity > 1) {
+        return {
+          ...product,
+          quantity: product.quantity - 1,
+        };
+      }
+      return product;
+    });
+    setCartProductDetails(decrementQuantity);
+  };
+
+  const handleClick = () => {
+    if (cartItems.length > 0) {
+      dispatch(saveProductDetails(cartProductDetails)); //saving cart product details to redux
+      setKey("customer_details");
+    }
+  };
 
   useEffect(() => {
     if (buyerId) {
@@ -86,7 +147,16 @@ export const CartPage = () => {
                   </div>
                   <p className={styles.price}>₹{item.productId.currentPrice}</p>
                   <p className={styles.quantity}>
-                    <QuantityCounter />
+                    <QuantityCounter
+                      cartProductDetails={cartProductDetails}
+                      handleIncrement={() => {
+                        handleIncrement(item.productId._id);
+                      }}
+                      handleDecrement={() => {
+                        handleDecrement(item.productId._id);
+                      }}
+                      pId={item.productId._id}
+                    />
                   </p>
                   <p className={styles.priceQuantity}>
                     Price based on quantity
@@ -127,7 +197,9 @@ export const CartPage = () => {
                 <td>₹480</td>
               </tr>
             </table>
-            <button className={styles.buyNowBtn}>Shop Now</button>
+            <button className={styles.buyNowBtn} onClick={handleClick}>
+              Shop Now
+            </button>
           </div>
         </div>
       )}
