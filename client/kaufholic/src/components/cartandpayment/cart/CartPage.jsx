@@ -17,9 +17,12 @@ export const CartPage = ({ eventKey, setKey }) => {
       productId: "",
       productImage: "",
       productTitle: "",
+      productPrice: "",
       quantity: 1,
     },
   ]);
+
+  // const [orderPrice, setOrderPrice] = useState({});
 
   const dispatch = useDispatch();
 
@@ -29,11 +32,17 @@ export const CartPage = ({ eventKey, setKey }) => {
         productId: item.productId._id,
         productImage: item.productId.productImage,
         productTitle: item.productId.title,
+        productPrice: item.productId.currentPrice,
         quantity: 1,
       }));
       setCartProductDetails(updCartItems);
     }
   }, [cartItems]);
+
+  // useEffect(() => {
+  //   if (cartProductDetails.length > 0) {
+  //   }
+  // }, []);
 
   console.log("cartProduct", cartProductDetails);
 
@@ -75,7 +84,26 @@ export const CartPage = ({ eventKey, setKey }) => {
       setKey("customer_details");
     }
   };
+  // const [products] = cartItems;
+  // const { productId } = products;
+  // console.log("test", productId.currentPrice, productId.discountPercent);
 
+  const orderPrice = cartProductDetails.reduce(
+    (sum, item) => sum + item.productPrice,
+    0
+  );
+
+  const priceByQuantity = cartProductDetails.reduce(
+    (mul, item) => mul + item.productPrice * item.quantity,
+    0
+  );
+
+  const totalDiscountPrice = cartItems.reduce(
+    (sum, item) => sum + item.productId.discountPriceApplied,
+    0
+  );
+
+  console.log("totalDis", totalDiscountPrice);
   useEffect(() => {
     if (buyerId) {
       fetchCartItems(buyerId);
@@ -162,9 +190,16 @@ export const CartPage = ({ eventKey, setKey }) => {
                       pId={item.productId._id}
                     />
                   </p>
+
                   <p className={styles.priceQuantity}>
-                    Price based on quantity
+                    {cartProductDetails.map((pdt, index) => (
+                      <div key={index}>
+                        {pdt.productId === item.productId._id &&
+                          pdt.productPrice * pdt.quantity}
+                      </div>
+                    ))}
                   </p>
+
                   <p className={styles.delete}>
                     <MdOutlineDelete
                       size={"20px"}
@@ -185,20 +220,20 @@ export const CartPage = ({ eventKey, setKey }) => {
             <table className={styles.orderDetails}>
               <tr>
                 <td>Price</td>
-                <td>₹500</td>
+                <td>₹{priceByQuantity}</td>
               </tr>
               <tr>
                 <td>Shipping Charge</td>
                 <td>₹0</td>
               </tr>
               <tr>
-                <td>Discount Price</td>
-                <td>₹20</td>
+                <td>You saved</td>
+                <td>₹{totalDiscountPrice}</td>
               </tr>
               <hr />
               <tr className={styles.totalOrderPrice}>
                 <td>Total Price</td>
-                <td>₹480</td>
+                <td>₹{priceByQuantity - totalDiscountPrice}</td>
               </tr>
             </table>
             <button className={styles.buyNowBtn} onClick={handleClick}>
