@@ -1,0 +1,36 @@
+.crCardWrapper{
+    margin-block:2em;
+    padding-inline:2em;
+}
+.title{
+    text-align: center;
+    padding-block:1em;
+}
+
+.pdtImage{
+    width:10%;
+    object-fit: contain;
+    min-height: 50px;
+}
+
+.checkoutProducts{
+    display: flex;
+    gap:1em;
+    justify-content: center;
+    align-items: center;
+    padding-block:1em;
+}
+
+.modalContainer{
+    font-size: 0.875rem;
+}
+.modalTitle{
+    font-size: 1rem;
+    font-weight:600;
+}
+@media (min-width:768px){
+    .crCardForm{
+        max-width:50%;
+       margin:0 auto;
+    }
+}

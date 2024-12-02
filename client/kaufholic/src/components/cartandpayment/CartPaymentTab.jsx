@@ -6,6 +6,7 @@ import { CartPage } from "./cart/CartPage";
 import styles from "./cartpaymenttab.module.css";
 import { CustomerDetails } from "./customerdetails/CustomerDetails";
 import { useState } from "react";
+import { PaymentCardDetails } from "./paymentpage/PaymentCardDetails";
 
 export const CartPaymentTab = () => {
   const [key, setKey] = useState("cart");
@@ -27,7 +28,7 @@ export const CartPaymentTab = () => {
           <CustomerDetails setKey={setKey} />
         </Tab>
         <Tab eventKey="payment" title="Payment">
-          Tab content for payment
+          <PaymentCardDetails setKey={setKey} />
         </Tab>
       </Tabs>
       <Footer />

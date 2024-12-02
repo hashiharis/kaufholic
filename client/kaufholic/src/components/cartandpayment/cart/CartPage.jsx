@@ -15,6 +15,8 @@ export const CartPage = ({ eventKey, setKey }) => {
   const [cartProductDetails, setCartProductDetails] = useState([
     {
       productId: "",
+      productImage: "",
+      productTitle: "",
       quantity: 1,
     },
   ]);
@@ -25,6 +27,8 @@ export const CartPage = ({ eventKey, setKey }) => {
     if (cartItems.length > 0) {
       const updCartItems = cartItems.map((item) => ({
         productId: item.productId._id,
+        productImage: item.productId.productImage,
+        productTitle: item.productId.title,
         quantity: 1,
       }));
       setCartProductDetails(updCartItems);

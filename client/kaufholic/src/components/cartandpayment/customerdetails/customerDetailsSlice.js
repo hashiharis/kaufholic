@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   customerDetails: {},
   productDetails: [],
+  paymentDetails: {},
 };
 
 export const customerDetailsSlice = createSlice({
@@ -25,10 +26,21 @@ export const customerDetailsSlice = createSlice({
     saveProductDetails: (state, action) => {
       state.productDetails = action.payload;
     },
+    saveCardDetails: (state, action) => {
+      let { cardHName, cardNo, expiryDate, cvv } = action.payload;
+
+      let obj = {
+        cardHName,
+        cardNo,
+        expiryDate,
+        cvv,
+      };
+      state.paymentDetails = obj;
+    },
   },
 });
 
 export const selectCustomerDetails = (state) => state.customerDetails;
-export const { saveCustomerDetails, saveProductDetails } =
+export const { saveCustomerDetails, saveProductDetails, saveCardDetails } =
   customerDetailsSlice.actions;
 export default customerDetailsSlice.reducer;

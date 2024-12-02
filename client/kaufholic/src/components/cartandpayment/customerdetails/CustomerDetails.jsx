@@ -11,12 +11,12 @@ import toast from "react-hot-toast";
 export const CustomerDetails = ({ setKey }) => {
   const [validated, setValidated] = useState(false);
   const [checkoutDetails, setCheckoutDetails] = useState({
-    email: "",
-    fName: "",
-    lName: "",
-    stateRegion: "",
-    address: "",
-    contact: "",
+    email: "abc@gmail.com",
+    fName: "Test",
+    lName: "Buyer",
+    stateRegion: "Kerala",
+    address: "121 ABC Street",
+    contact: "9876543210",
   });
 
   const dispatch = useDispatch();

@@ -22,3 +22,5 @@ const orderSchema = new Schema({
     },
   ],
 });
+
+// order model productDetails fetch from productId populate. customer details and payment details separate fields, final price details also separate fields
