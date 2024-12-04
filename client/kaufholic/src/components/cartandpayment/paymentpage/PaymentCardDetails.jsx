@@ -11,19 +11,25 @@ import {
   selectCustomerDetails,
 } from "../customerdetails/customerDetailsSlice";
 import { BASE_URL } from "../../../apis/baseUrl";
+import { axiosInstance } from "../../../apis/axiosInstance";
+import toast from "react-hot-toast";
 
 export const PaymentCardDetails = ({ setKey }) => {
   const [validated, setValidated] = useState();
   const [cardDetails, setCardDetails] = useState({
-    cardHName: "John Doe",
-    cardNo: "1234123412341234",
-    expiryDate: "2026-06",
-    cvv: "123",
+    cardHName: "",
+    cardNo: "",
+    expiryDate: "",
+    cvv: "",
   });
   const [show, setShow] = useState(false);
+
+  // Fetching order details from redux
   const reduxDetails = useSelector(selectCustomerDetails);
+
   console.log("from redux", reduxDetails);
-  const { customerDetails, paymentDetails, productDetails } = reduxDetails;
+  const { customerDetails, paymentDetails, productDetails, orderPriceDetails } =
+    reduxDetails;
   console.log("redux cust", customerDetails);
   console.log("redux paymnt", paymentDetails);
   console.log("redux cartPrdt", productDetails);
@@ -31,6 +37,34 @@ export const PaymentCardDetails = ({ setKey }) => {
   const { email, fName, lName, stateRegion, address, contact } =
     customerDetails;
   const { cardHName, cardNo, expiryDate, cvv } = cardDetails;
+  const { price, shippingCharge, discountPrice, totalPrice } =
+    orderPriceDetails;
+
+  let buyerId = localStorage.getItem("kh-buyerId") || null;
+
+  const serializedData = () => {
+    let checkoutInfo = {
+      productDetails,
+      email,
+      fName,
+      lName,
+      stateRegion,
+      address,
+      contact,
+      cardHName,
+      cardNo,
+      expiryDate,
+      cvv,
+      price,
+      shippingCharge,
+      discountPrice,
+      totalPrice,
+    };
+
+    return checkoutInfo;
+  };
+
+  // Modal event handlers
   const handleClose = () => {
     setShow(false);
   };
@@ -57,10 +91,68 @@ export const PaymentCardDetails = ({ setKey }) => {
       event.stopPropagation();
     }
     setValidated(true);
-
-    dispatch(saveCardDetails(cardDetails));
+    if (validateFields()) {
+      dispatch(saveCardDetails(cardDetails));
+      handleShow();
+    }
   };
 
+  const handlePayment = () => {
+    let checkoutData = serializedData();
+    if (buyerId && checkoutData) {
+      sendDataToServer(checkoutData, buyerId);
+    }
+  };
+
+  const validateFields = () => {
+    const { cardHName, cardNo, expiryDate, cvv } = cardDetails;
+    if (!cardHName || !cardNo || !expiryDate || !cvv) {
+      alert("Please fill all required fields");
+      return false;
+    }
+    if (cardNo.length < 16 || cardNo.length > 16) {
+      alert("Card no must be 16 digits");
+      return false;
+    }
+
+    const [year, month] = expiryDate.split("-").map(Number);
+
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1;
+
+    if (year < currentYear || (year === currentYear && month < currentMonth)) {
+      alert(
+        "The date you provided seems to be expired! Please provide a valid expiry date"
+      );
+      return false;
+    }
+    if (cvv.length < 3 || cvv.length > 3) {
+      alert("CVV must be only 3 digits");
+      return false;
+    }
+    return true;
+  };
+
+  const sendDataToServer = async (checkoutInfo, byrId) => {
+    try {
+      const res = await axiosInstance.post(
+        `/orders/new/${byrId}`,
+        checkoutInfo
+      );
+
+      if (res.status === 201) {
+        toast.success("Order placed successfully");
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on adding order", error);
+    }
+  };
   return (
     <div className={styles.crCardWrapper}>
       <h4 className={styles.title}>
@@ -147,9 +239,7 @@ export const PaymentCardDetails = ({ setKey }) => {
           </Form.Group>
         </Row>
         <br />
-        <Button type="submit" onClick={handleShow}>
-          Add Card Details
-        </Button>
+        <Button type="submit">Add Card Details</Button>
         <Modal
           show={show}
           onHide={handleClose}
@@ -192,6 +282,17 @@ export const PaymentCardDetails = ({ setKey }) => {
                 <p>{cvv && `CVV:${cvv}`}</p>
               </div>
             )}
+            <p className={styles.modalTitle}>Order Price Details</p>
+            {orderPriceDetails && (
+              <div>
+                <p>{price && `Price:₹${price}`}</p>
+                <p>{`Shipping Charge:₹${
+                  shippingCharge ? shippingCharge : 0
+                }`}</p>
+                <p>{discountPrice && `You saved:₹ ${discountPrice}`}</p>
+                <p>{totalPrice && `Total Price:₹${totalPrice}`}</p>
+              </div>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button
@@ -203,8 +304,14 @@ export const PaymentCardDetails = ({ setKey }) => {
             >
               Cancel
             </Button>
-            <Button variant="success" onClick={handleClose}>
-              Shop Now
+            <Button
+              variant="success"
+              onClick={() => {
+                handlePayment();
+                handleClose();
+              }}
+            >
+              Shop Now ₹{totalPrice ? totalPrice : 0}
             </Button>
           </Modal.Footer>
         </Modal>

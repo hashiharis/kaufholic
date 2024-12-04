@@ -74,7 +74,13 @@ export const BuyerNav = () => {
           name: res?.data?.data?.name,
           email: res?.data?.data?.email,
         });
-        dispatch(saveBuyerDetails(buyerData));
+
+        let obj = {
+          ...buyerData,
+          name: res?.data?.data?.name,
+          email: res?.data?.data?.email,
+        };
+        dispatch(saveBuyerDetails(obj));
         // console.log("redux", crntBuyer);
       }
     } catch (error) {

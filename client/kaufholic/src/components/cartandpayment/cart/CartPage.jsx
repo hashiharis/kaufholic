@@ -7,7 +7,10 @@ import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { BASE_URL } from "../../../apis/baseUrl";
 import { useDispatch } from "react-redux";
-import { saveProductDetails } from "../customerdetails/customerDetailsSlice";
+import {
+  saveOrderPriceDetails,
+  saveProductDetails,
+} from "../customerdetails/customerDetailsSlice";
 
 export const CartPage = ({ eventKey, setKey }) => {
   const [cartItems, setCartItems] = useState([]);
@@ -18,11 +21,17 @@ export const CartPage = ({ eventKey, setKey }) => {
       productImage: "",
       productTitle: "",
       productPrice: "",
+      productDiscountPrice: "",
       quantity: 1,
     },
   ]);
 
-  // const [orderPrice, setOrderPrice] = useState({});
+  const [orderPrice, setOrderPrice] = useState({
+    price: 0,
+    shippingCharge: 0,
+    discountPrice: 0,
+    totalPrice: 0,
+  });
 
   const dispatch = useDispatch();
 
@@ -33,17 +42,37 @@ export const CartPage = ({ eventKey, setKey }) => {
         productImage: item.productId.productImage,
         productTitle: item.productId.title,
         productPrice: item.productId.currentPrice,
+        productDiscountPrice: item.productId.discountPriceApplied,
         quantity: 1,
       }));
       setCartProductDetails(updCartItems);
     }
   }, [cartItems]);
 
-  // useEffect(() => {
-  //   if (cartProductDetails.length > 0) {
-  //   }
-  // }, []);
+  const priceByQuantity = cartProductDetails.reduce(
+    (mul, item) => mul + item.productPrice * item.quantity,
+    0
+  );
 
+  const totalDiscountPrice = cartProductDetails.reduce(
+    (sum, item) => sum + item.productDiscountPrice * item.quantity,
+    0
+  );
+
+  console.log("totalDis", totalDiscountPrice);
+
+  useEffect(() => {
+    if (cartProductDetails.length > 0) {
+      setOrderPrice({
+        price: priceByQuantity,
+        shippingCharge: 0,
+        discountPrice: totalDiscountPrice,
+        totalPrice: priceByQuantity - totalDiscountPrice,
+      });
+    }
+  }, [cartProductDetails, priceByQuantity, totalDiscountPrice]);
+
+  console.log("order price", orderPrice);
   console.log("cartProduct", cartProductDetails);
 
   const { buyerId } = useParams();
@@ -62,8 +91,8 @@ export const CartPage = ({ eventKey, setKey }) => {
     setCartProductDetails(incrementQuantity);
   };
 
-  const [product] = cartProductDetails; //Destructuring cartProductDetails array of objects
-  console.log("quantity", product.productId, product.quantity);
+  //const [product] = cartProductDetails; Destructuring cartProductDetails array of objects
+  // console.log("quant",  product.productId, product.quantity);
 
   const handleDecrement = (pId) => {
     const decrementQuantity = cartProductDetails.map((product) => {
@@ -81,34 +110,28 @@ export const CartPage = ({ eventKey, setKey }) => {
   const handleClick = () => {
     if (cartItems.length > 0) {
       dispatch(saveProductDetails(cartProductDetails)); //saving cart product details to redux
+      if (priceValidation()) {
+        dispatch(saveOrderPriceDetails(orderPrice)); //saving order price details to redux
+      }
+
       setKey("customer_details");
     }
   };
-  // const [products] = cartItems;
-  // const { productId } = products;
-  // console.log("test", productId.currentPrice, productId.discountPercent);
 
-  const orderPrice = cartProductDetails.reduce(
-    (sum, item) => sum + item.productPrice,
-    0
-  );
-
-  const priceByQuantity = cartProductDetails.reduce(
-    (mul, item) => mul + item.productPrice * item.quantity,
-    0
-  );
-
-  const totalDiscountPrice = cartItems.reduce(
-    (sum, item) => sum + item.productId.discountPriceApplied,
-    0
-  );
-
-  console.log("totalDis", totalDiscountPrice);
   useEffect(() => {
     if (buyerId) {
       fetchCartItems(buyerId);
     }
   }, []);
+
+  const priceValidation = () => {
+    const { price, totalPrice } = orderPrice;
+    if (price <= 0 && totalPrice <= 0) {
+      alert("Price value should be non negative and greater than zero");
+      return false;
+    }
+    return true;
+  };
 
   const fetchCartItems = async (byrId) => {
     try {
@@ -220,20 +243,20 @@ export const CartPage = ({ eventKey, setKey }) => {
             <table className={styles.orderDetails}>
               <tr>
                 <td>Price</td>
-                <td>₹{priceByQuantity}</td>
+                <td>₹{orderPrice.price}</td>
               </tr>
               <tr>
                 <td>Shipping Charge</td>
-                <td>₹0</td>
+                <td>₹{orderPrice.shippingCharge}</td>
               </tr>
               <tr>
                 <td>You saved</td>
-                <td>₹{totalDiscountPrice}</td>
+                <td>₹{orderPrice.discountPrice}</td>
               </tr>
               <hr />
               <tr className={styles.totalOrderPrice}>
                 <td>Total Price</td>
-                <td>₹{priceByQuantity - totalDiscountPrice}</td>
+                <td>₹{orderPrice.totalPrice}</td>
               </tr>
             </table>
             <button className={styles.buyNowBtn} onClick={handleClick}>

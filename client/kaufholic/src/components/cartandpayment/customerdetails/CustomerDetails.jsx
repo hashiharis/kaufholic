@@ -3,23 +3,32 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import styles from "./customerdetails.module.css";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { saveCustomerDetails } from "./customerDetailsSlice";
 import toast from "react-hot-toast";
+import { selectCurrentBuyerDetails } from "../../navbar/usernavbar/buyernavbar/buyerSlice";
 
 export const CustomerDetails = ({ setKey }) => {
   const [validated, setValidated] = useState(false);
   const [checkoutDetails, setCheckoutDetails] = useState({
-    email: "abc@gmail.com",
-    fName: "Test",
-    lName: "Buyer",
+    email: "",
+    fName: "John",
+    lName: "Doe",
     stateRegion: "Kerala",
-    address: "121 ABC Street",
-    contact: "9876543210",
+    address: "121 abc street",
+    contact: "9847561234",
   });
 
   const dispatch = useDispatch();
+  const buyerDetails = useSelector(selectCurrentBuyerDetails);
+
+  useEffect(() => {
+    setCheckoutDetails({
+      ...checkoutDetails,
+      email: buyerDetails.crntBuyer.email,
+    });
+  }, [buyerDetails]);
 
   const handleChange = (e) => {
     setCheckoutDetails({
@@ -50,6 +59,14 @@ export const CustomerDetails = ({ setKey }) => {
       toast.error("Please fill all required fields!!!");
       return false;
     }
+    if (contact > 9999999999 || contact < 1000000000) {
+      alert("Contact number should be 10 digits");
+      return false;
+    }
+    if (address.length < 12) {
+      alert("Address must be atleast 12 characters long");
+      return false;
+    }
     return true;
   };
   return (
@@ -67,6 +84,7 @@ export const CustomerDetails = ({ setKey }) => {
             type="email"
             placeholder="Email"
             name="email"
+            value={buyerDetails.crntBuyer.email}
             onChange={handleChange}
           />
           <Form.Control.Feedback type="invalid">
@@ -81,6 +99,7 @@ export const CustomerDetails = ({ setKey }) => {
               type="text"
               placeholder="First Name"
               name="fName"
+              value={checkoutDetails.fName}
               onChange={handleChange}
             />
             <Form.Control.Feedback type="invalid">
@@ -94,6 +113,7 @@ export const CustomerDetails = ({ setKey }) => {
               type="text"
               placeholder="Last Name"
               name="lName"
+              value={checkoutDetails.lName}
               onChange={handleChange}
             />
             <Form.Control.Feedback type="invalid">
@@ -113,6 +133,7 @@ export const CustomerDetails = ({ setKey }) => {
             type="text"
             placeholder="State/Region"
             name="stateRegion"
+            value={checkoutDetails.stateRegion}
             onChange={handleChange}
           />
           <Form.Control.Feedback type="invalid">
@@ -130,6 +151,7 @@ export const CustomerDetails = ({ setKey }) => {
             type="text"
             placeholder="Address"
             name="address"
+            value={checkoutDetails.address}
             onChange={handleChange}
           />
           <Form.Control.Feedback type="invalid">
@@ -147,6 +169,7 @@ export const CustomerDetails = ({ setKey }) => {
             type="number"
             placeholder="Contact number"
             name="contact"
+            value={checkoutDetails.contact}
             onChange={handleChange}
           />
           <Form.Control.Feedback type="invalid">

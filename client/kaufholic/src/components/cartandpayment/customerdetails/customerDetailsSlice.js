@@ -4,6 +4,7 @@ const initialState = {
   customerDetails: {},
   productDetails: [],
   paymentDetails: {},
+  orderPriceDetails: {},
 };
 
 export const customerDetailsSlice = createSlice({
@@ -37,10 +38,25 @@ export const customerDetailsSlice = createSlice({
       };
       state.paymentDetails = obj;
     },
+    saveOrderPriceDetails: (state, action) => {
+      let { price, shippingCharge, discountPrice, totalPrice } = action.payload;
+
+      let obj = {
+        price,
+        shippingCharge,
+        discountPrice,
+        totalPrice,
+      };
+      state.orderPriceDetails = obj;
+    },
   },
 });
 
 export const selectCustomerDetails = (state) => state.customerDetails;
-export const { saveCustomerDetails, saveProductDetails, saveCardDetails } =
-  customerDetailsSlice.actions;
+export const {
+  saveCustomerDetails,
+  saveProductDetails,
+  saveCardDetails,
+  saveOrderPriceDetails,
+} = customerDetailsSlice.actions;
 export default customerDetailsSlice.reducer;

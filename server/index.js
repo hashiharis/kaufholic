@@ -10,6 +10,7 @@ const sellerRouter = require("./routes/seller.routes");
 const productRouter = require("./routes/product.routes");
 const wishlistRouter = require("./routes/wishlist.routes");
 const cartRouter = require("./routes/cart.routes");
+const orderRouter = require("./routes/order.routes");
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,6 +27,7 @@ app.use("/seller", sellerRouter);
 app.use("/product", productRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/cart", cartRouter);
+app.use("/orders", orderRouter);
 
 connectDb();
 app.listen(PORT, () => {
