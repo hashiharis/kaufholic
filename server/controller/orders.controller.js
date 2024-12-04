@@ -22,15 +22,15 @@ const addOrder = async (req, res) => {
       totalPrice,
     } = req.body;
 
-    const { productId, quantity } = productDetails;
     if (!isValidId(buyerId)) {
       return res.status(400).json({ message: "Buyer Id is not valid" });
     }
 
-    // if (!isValidId(productId)) {
-    //   return res.status(400).json({ message: "Product Id is not valid" });
-    // }
-
+    productDetails.map(({ productId, quantity }) => {
+      if (!isValidId(productId)) {
+        return res.status(400).json({ message: "Product Id is not valid" });
+      }
+    });
     const newOrder = new OrderModel({
       buyerId,
       orderedProducts: productDetails.map(({ productId, quantity }) => ({
@@ -62,4 +62,28 @@ const addOrder = async (req, res) => {
   }
 };
 
-module.exports = { addOrder };
+const fetchOrdersByBuyerId = async (req, res) => {
+  try {
+    const { buyerId } = req.params;
+
+    if (!isValidId(buyerId)) {
+      return res.status(400).json({ message: "Buyer id is not valid" });
+    }
+
+    const orderedProducts = await OrderModel.find()
+      .populate("orderedProducts.productId")
+      .exec();
+
+    if (orderedProducts.length === 0) {
+      return res.status(404).json({ message: "Orders are not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Orders fetched successfully", data: orderedProducts });
+  } catch (error) {
+    console.log("Error on fetching orders by buyer id", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+module.exports = { addOrder, fetchOrdersByBuyerId };

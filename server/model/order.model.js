@@ -20,6 +20,15 @@ const orderSchema = new Schema(
           min: [1, "quantity must be atleast 1"],
           max: [10, "quantity must be less than or equal to 10"],
         },
+        deliveryDate: {
+          type: Date,
+          default: "",
+        },
+        deliveryStatus: {
+          type: String,
+          enum: ["pending", "confirmed"],
+          default: "pending",
+        },
       },
     ],
     email: {
@@ -77,15 +86,6 @@ const orderSchema = new Schema(
     totalPrice: {
       type: Number,
       required: true,
-    },
-    deliveryDate: {
-      type: Date,
-      default: "",
-    },
-    deliveryStatus: {
-      type: String,
-      enum: ["pending", "confirmed"],
-      default: "pending",
     },
   },
   { timestamps: true }

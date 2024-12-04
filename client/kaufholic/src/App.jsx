@@ -13,6 +13,7 @@ import { WishlistWrapper } from "./components/cards/wishlist-cards/WishlistWrapp
 import { ProductDetail } from "./components/pdp/productfirstdetail/ProductDetail";
 import { SellerProductEdit } from "./components/seller/pages/SellerProductEdit";
 import { CartPaymentTab } from "./components/cartandpayment/CartPaymentTab";
+import { Orders } from "./components/buyer/orders/Orders";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           path="/seller/editproductdetails/:productId"
           element={<SellerProductEdit />}
         />
+        <Route path="/buyer/orders/" element={<Orders />} />
       </Routes>
     </BrowserRouter>
   );
