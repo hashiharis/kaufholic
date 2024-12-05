@@ -5,6 +5,7 @@ import { IoBagCheck } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { IoMdHome } from "react-icons/io";
+import { FaBoxOpen } from "react-icons/fa";
 import styles from "./sidebar.module.css";
 
 export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
@@ -35,6 +36,7 @@ export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
       icon: <IoBagCheck />,
       cName: "sidebarLink",
     },
+    { sidebarLink: "Orders", icon: <FaBoxOpen />, cName: "sidebarLink" },
     {
       sidebarLink: "Logout",
       icon: <IoIosPerson />,

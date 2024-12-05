@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { BASE_URL } from "../../../apis/baseUrl";
+import empty_image from "../../../assets/images/empty_illustration.png";
 
 export const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -47,14 +48,21 @@ export const Orders = () => {
       <BuyerNav />
       <div className={styles.ordersWrapper}>
         {orders.length === 0 ? (
-          <img src="" alt="empty image" />
+          <>
+            <h1>You have not placed any orders yet!!!</h1>
+            <img
+              src={empty_image}
+              alt="empty image"
+              className={styles.emptyImage}
+            />
+          </>
         ) : (
           <>
             <h1 className={styles.ordersHeading}>Your Orders</h1>
             {orders
               ?.flatMap((innerArray) => innerArray)
               .map((item, index) => (
-                <Accordion key={index}>
+                <Accordion key={index} className={styles.orderLists}>
                   <Accordion.Item eventKey={index}>
                     <Accordion.Header>
                       <div className={styles.productIntro}>
@@ -88,31 +96,6 @@ export const Orders = () => {
                   </Accordion.Item>
                 </Accordion>
               ))}
-            {/* <Accordion>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>
-                  <div className={styles.productIntro}>
-                    <p>Olalook</p>
-                    <p>Price By quantity</p>
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body>
-                  <div className={styles.productDescription}>
-                    <img
-                      src=""
-                      alt="product-image"
-                      className={styles.productImg}
-                    />
-                    <p className={styles.productTitle}>Olalook</p>
-                    <p className={styles.subtitle}>Subtitle</p>
-                    <p className={styles.quantity}>Quantity: 1</p>
-                    <p className={styles.deliveryStatus}>
-                      Delivery Status: Pending
-                    </p>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion> */}
           </>
         )}
       </div>

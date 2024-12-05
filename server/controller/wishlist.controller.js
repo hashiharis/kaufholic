@@ -48,7 +48,7 @@ const getWishlist = async (req, res) => {
 
     console.log(buyerId);
 
-    const wishlist = await WishlistModel.find()
+    const wishlist = await WishlistModel.find({ buyerId })
       .populate("productId")
       .populate("buyerId")
       .exec();

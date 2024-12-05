@@ -41,7 +41,10 @@ export const WishlistWrapper = () => {
     <>
       <BuyerNav />
       {isWishlistEmpty ? (
-        <div className={styles.emptyImage}></div>
+        <>
+          <h1>You have no favourite products!!!</h1>
+          <div className={styles.emptyImage}></div>
+        </>
       ) : (
         <div className={styles.wishlistWrapper}>
           {wishlist?.map((item, index) => (

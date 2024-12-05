@@ -36,7 +36,7 @@ export const CartPage = ({ eventKey, setKey }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (cartItems.length > 0) {
+    if (cartItems?.length > 0) {
       const updCartItems = cartItems.map((item) => ({
         productId: item.productId._id,
         productImage: item.productId.productImage,

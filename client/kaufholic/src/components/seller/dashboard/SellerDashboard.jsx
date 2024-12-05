@@ -10,6 +10,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import { SellerProductEdit } from "../pages/SellerProductEdit";
 import { current } from "@reduxjs/toolkit";
+import { RecievedOrders } from "../pages/RecievedOrders";
 
 export const SellerDashboard = () => {
   const [activePage, setActivePage] = useState("Home");
@@ -54,6 +55,7 @@ export const SellerDashboard = () => {
             {activePage === "Edit_Products" && (
               <SellerProductEdit currentProduct={currentProduct} />
             )}
+            {activePage === "Orders" && <RecievedOrders />}
           </Col>
         )}
       </Row>
