@@ -63,27 +63,4 @@ const sellerSignin = async (req, res) => {
   }
 };
 
-const sellerResetPassword = async (req, res) => {
-  try {
-    const { email } = req.body;
-
-    const sellerFound = await SellerModel.findOneAndUpdate(
-      { email },
-      { password: req.hashedPassword },
-      { new: true }
-    );
-
-    if (!sellerFound) {
-      return res.status(404).json({ message: "Seller not found" });
-    }
-
-    return res
-      .status(200)
-      .json({ message: "Password is resetted succesfully", data: sellerFound });
-  } catch (error) {
-    console.log("Error on seller password reset", error);
-    return res.status(500).json({ message: "Server Error" });
-  }
-};
-
-module.exports = { sellerSignup, sellerSignin, sellerResetPassword };
+module.exports = { sellerSignup, sellerSignin };

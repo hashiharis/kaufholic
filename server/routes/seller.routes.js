@@ -14,7 +14,6 @@ const {
 const {
   sellerSignup,
   sellerSignin,
-  sellerResetPassword,
 } = require("../controller/seller.controller");
 const {
   validateEmailPasswordRequired,
@@ -40,11 +39,11 @@ sellerRouter.post(
   sellerSignin
 );
 
-sellerRouter.patch(
-  "/resetpassword",
-  validateResetPassFieldsrequired,
-  validateResetPassword,
-  sellerResetPassword
-);
+// sellerRouter.patch(
+//   "/resetpassword",
+//   validateResetPassFieldsrequired,
+//   validateResetPassword,
+//   sellerResetPassword
+// );
 
 module.exports = sellerRouter;

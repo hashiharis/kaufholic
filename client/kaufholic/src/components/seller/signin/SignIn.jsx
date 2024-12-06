@@ -165,7 +165,7 @@ export const SignIn = () => {
             </InputGroup>
           </Form.Group>
           <div className={styles.forgotPassword}>
-            <a href="">Forgot Password</a>
+            <Link to="/forgotpassword">Forgot Password</Link>
           </div>
           <Button
             type="submit"

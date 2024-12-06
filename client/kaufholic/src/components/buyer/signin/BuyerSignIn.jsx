@@ -10,7 +10,7 @@ import { LandingNavbar } from "../../navbar/landingnavbar/LandingNavbar";
 import { useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Footer } from "../../footer/Footer";
 export const BuyerSignIn = () => {
   const [showPassword, setShowPassword] = useState("password");
@@ -175,7 +175,7 @@ export const BuyerSignIn = () => {
               </InputGroup>
             </Form.Group>
             <div className={styles.forgotPassword}>
-              <a href="">Forgot Password</a>
+              <Link to="/forgotpassword">Forgot Password</Link>
             </div>
             <Button
               className={`${styles.bsignInBtn} ${styles.colorSignIn}`}

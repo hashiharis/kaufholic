@@ -50,7 +50,6 @@ export const ForgotPassword = () => {
     setValidated(true);
     if (validationForgotPasswordFields()) {
       resetPassAPI();
-      alert("success");
     }
   };
 
@@ -92,13 +91,19 @@ export const ForgotPassword = () => {
   const resetPassAPI = async () => {
     try {
       const res = await axiosInstance.patch(
-        "/seller/resetpassword",
+        "/auth/resetpassword",
         resetPassword
       );
 
       if (res.status === 200) {
         toast.success("Your password is changed successfully");
-        navigate("/seller/signin");
+        console.log(res);
+        if (res?.data?.userType === "seller") {
+          navigate("/seller/signin");
+        }
+        if (res?.data?.userType === "buyer") {
+          navigate("/buyer/signin");
+        }
       }
     } catch (error) {
       const statusCode = error.response.status;

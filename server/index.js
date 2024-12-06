@@ -11,6 +11,7 @@ const productRouter = require("./routes/product.routes");
 const wishlistRouter = require("./routes/wishlist.routes");
 const cartRouter = require("./routes/cart.routes");
 const orderRouter = require("./routes/order.routes");
+const authRouter = require("./routes/auth.routes");
 
 const PORT = process.env.PORT || 3000;
 
@@ -28,6 +29,7 @@ app.use("/product", productRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/cart", cartRouter);
 app.use("/orders", orderRouter);
+app.use("/auth", authRouter);
 
 connectDb();
 app.listen(PORT, () => {
