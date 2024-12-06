@@ -8,4 +8,16 @@ const validateEmailPasswordRequired = (req, res, next) => {
   next();
 };
 
-module.exports = { validateEmailPasswordRequired };
+const validateResetPassFieldsrequired = (req, res, next) => {
+  const { email, newPassword, confirmPassword } = req.body;
+
+  if (!email || !newPassword || !confirmPassword) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+  next();
+};
+
+module.exports = {
+  validateEmailPasswordRequired,
+  validateResetPassFieldsrequired,
+};

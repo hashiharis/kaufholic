@@ -1,0 +1,53 @@
+.resetPassWrapper{
+    width:100%;
+    margin:0 auto;
+    padding-block:2em;
+}
+
+.resetPassForm{
+    padding-inline:1em;
+    font-weight:var(--fw-400);
+    font-size:var(--fs-form)!important;
+}
+
+.rPasswordHeader{
+    text-align:center;
+    font-size:var(--fs-header);
+    font-weight: var(--fw-500);
+    margin-bottom:var(--spacing);
+}
+
+.rPassFormInput{
+    padding-block: 0.625em;
+    padding-inline: var(--spacing);
+    color: var(--form-input);
+    font-size: var(--fs-forminput);
+    font-weight: var(--fw-400);
+}
+.rPassIconBtn{
+    border:none;
+    background: none;
+}
+.resetBtn{
+    border: none;
+    border-radius: 4px;
+    color: var(--btn-text);
+    padding-block: 1em;
+    padding-inline: 2em;
+    width: 100%;
+    margin-top: 2em;
+}
+.rPassColor{
+    background-color: var(--link-color);
+    text-transform: uppercase;
+}
+
+.rLabel sup{
+    color: var(--required);
+}
+
+@media (min-width:768px){
+    .resetPassWrapper{
+        width:50%;
+    }
+}

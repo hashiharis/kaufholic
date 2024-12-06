@@ -14,6 +14,7 @@ import { ProductDetail } from "./components/pdp/productfirstdetail/ProductDetail
 import { SellerProductEdit } from "./components/seller/pages/SellerProductEdit";
 import { CartPaymentTab } from "./components/cartandpayment/CartPaymentTab";
 import { Orders } from "./components/buyer/orders/Orders";
+import { ForgotPassword } from "./components/forgotpassword/ForgotPassword";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           element={<SellerProductEdit />}
         />
         <Route path="/buyer/orders/" element={<Orders />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   );

@@ -42,7 +42,14 @@ export const SellerProductView = ({ changeActivePage, setCurrentProduct }) => {
   return (
     <>
       {isProductEmpty ? (
-        <img src={emptyIllustration} alt="empty illustration" />
+        <>
+          <h4 className={styles.noProducts}>You have no products yet!!!</h4>
+          <img
+            src={emptyIllustration}
+            alt="empty illustration"
+            className={styles.emptyImage}
+          />
+        </>
       ) : (
         <div className={styles.sellerProductView}>
           {products?.map((item, index) => (

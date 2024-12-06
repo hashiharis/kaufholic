@@ -53,7 +53,9 @@ const fetchProductsBySeller = async (req, res) => {
       return res.status(404).json({ message: "Seller not found" });
     }
 
-    const allProducts = await ProductModel.find().populate("sellerId").exec();
+    const allProducts = await ProductModel.find({ sellerId })
+      .populate("sellerId")
+      .exec();
 
     if (allProducts.length === 0) {
       return res

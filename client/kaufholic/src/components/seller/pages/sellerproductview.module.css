@@ -17,6 +17,16 @@ margin-inline:1em;
     object-fit: contain!important;
 }
 
+.emptyImage{
+    width:100%;
+    object-fit: contain;
+    object-position: center;
+}
+.noProducts{
+    margin-top:2em;
+    text-align: center;
+}
+
 @media (min-width:768px){
     .productViewCard{
         margin-inline:0;
