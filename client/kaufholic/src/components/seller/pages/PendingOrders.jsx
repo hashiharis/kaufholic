@@ -6,6 +6,7 @@ import { BASE_URL } from "../../../apis/baseUrl";
 import styles from "./pendingorders.module.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { format } from "date-fns";
 export const PendingOrders = () => {
   const [byrShippingDetails, setByrShippingDetails] = useState([]);
   const [orderedProducts, setOrderedProducts] = useState([]);
@@ -29,11 +30,22 @@ export const PendingOrders = () => {
     // console.log("orderId", orderId);
     if (!deliveryDate) {
       alert("Please select a delivery date!");
-    } else {
+      return false;
+    }
+    if (validateDeliveryDate()) {
       updateDelivery(orderId, pdtId);
     }
   };
 
+  const validateDeliveryDate = () => {
+    const currentDate = format(new Date(), "yyyy-MM-dd");
+    // console.log("currdate", currentDate);
+    if (deliveryDate <= currentDate) {
+      alert("Please select a future date for delivery");
+      return false;
+    }
+    return true;
+  };
   const fetchOrders = async (id) => {
     try {
       const res = await axiosInstance.get(`/orders/sellerOrders/${id}`);
