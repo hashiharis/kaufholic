@@ -1,5 +1,6 @@
 const OrderModel = require("../model/order.model");
 const isValidId = require("../utils/validId");
+const { parse, format } = require("date-fns");
 
 const addOrder = async (req, res) => {
   try {
@@ -108,20 +109,91 @@ const fetchOrdersBySellerId = async (req, res) => {
     const filteredOrders = orders.filter((order) =>
       order.orderedProducts.some(
         (orderedProduct) =>
-          orderedProduct.productId.sellerId.toString() === sellerId
+          orderedProduct.productId.sellerId._id.toString() === sellerId
       )
     );
 
-    if (!filteredOrders) {
+    if (filteredOrders.length === 0) {
       return res.status(404).json({ message: "No orders found" });
     }
     return res
       .status(200)
-      .json({ message: "Orders fetched successfully", data: orders });
+      .json({ message: "Orders fetched successfully", data: filteredOrders });
   } catch (error) {
     console.log("Error on fetching orders by seller id", error);
     return res.status(500).json({ message: "Server Error" });
   }
 };
 
-module.exports = { addOrder, fetchOrdersByBuyerId, fetchOrdersBySellerId };
+const setDeliveryDate = async (req, res) => {
+  try {
+    const { orderId, productId } = req.params;
+    const { deliveryDate } = req.query;
+    console.log("date", deliveryDate);
+
+    if (!isValidId(orderId)) {
+      return res.status(400).json("Invalid order id");
+    }
+
+    if (!isValidId(productId)) {
+      return res.status(400).json("Invalid product id");
+    }
+    // find by order id from order array, ordere3d prod=>product id find , return value obj
+
+    const orders = await OrderModel.findById(orderId);
+
+    if (!orders) {
+      return res.status(400).json({ message: "Orders is not found" });
+    }
+
+    const findProduct = orders.orderedProducts.find(
+      (item) => item.productId._id.toString() === productId
+    );
+
+    // let parsedDate = parse(deliveryDate, "yyyy-MM-dd", new Date());
+    // let formattedDate = format(parsedDate, "yyyy-MM-dd");
+    // console.log("formated ", formattedDate);
+    findProduct.deliveryDate = deliveryDate;
+    findProduct.deliveryStatus = "confirmed";
+
+    console.log("orders", orders);
+    console.log(findProduct);
+
+    if (!findProduct) {
+      return res.status(404).json({ message: "Orders not updated or found" });
+    }
+
+    const updOrderDetails = await orders.save();
+
+    // const updOrderDetails = await OrderModel.findByIdAndUpdate(
+    //   orderId,
+
+    //   {
+    //     $set: {
+    //       "orderedProducts.$[elem].deliveryDate": deliveryDate,
+    //       "orderedProducts.$[elem].deliveryStatus": "confirmed",
+    //     },
+    //   },
+    //   {
+    //     arrayFilters: [{ "elem.productId": productId }],
+    //     new: true,
+    //   }
+    // );
+
+    // console.log(updOrderDetails);
+    return res.status(200).json({
+      message: "Delivery date updated successfully",
+      data: updOrderDetails,
+    });
+  } catch (error) {
+    console.log("Error on updating delivery date", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+module.exports = {
+  addOrder,
+  fetchOrdersByBuyerId,
+  fetchOrdersBySellerId,
+  setDeliveryDate,
+};

@@ -45,7 +45,7 @@ const forgotPassword = async (req, res) => {
     }
     return res.status(404).json({ message: "Such a user doesn't exist" });
   } catch (error) {
-    console.log("Error on seller password reset", error);
+    console.log("Error on  password reset", error);
     return res.status(500).json({ message: "Server Error" });
   }
 };

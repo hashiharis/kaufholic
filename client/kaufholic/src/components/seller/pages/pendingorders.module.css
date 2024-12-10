@@ -1,0 +1,34 @@
+.ordersAccord{
+    margin-top:1em;
+}
+.prodImg{
+    width:20%;
+    object-fit: contain;
+   
+}
+
+.shippingDetails{
+    font-weight:600;
+}
+
+.deliverydate{
+    margin-bottom: 1em;
+}
+
+@media (min-width:768px){
+    .prodImg{
+       grid-area:1/1/1/2;
+    }
+    .orderDetails{
+    display: grid;
+}
+
+.quantity{
+    grid-area:1/2/1/3;
+}
+
+.deliveryStatus{
+    grid-area:1/3/1/4;
+}
+}
+
