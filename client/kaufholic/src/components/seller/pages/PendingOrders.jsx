@@ -5,8 +5,9 @@ import toast from "react-hot-toast";
 import { BASE_URL } from "../../../apis/baseUrl";
 import styles from "./pendingorders.module.css";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import { format } from "date-fns";
+import no_results from "../../../assets/images/no_data.png";
+
 export const PendingOrders = () => {
   const [byrShippingDetails, setByrShippingDetails] = useState([]);
   const [orderedProducts, setOrderedProducts] = useState([]);
@@ -15,9 +16,8 @@ export const PendingOrders = () => {
 
   // const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
-
+  const sellerId = localStorage.getItem("kh-sellerId") || null;
   useEffect(() => {
-    const sellerId = localStorage.getItem("kh-sellerId") || null;
     if (sellerId) {
       fetchOrders(sellerId);
     }
@@ -65,8 +65,8 @@ export const PendingOrders = () => {
       console.log("Error on fetching orders", error);
     }
   };
-  // console.log("shipping details", byrShippingDetails);
-  // console.log("ordered products", orderedProducts);
+  console.log("shipping details", byrShippingDetails);
+  console.log("ordered products", orderedProducts);
   console.log("delivery date", deliveryDate);
 
   const updateDelivery = async (orderId, productId) => {
@@ -86,64 +86,45 @@ export const PendingOrders = () => {
         toast.error("Please try again after sometime");
       }
       console.log("Error on updating delivery date on orders", error);
+    } finally {
+      fetchOrders(sellerId);
     }
   };
   return (
     <div>
-      {orderedProducts
-        ?.flatMap((innerArray) => innerArray)
-        .map((item, index) => (
-          <Accordion key={index} className={styles.ordersAccord}>
-            <Accordion.Item eventKey={index}>
-              <Accordion.Header>{item.productId.title}</Accordion.Header>
-              <Accordion.Body>
-                <div className={styles.orderDetails}>
-                  <img
-                    src={`${BASE_URL}/${item.productId.productImage}`}
-                    alt={`${item.productId.productImage}`}
-                    className={styles.prodImg}
-                  />
-                  <p className={styles.quantity}>Quantity:{item.quantity}</p>
-                  <p className={styles.deliveryStatus}>
-                    Delivery Status:{item.deliveryStatus}
-                  </p>
-                </div>
-                <div>
-                  <p className={styles.shippingDetails}>Shipping Details</p>
-                  {byrShippingDetails?.map((buyer, index) => (
-                    <div key={index}>
-                      <p>First Name: {buyer.fName}</p>
-                      <p>Last Name: {buyer.lName}</p>
-                      <p>Email: {buyer.email}</p>
-                      <p>Address: {buyer.address}</p>
-                      <p>State/Region: {buyer.stateRegion}</p>
-                      <p>Contact: {buyer.contact}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className={styles.deliverydate}>
-                  <label>Delivery Date:</label>
-                  <input
-                    type="date"
-                    name="deliveryDate"
-                    value={deliveryDate}
-                    onChange={(e) => setDeliveryDate(e.target.value)}
-                  />
-                </div>
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    handleOrders(item.productId._id);
-                    console.log("pdtId", item.productId._id);
-                  }}
-                >
-                  Save Changes
-                </Button>
-                {/* <Modal show={show} onHide={handleClose} backdrop="static">
-                  <Modal.Header closeButton>
-                    <Modal.Title>Please set a delivery date</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
+      {orderedProducts.length > 0 ? (
+        orderedProducts
+          ?.flatMap((innerArray) => innerArray)
+          .map((item, index) => (
+            <Accordion key={index} className={styles.ordersAccord}>
+              <Accordion.Item eventKey={index}>
+                <Accordion.Header>{item.productId.title}</Accordion.Header>
+                <Accordion.Body>
+                  <div className={styles.orderDetails}>
+                    <img
+                      src={`${BASE_URL}/${item.productId.productImage}`}
+                      alt={`${item.productId.productImage}`}
+                      className={styles.prodImg}
+                    />
+                    <p className={styles.quantity}>Quantity:{item.quantity}</p>
+                    <p className={styles.deliveryStatus}>
+                      Delivery Status:{item.deliveryStatus}
+                    </p>
+                  </div>
+                  <div>
+                    <p className={styles.shippingDetails}>Shipping Details</p>
+                    {byrShippingDetails?.map((buyer, index) => (
+                      <div key={index}>
+                        <p>First Name: {buyer.fName}</p>
+                        <p>Last Name: {buyer.lName}</p>
+                        <p>Email: {buyer.email}</p>
+                        <p>Address: {buyer.address}</p>
+                        <p>State/Region: {buyer.stateRegion}</p>
+                        <p>Contact: {buyer.contact}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={styles.deliverydate}>
                     <label>Delivery Date:</label>
                     <input
                       type="date"
@@ -151,26 +132,29 @@ export const PendingOrders = () => {
                       value={deliveryDate}
                       onChange={(e) => setDeliveryDate(e.target.value)}
                     />
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Close
-                    </Button>
-                    <Button
-                      variant="primary"
-                      onClick={() => {
-                        handleClose();
-                        handleOrders(item.productId._id);
-                      }}
-                    >
-                      Save Changes
-                    </Button>
-                  </Modal.Footer>
-                </Modal> */}
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        ))}
+                  </div>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      handleOrders(item.productId._id);
+                      // console.log("pdtId", item.productId._id);
+                    }}
+                  >
+                    Save Changes
+                  </Button>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+          ))
+      ) : (
+        <div>
+          <img
+            src={no_results}
+            alt="no-result-illustration"
+            className={styles.empty_image}
+          />
+        </div>
+      )}
     </div>
   );
 };

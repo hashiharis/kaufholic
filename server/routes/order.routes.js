@@ -4,6 +4,8 @@ const {
   fetchOrdersByBuyerId,
   fetchOrdersBySellerId,
   setDeliveryDate,
+  fetchConfirmedOrders,
+  fetchDeliveredOrders,
 } = require("../controller/orders.controller");
 const { validateDeliveryDate } = require("../middlewares/validateDeliveryDate");
 const orderRouter = express.Router();
@@ -16,5 +18,7 @@ orderRouter.patch(
   validateDeliveryDate,
   setDeliveryDate
 );
+orderRouter.get("/confirmedorders/:sellerId", fetchConfirmedOrders);
+orderRouter.get("/deliveredorders/:sellerId", fetchDeliveredOrders);
 
 module.exports = orderRouter;

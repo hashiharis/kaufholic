@@ -1,6 +1,6 @@
 const OrderModel = require("../model/order.model");
 const isValidId = require("../utils/validId");
-const { parse, format } = require("date-fns");
+const { format } = require("date-fns");
 
 const addOrder = async (req, res) => {
   try {
@@ -106,16 +106,33 @@ const fetchOrdersBySellerId = async (req, res) => {
       })
       .exec();
 
-    const filteredOrders = orders.filter((order) =>
-      order.orderedProducts.some(
-        (orderedProduct) =>
-          orderedProduct.productId.sellerId._id.toString() === sellerId
-      )
-    );
+    // const filteredOrders = orders.filter((order) =>
+    //   order.orderedProducts.some(
+    //     (orderedProduct) =>
+    //       orderedProduct.productId.sellerId._id.toString() === sellerId &&
+    //       orderedProduct.deliveryStatus == "pending"
+    //   )
+    // );
+
+    const filteredOrders = orders
+      .map((order) => {
+        // Filter orderedProducts based on sellerId and deliveryStatus
+        const filteredProducts = order.orderedProducts.filter(
+          (orderedProduct) =>
+            orderedProduct.productId.sellerId._id.toString() === sellerId &&
+            orderedProduct.deliveryStatus === "pending"
+        );
+        // Return order only if it has at least one matching product
+        return filteredProducts.length > 0
+          ? { ...order.toObject(), orderedProducts: filteredProducts }
+          : null;
+      })
+      .filter((order) => order !== null);
 
     if (filteredOrders.length === 0) {
       return res.status(404).json({ message: "No orders found" });
     }
+
     return res
       .status(200)
       .json({ message: "Orders fetched successfully", data: filteredOrders });
@@ -191,9 +208,114 @@ const setDeliveryDate = async (req, res) => {
   }
 };
 
+const fetchConfirmedOrders = async (req, res) => {
+  try {
+    const { sellerId } = req.params;
+
+    if (!isValidId(sellerId)) {
+      return res.status(400).json({ message: "Invalid seller id" });
+    }
+
+    const orders = await OrderModel.find()
+      .populate({
+        path: "orderedProducts.productId",
+        populate: {
+          path: "sellerId",
+        },
+      })
+      .exec();
+
+    if (!orders) {
+      return res.status(404).json({ message: "No orders found" });
+    }
+
+    const confirmedOrders = orders
+      .map((order) => {
+        const filteredProducts = order.orderedProducts.filter(
+          (orderedProduct) =>
+            orderedProduct.productId.sellerId._id.toString() === sellerId &&
+            orderedProduct.deliveryStatus === "confirmed"
+        );
+        return filteredProducts.length > 0
+          ? {
+              ...order.toObject(),
+              orderedProducts: filteredProducts,
+            }
+          : null;
+      })
+      .filter((order) => order !== null);
+
+    if (confirmedOrders.length === 0) {
+      return res.status(404).json({ message: "No confirmed orders found" });
+    }
+
+    return res.status(200).json({
+      message: "Fetched confirmed orders successfully",
+      data: confirmedOrders,
+    });
+  } catch (error) {
+    console.log("Error on fetching confirmed orders", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+const fetchDeliveredOrders = async (req, res) => {
+  try {
+    const { sellerId } = req.params;
+
+    if (!isValidId(sellerId)) {
+      return res.status(400).json({ message: "Invalid seller id" });
+    }
+
+    const currentDate = format(new Date(), "yyyy-MM-dd");
+
+    const orders = await OrderModel.find()
+      .populate({
+        path: "orderedProducts.productId",
+        populate: {
+          path: "sellerId",
+        },
+      })
+      .exec();
+
+    if (!orders) {
+      return res.status(404).json({ message: "No orders found" });
+    }
+
+    const deliveredOrders = orders
+      .map((order) => {
+        const filteredProducts = order.orderedProducts.filter(
+          (orderedProduct) =>
+            orderedProduct.productId.sellerId._id.toString() === sellerId &&
+            format(orderedProduct.deliveryDate, "yyyy-MM-dd") < currentDate &&
+            orderedProduct.deliveryDate !== null
+        );
+
+        return filteredProducts.length > 0
+          ? { ...order.toObject(), orderedProducts: filteredProducts }
+          : null;
+      })
+      .filter((order) => order !== null);
+
+    if (deliveredOrders.length === 0) {
+      return res.status(404).json({ message: "No delivered orders found" });
+    }
+
+    return res.status(200).json({
+      message: "Fetched delivered orders successfully",
+      data: deliveredOrders,
+    });
+  } catch (error) {
+    console.log("Error on fetching delivered orders", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   addOrder,
   fetchOrdersByBuyerId,
   fetchOrdersBySellerId,
   setDeliveryDate,
+  fetchConfirmedOrders,
+  fetchDeliveredOrders,
 };

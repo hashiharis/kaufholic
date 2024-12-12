@@ -20,7 +20,6 @@
     object-fit: contain;
     object-position: center;
 }
-
 @media (min-width:768px){
     .prodImg{
        grid-area:1/1/1/2;
@@ -37,4 +36,3 @@
     grid-area:1/3/1/4;
 }
 }
-
