@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import styles from "./sellerproductview.module.css";
 import emptyIllustration from "../../../assets/images/empty_illustration.png";
 import { BASE_URL } from "../../../apis/baseUrl";
-import { useNavigate } from "react-router-dom";
 
 export const SellerProductView = ({ changeActivePage, setCurrentProduct }) => {
   const [products, setProducts] = useState();
@@ -17,8 +16,6 @@ export const SellerProductView = ({ changeActivePage, setCurrentProduct }) => {
     const sellerId = localStorage.getItem("kh-sellerId");
     fetchAllProducts(sellerId);
   }, []);
-
-  const navigate = useNavigate();
 
   const fetchAllProducts = async (sellerId) => {
     try {

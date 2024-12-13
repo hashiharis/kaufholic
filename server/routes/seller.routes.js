@@ -14,11 +14,17 @@ const {
 const {
   sellerSignup,
   sellerSignin,
+  fetchSellerDetails,
+  editSellerDetails,
+  sellerMetrics,
 } = require("../controller/seller.controller");
 const {
   validateEmailPasswordRequired,
   validateResetPassFieldsrequired,
 } = require("../middlewares/validateEmailPasswordRequired");
+const {
+  validateSellerEditFields,
+} = require("../middlewares/validateSellerDetails");
 const sellerRouter = express.Router();
 
 sellerRouter.post(
@@ -39,11 +45,15 @@ sellerRouter.post(
   sellerSignin
 );
 
-// sellerRouter.patch(
-//   "/resetpassword",
-//   validateResetPassFieldsrequired,
-//   validateResetPassword,
-//   sellerResetPassword
-// );
+sellerRouter.get("/sellerprofile/:sellerId", fetchSellerDetails);
+sellerRouter.patch(
+  "/update/:sellerId",
+  validateSellerEditFields,
+  validateEmail,
+  validateContact,
+  validatePincode,
+  editSellerDetails
+);
+sellerRouter.get("/metrics/:sellerId", sellerMetrics);
 
 module.exports = sellerRouter;

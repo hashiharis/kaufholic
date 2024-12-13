@@ -12,10 +12,7 @@ export const PendingOrders = () => {
   const [byrShippingDetails, setByrShippingDetails] = useState([]);
   const [orderedProducts, setOrderedProducts] = useState([]);
   const [deliveryDate, setDeliveryDate] = useState("");
-  // const [show, setShow] = useState(false);
 
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
   const sellerId = localStorage.getItem("kh-sellerId") || null;
   useEffect(() => {
     if (sellerId) {

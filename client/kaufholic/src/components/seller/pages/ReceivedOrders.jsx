@@ -3,7 +3,7 @@ import Tabs from "react-bootstrap/Tabs";
 import { PendingOrders } from "./PendingOrders";
 import { ConfirmedOrders } from "./ConfirmedOrders";
 import { DeliveredOrders } from "./DeliveredOrders";
-export const RecievedOrders = () => {
+export const ReceivedOrders = () => {
   return (
     <div>
       <h1>Orders Page</h1>

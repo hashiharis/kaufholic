@@ -1,0 +1,32 @@
+.dashboardWrapper{
+   margin-top:2em;
+}
+
+.metricName{
+    font-weight:500;
+    color: #000066;
+}
+.metrics{
+    font-size:3rem;
+    font-weight:900;
+    color:#ffff;
+}
+.countCards{
+    margin-block:2em;
+    background-color:  #cc6699;
+    border-radius: 5px;
+    box-shadow: 1px 1px 18px 0px rgba(0,0,0,0.75);
+    padding-inline:1em;
+    padding-block:1em;
+    text-align: center;
+}
+
+@media(min-width:768px){
+    .cards{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        gap:1em;
+        font-size:1.5rem;
+    }
+}

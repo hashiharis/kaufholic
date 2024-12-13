@@ -1,0 +1,50 @@
+.sellerProfileDisplay{
+    margin:0 auto;
+    width:100%;
+    margin-top:2em;
+    padding-left:2em;
+    padding-bottom:1em;
+}
+
+.profileHeading{
+    margin-top:2em;
+}
+
+
+.sellerIllustration{
+    background:url('../../../assets/images/sellerpro.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width:100%;
+    min-height: 300px;
+}
+
+.icons{
+    padding-right:0.4em;
+}
+.editForm{
+    padding-inline:1em;
+    padding-block:1em;
+}
+.save{
+    margin-right:1em;
+}
+@media(min-width:768px){
+    .profileSection{
+        display:grid;
+        grid-template-columns: repeat(2,1fr);
+        align-items: center;
+        padding-right:5em;
+    }
+    .sellerIllustration{
+        background:url('../../../assets/images/sellerpro.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        width:100%;
+        min-height: 350px;
+        grid-area:1/2/1/3;
+    }
+    
+}
