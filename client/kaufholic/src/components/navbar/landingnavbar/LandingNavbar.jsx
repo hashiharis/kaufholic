@@ -34,9 +34,6 @@ export const LandingNavbar = () => {
               <Nav
                 className={`justify-content-end flex-grow-1 pe-3  ${styles.navRightSection}`}
               >
-                {/* <Nav.Link href="#action1" className={`${styles.link}`}>
-                Sign in
-                <Nav.Link/> */}
                 <div className={styles.personIcon}>
                   <BsPersonCircle size="20px" className={styles.icon} />
                   <NavDropdown
@@ -56,11 +53,6 @@ export const LandingNavbar = () => {
                     </NavDropdown.Item>
                   </NavDropdown>
                 </div>
-
-                {/* <Nav.Link href="#action1" className={`${styles.link}`}>
-                  <BsPersonCircle size="20px" className={styles.icon} />
-                  Sign up
-                </Nav.Link> */}
                 <div className={styles.personIcon}>
                   <BsPersonCircle size="20px" className={styles.icon} />
                   <NavDropdown

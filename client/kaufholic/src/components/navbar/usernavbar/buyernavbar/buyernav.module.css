@@ -25,6 +25,18 @@
 .icon{
     margin-right:0.5em;
 }
+.personIcon{
+    display: flex;
+    align-items: baseline;
+    gap:0.1em;
+}
+.titleDropdown a:nth-child(1)[aria-expanded]{
+    color:var(--navbar-color);
+   
+  }
+
+
+
 
 @media (min-width:1000px){
     .buyerNavWrapper{
@@ -38,6 +50,15 @@
     .link{
         color:var(--navbar-color)!important;
     }
+
+    .titleDropdown{
+        padding-right:0.1em;
+    }
+    .personIcon{
+        align-items: center;
+      
+    }
+  
    
 }
 
@@ -48,5 +69,6 @@
      .logo{
         min-height:250px;
      }
+   
   
 }

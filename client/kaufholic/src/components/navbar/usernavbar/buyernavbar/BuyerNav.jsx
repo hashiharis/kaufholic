@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../../apis/axiosInstance";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { saveBuyerDetails, selectCurrentBuyerDetails } from "./buyerSlice";
+import { useDispatch } from "react-redux";
+import { saveBuyerDetails } from "./buyerSlice";
 import styles from "./buyernav.module.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { IoPersonOutline } from "react-icons/io5";
+import { IoPerson } from "react-icons/io5";
 import { FaTags } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
+import { IoCart } from "react-icons/io5";
+import { FaBoxOpen } from "react-icons/fa";
+import { FaBox } from "react-icons/fa";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import { useLocation } from "react-router-dom";
 
 export const BuyerNav = () => {
   const [buyerData, setBuyerData] = useState({
@@ -19,6 +26,12 @@ export const BuyerNav = () => {
     email: "",
   });
 
+  const [activeLink, setActiveLink] = useState(
+    localStorage.getItem("activeLink") || null
+  );
+
+  const location = useLocation();
+  console.log(location.pathname);
   // const { crntBuyer } = useSelector(selectCurrentBuyerDetails);
   const dispatch = useDispatch();
   const buyerId = localStorage.getItem("kh-buyerId") || null;
@@ -36,6 +49,24 @@ export const BuyerNav = () => {
       setBuyerData({});
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("activeLink", activeLink);
+  }, [activeLink]);
+
+  useEffect(() => {
+    if (
+      !["/buyer/wishlist", "/buyer/orders/", `/cart/${buyerId}`].includes(
+        location.pathname
+      )
+    ) {
+      setActiveLink(null);
+    }
+  }, [location.pathname]);
+
+  const handleIcon = (link) => {
+    setActiveLink(link);
+  };
 
   // const fetchCurrentBuyerDetails = async (id) => {
   //   try {
@@ -122,23 +153,71 @@ export const BuyerNav = () => {
                   Products
                 </Nav.Link>
                 <Nav.Link
-                  href={buyerData.name ? `#home` : `/buyer/signin`}
+                  href="/buyer/wishlist"
                   className={`${styles.link}`}
+                  onClick={() => {
+                    handleIcon("/buyer/wishlist");
+                  }}
                 >
-                  <IoPersonOutline size="20px" className={styles.icon} />
-                  {buyerData.name ? `Hi ${buyerData.name}` : `SignIn`}
-                </Nav.Link>
-                <Nav.Link href="/buyer/wishlist" className={`${styles.link}`}>
-                  <FaRegHeart size="20px" className={styles.icon} />
+                  {activeLink === "/buyer/wishlist" ? (
+                    <FaHeart size="20px" className={styles.icon} />
+                  ) : (
+                    <FaRegHeart size="20px" className={styles.icon} />
+                  )}
                   Wishlist
                 </Nav.Link>
                 <Nav.Link
                   href={`/cart/${buyerId}`}
                   className={`${styles.link}`}
+                  onClick={() => {
+                    handleIcon(`/cart/${buyerId}`);
+                  }}
                 >
-                  <IoCartOutline size="20px" className={styles.icon} />
+                  {activeLink === `/cart/${buyerId}` ? (
+                    <IoCart size="20px" className={styles.icon} />
+                  ) : (
+                    <IoCartOutline size="20px" className={styles.icon} />
+                  )}
                   Cart
                 </Nav.Link>
+                <Nav.Link
+                  href={"/buyer/orders/"}
+                  className={`${styles.link}`}
+                  onClick={() => {
+                    handleIcon("/buyer/orders/");
+                  }}
+                >
+                  {activeLink === "/buyer/orders/" ? (
+                    <FaBoxOpen size="20px" className={styles.icon} />
+                  ) : (
+                    <FaBox size="15px" className={styles.icon} />
+                  )}
+                  Orders
+                </Nav.Link>
+                {/* <Nav.Link
+                  href={buyerData.name ? `#home` : `/buyer/signin`}
+                  className={`${styles.link}`}
+                > */}
+                <div className={`${styles.personIcon}`}>
+                  <IoPersonOutline
+                    size="20px"
+                    className={`${styles.icon}${styles.profileIcon}`}
+                  />
+                  <NavDropdown
+                    title={buyerData.name ? `Hi ${buyerData.name}` : `SignIn`}
+                    id="basic-nav-dropdown"
+                    className={`${styles.titleDropdown}`}
+                  >
+                    <NavDropdown.Item href="/buyer/signin">
+                      Profile Page
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/seller/signin">
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
+                {/* </Nav.Link> */}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
