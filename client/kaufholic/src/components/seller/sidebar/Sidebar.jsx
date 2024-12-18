@@ -8,8 +8,11 @@ import { IoMdHome } from "react-icons/io";
 import { FaBoxOpen } from "react-icons/fa";
 import { FaPowerOff } from "react-icons/fa";
 import styles from "./sidebar.module.css";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
+  const navigate = useNavigate();
   const sideBarData = [
     {
       sidebarLink: "",
@@ -72,6 +75,14 @@ export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
               className={styles[item.cName]}
               onClick={() => {
                 changeActivePage(item.sidebarLink);
+                if (item.sidebarLink === "Logout") {
+                  const sellerId = localStorage.getItem("kh-sellerId");
+                  if (sellerId) {
+                    localStorage.removeItem("kh-sellerId");
+                    toast.success("Logged out successfully");
+                    navigate("/seller/signin");
+                  }
+                }
               }}
             >
               {item.sidebarLink}

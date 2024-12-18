@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../../apis/axiosInstance";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { saveBuyerDetails } from "./buyerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { saveBuyerDetails, selectCurrentBuyerDetails } from "./buyerSlice";
 import styles from "./buyernav.module.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -11,14 +11,13 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { IoPersonOutline } from "react-icons/io5";
-import { IoPerson } from "react-icons/io5";
 import { FaTags } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { IoCart } from "react-icons/io5";
 import { FaBoxOpen } from "react-icons/fa";
 import { FaBox } from "react-icons/fa";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const BuyerNav = () => {
   const [buyerData, setBuyerData] = useState({
@@ -31,20 +30,21 @@ export const BuyerNav = () => {
   );
 
   const location = useLocation();
-  console.log(location.pathname);
-  // const { crntBuyer } = useSelector(selectCurrentBuyerDetails);
+  const navigate = useNavigate();
+  const { crntBuyer } = useSelector(selectCurrentBuyerDetails);
+  // console.log("crnt", crntBuyer);
   const dispatch = useDispatch();
   const buyerId = localStorage.getItem("kh-buyerId") || null;
+  const token = localStorage.getItem("kh-buyerToken") || null;
   useEffect(() => {
     // if (buyerId) {
     //   fetchCurrentBuyerDetails(buyerId);
     // }
     // const buyerId = localStorage.getItem("kh-buyerId") || null;
 
-    const token = localStorage.getItem("kh-buyerToken") || null;
-
     if (token && buyerId) {
       fetchCurrentBuyerByToken(token, buyerId);
+      fetchCurrentBuyerDetails(buyerId);
     } else {
       setBuyerData({});
     }
@@ -68,29 +68,34 @@ export const BuyerNav = () => {
     setActiveLink(link);
   };
 
-  // const fetchCurrentBuyerDetails = async (id) => {
-  //   try {
-  //     const res = await axiosInstance.get(`/buyer/fetchCurrentBuyer/${id}`);
-  //     if (res.status === 200) {
-  //       setBuyerData({
-  //         ...buyerData,
-  //         name: res?.data?.data?.name,
-  //         email: res?.data?.data?.email,
-  //       });
-  //       dispatch(saveBuyerDetails(buyerData));
-  //       console.log(res);
-  //       console.log(crntBuyer);
-  //     }
-  //   } catch (error) {
-  //     const statusCode = error.response.status;
-  //     if (statusCode === 400 || statusCode === 404) {
-  //       toast.error("Something went wrong");
-  //     } else {
-  //       toast.error("Please try again after sometime");
-  //     }
-  //     console.log("Error on fetching buyer details", error);
-  //   }
-  // };
+  const fetchCurrentBuyerDetails = async (id) => {
+    try {
+      const res = await axiosInstance.get(`/buyer/fetchCurrentBuyer/${id}`);
+      if (res.status === 200) {
+        setBuyerData({
+          ...buyerData,
+          name: res?.data?.data?.name,
+          email: res?.data?.data?.email,
+        });
+        let obj = {
+          ...buyerData,
+          name: res?.data?.data?.name,
+          email: res?.data?.data?.email,
+        };
+        dispatch(saveBuyerDetails(obj));
+        // console.log(res);
+        // console.log(crntBuyer);
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on fetching buyer details", error);
+    }
+  };
 
   const fetchCurrentBuyerByToken = async (token, id) => {
     try {
@@ -100,18 +105,19 @@ export const BuyerNav = () => {
         },
       });
       if (res.status === 200) {
+        // console.log(res);
         setBuyerData({
           ...buyerData,
           name: res?.data?.data?.name,
           email: res?.data?.data?.email,
         });
 
-        let obj = {
-          ...buyerData,
-          name: res?.data?.data?.name,
-          email: res?.data?.data?.email,
-        };
-        dispatch(saveBuyerDetails(obj));
+        // let obj = {
+        //   ...buyerData,
+        //   name: res?.data?.data?.name,
+        //   email: res?.data?.data?.email,
+        // };
+        // dispatch(saveBuyerDetails(obj));
         // console.log("redux", crntBuyer);
       }
     } catch (error) {
@@ -122,6 +128,15 @@ export const BuyerNav = () => {
         toast.error("Please try again after sometime");
       }
       console.log("Error on fetching buyer details", error);
+    }
+  };
+
+  const handleLogout = () => {
+    if (buyerId && token) {
+      localStorage.removeItem("kh-buyerId");
+      localStorage.removeItem("kh-buyerToken");
+      dispatch(saveBuyerDetails({}));
+      navigate("/buyer/signin");
     }
   };
   return (
@@ -194,30 +209,33 @@ export const BuyerNav = () => {
                   )}
                   Orders
                 </Nav.Link>
-                {/* <Nav.Link
-                  href={buyerData.name ? `#home` : `/buyer/signin`}
-                  className={`${styles.link}`}
-                > */}
                 <div className={`${styles.personIcon}`}>
                   <IoPersonOutline
                     size="20px"
                     className={`${styles.icon}${styles.profileIcon}`}
                   />
-                  <NavDropdown
-                    title={buyerData.name ? `Hi ${buyerData.name}` : `SignIn`}
-                    id="basic-nav-dropdown"
-                    className={`${styles.titleDropdown}`}
-                  >
-                    <NavDropdown.Item href="/buyer/signin">
-                      Profile Page
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="/seller/signin">
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
+
+                  {crntBuyer.name ? (
+                    <NavDropdown
+                      title={
+                        crntBuyer.name
+                        // crntBuyer.name ? `Hi ${crntBuyer.name}` : `Sign in`
+                      }
+                      id="basic-nav-dropdown"
+                      className={`${styles.titleDropdown}`}
+                    >
+                      <NavDropdown.Item href="/buyer/profile">
+                        Profile Page
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item onClick={handleLogout}>
+                        Logout
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  ) : (
+                    <Nav.Link href="/buyer/signin">Sign in</Nav.Link>
+                  )}
                 </div>
-                {/* </Nav.Link> */}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

@@ -1,7 +1,7 @@
 import Accordion from "react-bootstrap/Accordion";
 import styles from "./orders.module.css";
-import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
-import { Footer } from "../../footer/Footer";
+// import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
+// import { Footer } from "../../footer/Footer";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
@@ -45,7 +45,7 @@ export const Orders = () => {
   console.log("orders", orders);
   return (
     <>
-      <BuyerNav />
+      {/* <BuyerNav /> */}
       <div className={styles.ordersWrapper}>
         {orders.length === 0 ? (
           <>
@@ -99,7 +99,7 @@ export const Orders = () => {
           </>
         )}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

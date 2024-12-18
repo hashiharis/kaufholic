@@ -13,8 +13,9 @@ import { WishlistWrapper } from "./components/cards/wishlist-cards/WishlistWrapp
 import { ProductDetail } from "./components/pdp/productfirstdetail/ProductDetail";
 import { SellerProductEdit } from "./components/seller/pages/SellerProductEdit";
 import { CartPaymentTab } from "./components/cartandpayment/CartPaymentTab";
-import { Orders } from "./components/buyer/orders/Orders";
 import { ForgotPassword } from "./components/forgotpassword/ForgotPassword";
+import { BuyerProfile } from "./components/buyer/profile/BuyerProfile";
+import { OrderCategories } from "./components/buyer/orders/OrderCategories";
 
 function App() {
   return (
@@ -37,7 +38,8 @@ function App() {
           path="/seller/editproductdetails/:productId"
           element={<SellerProductEdit />}
         />
-        <Route path="/buyer/orders/" element={<Orders />} />
+        <Route path="/buyer/orders/" element={<OrderCategories />} />
+        <Route path="/buyer/profile/" element={<BuyerProfile />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>

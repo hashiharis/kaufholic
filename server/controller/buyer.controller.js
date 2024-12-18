@@ -1,6 +1,7 @@
 const BuyerModel = require("../model/buyer.model");
 const { comparePassword } = require("../utils/comparePassword");
 const generateAccessToken = require("../utils/generateToken");
+const isValidId = require("../utils/validId");
 
 const buyerSignup = async (req, res) => {
   try {
@@ -103,4 +104,39 @@ const getBuyerByToken = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
-module.exports = { buyerSignup, buyerSignin, getBuyerById, getBuyerByToken };
+
+const updateBuyerProfile = async (req, res) => {
+  try {
+    const { name, email } = req.body;
+    const { buyerId } = req.params;
+
+    if (!isValidId(buyerId)) {
+      return res.status(400).json({ message: "Buyer id is invalid" });
+    }
+
+    const updBuyer = await BuyerModel.findByIdAndUpdate(
+      buyerId,
+      { name, email },
+      { new: true }
+    );
+
+    if (!updBuyer) {
+      return res.status(404).json({ message: "Buyer details not found" });
+    }
+
+    return res.status(200).json({
+      message: "Buyer profile updated successfully",
+      data: updBuyer,
+    });
+  } catch (error) {
+    console.log("Error on updating buyer data ", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+module.exports = {
+  buyerSignup,
+  buyerSignin,
+  getBuyerById,
+  getBuyerByToken,
+  updateBuyerProfile,
+};

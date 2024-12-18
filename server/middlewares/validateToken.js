@@ -4,9 +4,8 @@ const jwt = require("jsonwebtoken");
 
 const protectRoute = (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  console.log("auth-header", authHeader);
+  // console.log("auth-header", authHeader);
   const token = authHeader && authHeader.split(" ")[1];
-
   if (!token) {
     return res.status(403).json({ message: "Authentication Failed" });
   }

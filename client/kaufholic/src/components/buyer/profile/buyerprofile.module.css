@@ -1,0 +1,77 @@
+.profileTitle{
+    margin-top:0.5em;
+    text-align: center;
+    font-weight:600;
+}
+
+
+.buyerIllustration{
+background: url('../../../assets/images/buyerpro.png');
+background-repeat: no-repeat;
+background-position: center;
+background-size: contain;
+width:100%;
+min-height:300px;
+}
+
+.buyerDetails{
+    padding-inline:7em;
+    padding-bottom:1em;
+}
+
+.buyerProfileForm{
+    padding-inline:1em;
+  
+}
+.updateBtn{
+  margin-block:1em;
+}
+
+@media(min-width:768px){
+    .profileWrapper{
+        display:grid;
+        grid-template-columns: repeat(2,0.5fr);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .buyerIllustration{
+        background-size:cover;
+    }
+
+    .buyerDetails{
+        font-size:2rem;
+        padding-inline:0em;
+    }
+}
+
+@media (min-width:1024px){
+    .buyerIllustration{
+        min-height: 500px;
+    }
+    .editBtn{
+        padding-inline:1em;
+     }
+   
+}
+
+@media (min-width:2560px){
+    .buyerIllustration{
+        min-height: 700px;
+    }
+    .buyerDetails{
+        font-size:5rem;
+    }
+    .editBtn{
+       font-size: 5rem;
+       padding-inline:1em;
+    }
+    .profileWrapper{
+       height: 80vh;
+    }
+    .buyerProfileForm{
+        width:80%;
+        font-size: 2rem;
+    }
+   
+}

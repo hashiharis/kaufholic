@@ -67,7 +67,7 @@ const fetchOrdersByBuyerId = async (req, res) => {
   try {
     const { buyerId } = req.params;
 
-    console.log(buyerId);
+    // console.log(buyerId);
 
     if (!isValidId(buyerId)) {
       return res.status(400).json({ message: "Buyer id is not valid" });
@@ -80,6 +80,15 @@ const fetchOrdersByBuyerId = async (req, res) => {
     if (orderedProducts.length === 0) {
       return res.status(200).json({ message: "No orders found" });
     }
+
+    // const pendingOrders = orderedProducts.map((orderedProduct) =>{
+
+    //   const filteredOrders= orderedProduct.orderedProducts.filter(
+    //     (product) => product.deliveryStatus === "pending"
+    //   )
+    // }
+
+    // );
 
     return res
       .status(200)
@@ -146,7 +155,7 @@ const setDeliveryDate = async (req, res) => {
   try {
     const { orderId, productId } = req.params;
     const { deliveryDate } = req.query;
-    console.log("date", deliveryDate);
+    // console.log("date", deliveryDate);
 
     if (!isValidId(orderId)) {
       return res.status(400).json("Invalid order id");
@@ -173,8 +182,8 @@ const setDeliveryDate = async (req, res) => {
     findProduct.deliveryDate = deliveryDate;
     findProduct.deliveryStatus = "confirmed";
 
-    console.log("orders", orders);
-    console.log(findProduct);
+    // console.log("orders", orders);
+    // console.log(findProduct);
 
     if (!findProduct) {
       return res.status(404).json({ message: "Orders not updated or found" });

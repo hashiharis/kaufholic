@@ -6,12 +6,14 @@ const {
   buyerSignin,
   getBuyerById,
   getBuyerByToken,
+  updateBuyerProfile,
 } = require("../controller/buyer.controller");
 const {
   validateRequiredFields,
 } = require("../middlewares/validateRequiredFields");
 const {
   validateEmailPasswordRequired,
+  validateNameEmailRequired,
 } = require("../middlewares/validateEmailPasswordRequired");
 const { protectRoute } = require("../middlewares/validateToken");
 
@@ -32,7 +34,13 @@ buyerRouter.post(
   buyerSignin
 );
 
-// buyerRouter.get("/fetchCurrentBuyer/:id", getBuyerById);
+buyerRouter.get("/fetchCurrentBuyer/:id", getBuyerById);
 buyerRouter.get("/currentuser/:id", protectRoute, getBuyerByToken);
+buyerRouter.patch(
+  "/update/:buyerId",
+  validateNameEmailRequired,
+  validateEmail,
+  updateBuyerProfile
+);
 
 module.exports = buyerRouter;
