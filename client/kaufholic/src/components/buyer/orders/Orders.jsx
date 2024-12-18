@@ -1,48 +1,12 @@
+/* eslint-disable react/prop-types */
 import Accordion from "react-bootstrap/Accordion";
 import styles from "./orders.module.css";
 // import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
 // import { Footer } from "../../footer/Footer";
-import { useEffect, useState } from "react";
-import { axiosInstance } from "../../../apis/axiosInstance";
-import toast from "react-hot-toast";
 import { BASE_URL } from "../../../apis/baseUrl";
 import empty_image from "../../../assets/images/empty_illustration.png";
 
-export const Orders = () => {
-  const [orders, setOrders] = useState([]);
-
-  useEffect(() => {
-    const buyerId = localStorage.getItem("kh-buyerId") || null;
-
-    if (buyerId) {
-      fetchOrders(buyerId);
-    }
-  }, []);
-
-  const fetchOrders = async (byrId) => {
-    try {
-      const res = await axiosInstance.get(`/orders/listOrders/${byrId}`);
-
-      if (res.status === 200) {
-        // console.log(
-        //   "orders",
-        //   res?.data?.data.map((item) => item.orderedProducts)
-        // );
-        let products = res?.data?.data.map((item) => item.orderedProducts);
-        setOrders(products);
-      }
-    } catch (error) {
-      const statusCode = error.response.status;
-      if (statusCode === 400 || statusCode === 404) {
-        toast.error("Something went wrong");
-      } else {
-        toast.error("Please try again after sometime");
-      }
-      console.log("Error on fetching order", error);
-    }
-  };
-
-  console.log("orders", orders);
+export const Orders = ({ orders }) => {
   return (
     <>
       {/* <BuyerNav /> */}

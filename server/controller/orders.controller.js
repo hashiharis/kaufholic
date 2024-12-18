@@ -63,7 +63,7 @@ const addOrder = async (req, res) => {
   }
 };
 
-const fetchOrdersByBuyerId = async (req, res) => {
+const fetchPendingOrdersByBuyerId = async (req, res) => {
   try {
     const { buyerId } = req.params;
 
@@ -73,28 +73,83 @@ const fetchOrdersByBuyerId = async (req, res) => {
       return res.status(400).json({ message: "Buyer id is not valid" });
     }
 
-    const orderedProducts = await OrderModel.find({ buyerId })
+    const orders = await OrderModel.find({ buyerId })
       .populate("orderedProducts.productId")
       .exec();
 
-    if (orderedProducts.length === 0) {
+    if (orders.length === 0) {
       return res.status(200).json({ message: "No orders found" });
     }
+    const pendingOrders = orders
+      .map((order) => {
+        const filteredOrders = order.orderedProducts.filter(
+          (product) => product.deliveryStatus === "pending"
+        );
 
-    // const pendingOrders = orderedProducts.map((orderedProduct) =>{
+        return filteredOrders.length > 0
+          ? {
+              ...order.toObject(),
+              orderedProducts: filteredOrders,
+            }
+          : null;
+      })
+      .filter((order) => order !== null);
 
-    //   const filteredOrders= orderedProduct.orderedProducts.filter(
-    //     (product) => product.deliveryStatus === "pending"
-    //   )
-    // }
-
-    // );
+    if (pendingOrders.length === 0) {
+      return res.status(404).json({ message: "No pending orders" });
+    }
 
     return res
       .status(200)
-      .json({ message: "Orders fetched successfully", data: orderedProducts });
+      .json({ message: "Orders fetched successfully", data: pendingOrders });
   } catch (error) {
-    console.log("Error on fetching orders by buyer id", error);
+    console.log("Error on fetching pending orders by buyer id", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+const fetchDeliveredOrdersByBuyerId = async (req, res) => {
+  try {
+    const { buyerId } = req.params;
+    const currentDate = format(new Date(), "yyyy-MM-dd");
+
+    if (!isValidId(buyerId)) {
+      return res.status(400).json({ message: "Buyer id is not valid" });
+    }
+
+    const orders = await OrderModel.find({ buyerId })
+      .populate("orderedProducts.productId")
+      .exec();
+
+    if (orders.length === 0) {
+      return res.status(200).json({ message: "No orders found" });
+    }
+
+    const deliveredOrders = orders
+      .map((order) => {
+        const filteredOrders = order.orderedProducts.filter(
+          (product) =>
+            format(product.deliveryDate, "yyyy-MM-dd") < currentDate &&
+            product.deliveryDate !== null
+        );
+        return filteredOrders.length > 0
+          ? {
+              ...order.toObject(),
+              orderedProducts: filteredOrders,
+            }
+          : null;
+      })
+      .filter((order) => order !== null);
+
+    if (deliveredOrders.length === 0) {
+      return res.status(404).json({ message: "No past delivered orders" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Orders fetched successfully", data: deliveredOrders });
+  } catch (error) {
+    console.log("Error on fetching delivered orders by buyer id", error);
     return res.status(500).json({ message: "Server Error" });
   }
 };
@@ -322,7 +377,8 @@ const fetchDeliveredOrders = async (req, res) => {
 
 module.exports = {
   addOrder,
-  fetchOrdersByBuyerId,
+  fetchPendingOrdersByBuyerId,
+  fetchDeliveredOrdersByBuyerId,
   fetchOrdersBySellerId,
   setDeliveryDate,
   fetchConfirmedOrders,

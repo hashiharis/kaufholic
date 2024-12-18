@@ -1,17 +1,19 @@
 const express = require("express");
 const {
   addOrder,
-  fetchOrdersByBuyerId,
+  fetchPendingOrdersByBuyerId,
   fetchOrdersBySellerId,
   setDeliveryDate,
   fetchConfirmedOrders,
   fetchDeliveredOrders,
+  fetchDeliveredOrdersByBuyerId,
 } = require("../controller/orders.controller");
 const { validateDeliveryDate } = require("../middlewares/validateDeliveryDate");
 const orderRouter = express.Router();
 
 orderRouter.post("/new/:buyerId", addOrder);
-orderRouter.get("/listOrders/:buyerId", fetchOrdersByBuyerId);
+orderRouter.get("/listOrders/:buyerId", fetchPendingOrdersByBuyerId);
+orderRouter.get("/listPastOrders/:buyerId", fetchDeliveredOrdersByBuyerId);
 orderRouter.get("/sellerOrders/:sellerId", fetchOrdersBySellerId);
 orderRouter.patch(
   "/setdeliverydate/:orderId/:productId",

@@ -50,5 +50,9 @@
     .ordersWrapper{
         width:80%;
     }
-  
+    .emptyImage{
+        width:50%;
+        object-fit: contain;
+        object-position: center;
+    }
 }
