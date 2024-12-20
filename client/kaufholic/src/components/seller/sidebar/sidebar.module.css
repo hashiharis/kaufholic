@@ -9,6 +9,19 @@
     padding-left:1em;
     padding-block:1em;
 }
+.adminSidebar{
+    background-color: grey;
+    color:#FFFFFF;
+    height: 100vh;
+    padding-left:1em;
+    padding-block:1em;
+}
+
+.adminSidebarHide{
+    padding-left:1em;
+    padding-block:1em;
+    height:15vh;
+}
 .sidebarHide{
     padding-left:1em;
     padding-block:1em;
@@ -49,6 +62,10 @@
     box-shadow:none;
     padding-left: 2em;
    }
+   .adminSidebarHide{
+    box-shadow:none;
+    padding-left: 2em;
+   }
 }
 
 @media (min-width:1024px){
@@ -68,6 +85,14 @@
         background-color:  #663366;
         color:#FFFFFF;
         height: 100vh;
+        padding:0;
+        padding-block:1em;
+    }
+
+    .adminSidebarHide{
+        background-color: grey;
+        color:#FFFFFF;
+        height: 120vh;
         padding:0;
         padding-block:1em;
     }

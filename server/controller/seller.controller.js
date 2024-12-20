@@ -1,9 +1,11 @@
+const { genSaltSync } = require("bcrypt");
 const BuyerModel = require("../model/buyer.model");
 const OrderModel = require("../model/order.model");
 const ProductModel = require("../model/product.model");
 const SellerModel = require("../model/seller.model");
 const { comparePassword } = require("../utils/comparePassword");
 const isValidId = require("../utils/validId");
+const generateAccessToken = require("../utils/generateToken");
 
 const sellerSignup = async (req, res) => {
   try {
@@ -58,9 +60,14 @@ const sellerSignin = async (req, res) => {
 
     const sellerDetails = sellerFound.toObject();
     delete sellerDetails.password;
-    return res
-      .status(200)
-      .json({ message: "Login success", seller: sellerDetails });
+
+    const accessToken = generateAccessToken(sellerDetails);
+
+    return res.status(200).json({
+      message: "Login success",
+      token: accessToken,
+      seller: sellerDetails,
+    });
   } catch (error) {
     console.log("Error on seller sign in", error);
     return res.status(500).json({ message: "Server Error" });

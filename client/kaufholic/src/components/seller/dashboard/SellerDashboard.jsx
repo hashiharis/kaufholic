@@ -10,12 +10,19 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import { SellerProductEdit } from "../pages/SellerProductEdit";
 import { ReceivedOrders } from "../pages/ReceivedOrders";
+import { IoMdHome } from "react-icons/io";
+import { FaBoxOpen } from "react-icons/fa";
+import { FaPowerOff } from "react-icons/fa";
+import { IoIosPerson } from "react-icons/io";
+import { FaCartArrowDown } from "react-icons/fa";
+import { IoBagCheck } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
 
 export const SellerDashboard = () => {
   const [activePage, setActivePage] = useState("Home");
   const [showMenu, setShowMenu] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
-
+  const location = useLocation();
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -24,6 +31,40 @@ export const SellerDashboard = () => {
     setActivePage(page);
   };
 
+  const sideBarData = [
+    {
+      sidebarLink: "",
+      icon: "",
+      cName: "logo",
+    },
+    {
+      sidebarLink: "Home",
+      icon: <IoMdHome />,
+      cName: "sidebarLink",
+    },
+    {
+      sidebarLink: "Profile",
+      icon: <IoIosPerson />,
+      cName: "sidebarLink",
+    },
+
+    {
+      sidebarLink: "Add Product",
+      icon: <FaCartArrowDown />,
+      cName: "sidebarLink",
+    },
+    {
+      sidebarLink: "My Products",
+      icon: <IoBagCheck />,
+      cName: "sidebarLink",
+    },
+    { sidebarLink: "Orders", icon: <FaBoxOpen />, cName: "sidebarLink" },
+    {
+      sidebarLink: "Logout",
+      icon: <FaPowerOff />,
+      cName: "sidebarLink",
+    },
+  ];
   return (
     <Container fluid>
       <Row className={styles.sellerDashboardWrapper}>
@@ -36,6 +77,8 @@ export const SellerDashboard = () => {
             changeActivePage={changeActivePage}
             toggleMenu={toggleMenu}
             showMenu={showMenu}
+            data={sideBarData}
+            location={location}
           />
         </Col>
         {!showMenu && (

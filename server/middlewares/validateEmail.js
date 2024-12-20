@@ -1,4 +1,3 @@
-const BuyerModel = require("../model/buyer.model");
 const validateEmail = async (req, res, next) => {
   const { email } = req.body;
 

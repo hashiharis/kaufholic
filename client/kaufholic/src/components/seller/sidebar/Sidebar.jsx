@@ -1,56 +1,38 @@
 /* eslint-disable react/prop-types */
-import { IoIosPerson } from "react-icons/io";
-import { FaCartArrowDown } from "react-icons/fa";
-import { IoBagCheck } from "react-icons/io5";
+// import { IoIosPerson } from "react-icons/io";
+// import { FaCartArrowDown } from "react-icons/fa";
+// import { IoBagCheck } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
-import { IoMdHome } from "react-icons/io";
-import { FaBoxOpen } from "react-icons/fa";
-import { FaPowerOff } from "react-icons/fa";
+// import { IoMdHome } from "react-icons/io";
+// import { FaBoxOpen } from "react-icons/fa";
+// import { FaPowerOff } from "react-icons/fa";
 import styles from "./sidebar.module.css";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
+export const Sidebar = ({
+  changeActivePage,
+  toggleMenu,
+  showMenu,
+  data,
+  location,
+}) => {
   const navigate = useNavigate();
-  const sideBarData = [
-    {
-      sidebarLink: "",
-      icon: "",
-      cName: "logo",
-    },
-    {
-      sidebarLink: "Home",
-      icon: <IoMdHome />,
-      cName: "sidebarLink",
-    },
-    {
-      sidebarLink: "Profile",
-      icon: <IoIosPerson />,
-      cName: "sidebarLink",
-    },
-
-    {
-      sidebarLink: "Add Product",
-      icon: <FaCartArrowDown />,
-      cName: "sidebarLink",
-    },
-    {
-      sidebarLink: "My Products",
-      icon: <IoBagCheck />,
-      cName: "sidebarLink",
-    },
-    { sidebarLink: "Orders", icon: <FaBoxOpen />, cName: "sidebarLink" },
-    {
-      sidebarLink: "Logout",
-      icon: <FaPowerOff />,
-      cName: "sidebarLink",
-    },
-  ];
+  const sidebarClass =
+    location.pathname === "/admin/dashboard"
+      ? showMenu
+        ? `${styles.adminSidebar}`
+        : `${styles.adminSidebarHide}`
+      : location.pathname === "/seller/dashboard"
+      ? showMenu
+        ? `${styles.sidebar} `
+        : `${styles.sidebarHide}`
+      : " ";
 
   return (
     <div className={`${styles.sidebarWrapper}`}>
-      <nav className={showMenu ? `${styles.sidebar}` : `${styles.sidebarHide}`}>
+      <nav className={sidebarClass}>
         {showMenu ? (
           <IoClose onClick={toggleMenu} size={30} className={styles.navIcon} />
         ) : (
@@ -61,7 +43,7 @@ export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
           />
         )}
 
-        {sideBarData.map((item, index) => (
+        {data.map((item, index) => (
           <ul
             key={index}
             className={
@@ -75,7 +57,10 @@ export const Sidebar = ({ changeActivePage, toggleMenu, showMenu }) => {
               className={styles[item.cName]}
               onClick={() => {
                 changeActivePage(item.sidebarLink);
-                if (item.sidebarLink === "Logout") {
+                if (
+                  item.sidebarLink === "Logout" &&
+                  location.pathname === "/seller/dashboard"
+                ) {
                   const sellerId = localStorage.getItem("kh-sellerId");
                   if (sellerId) {
                     localStorage.removeItem("kh-sellerId");

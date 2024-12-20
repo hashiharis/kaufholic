@@ -85,9 +85,11 @@ export const SignIn = () => {
       console.log("response", res);
       if (res.status === 200) {
         const sellerId = res?.data?.seller?._id;
+        const token = res?.data?.token;
         localStorage.setItem("kh-sellerId", sellerId);
+        localStorage.setItem("kh-sellerToken", token);
         toast.success("Logged in");
-        navigate("/");
+        navigate("/seller/dashboard");
       }
     } catch (error) {
       const statusCode = error.response.status;

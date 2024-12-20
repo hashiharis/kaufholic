@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

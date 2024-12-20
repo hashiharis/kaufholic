@@ -16,6 +16,8 @@ import { CartPaymentTab } from "./components/cartandpayment/CartPaymentTab";
 import { ForgotPassword } from "./components/forgotpassword/ForgotPassword";
 import { BuyerProfile } from "./components/buyer/profile/BuyerProfile";
 import { OrderCategories } from "./components/buyer/orders/OrderCategories";
+import { AdminDashboard } from "./components/admin/admindashboard/AdminDashboard";
+import { AdminSignin } from "./components/admin/AdminSignin";
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
         <Route path="/buyer/orders/" element={<OrderCategories />} />
         <Route path="/buyer/profile/" element={<BuyerProfile />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/signin" element={<AdminSignin />} />
       </Routes>
     </BrowserRouter>
   );

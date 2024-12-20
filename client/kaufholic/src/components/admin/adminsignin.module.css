@@ -1,0 +1,55 @@
+.adminSigninWrapper{
+    margin:0 auto;
+    width:100%;
+}
+.adminDetailSection{
+    padding-inline:1em;
+    width:100%;
+}
+.adminIllustration{
+    background: url("../../assets/images/adminIllustration.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width:100%;
+    min-height:300px;
+}
+.adminForm{
+    font-weight:var(--fw-400);
+    font-size:var(--fs-form)!important;
+}
+
+.inputField{
+    padding-block:0.625em;
+    color:var(--form-input);
+    font-size:var(--fs-forminput);
+    font-weight:var(--fw-400);
+}
+.iconBtn{
+    border:none;
+    background: none;
+}
+.adminBtn{
+    margin-block:1em;
+    width:50%;
+    text-transform: uppercase;
+    color:var(--btn-text);
+    padding-block:1.5em;
+    padding-inline:2em;
+}
+
+@media (min-width:768px){
+    .adminSigninWrapper{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        align-items:center ;
+        justify-items: center;
+    }
+    .adminIllustration{
+        background-size: contain;
+        background-position: center;
+        width:100%;
+        min-height: 500px;
+    }
+
+}
