@@ -31,6 +31,12 @@ const sellerSchema = new Schema(
       type: String,
       required: true,
     },
+    approval: {
+      type: String,
+      enum: ["pending", "accepted", "rejected"],
+      default: "pending",
+      required: true,
+    },
   },
   { timestamps: true }
 );

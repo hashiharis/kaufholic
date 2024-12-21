@@ -63,6 +63,18 @@ const sellerSignin = async (req, res) => {
 
     const accessToken = generateAccessToken(sellerDetails);
 
+    if (sellerDetails.approval === "pending") {
+      return res
+        .status(202)
+        .json({ message: "Sign in request is waiting for approval" });
+    }
+
+    if (sellerDetails.approval === "rejected") {
+      return res
+        .status(403)
+        .json({ message: "Sign in request has been rejected" });
+    }
+
     return res.status(200).json({
       message: "Login success",
       token: accessToken,
@@ -181,10 +193,58 @@ const sellerMetrics = async (req, res) => {
   }
 };
 
+const sellerList = async (req, res) => {
+  try {
+    const { approval } = req.query;
+    const sellers = await SellerModel.find({ approval });
+
+    if (sellers.length === 0) {
+      return res.status(202).json({ message: "Seller not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Sellers fetched successfully", data: sellers });
+  } catch (error) {
+    console.log("Error on fetching sellers", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+const sellerApprovalUpdate = async (req, res) => {
+  try {
+    const { approval } = req.query;
+    const { sellerId } = req.params;
+
+    if (!isValidId(sellerId)) {
+      return res.status(400).json({ message: "Seller id is not valid" });
+    }
+
+    const updSellerApproval = await SellerModel.findByIdAndUpdate(
+      sellerId,
+      { approval },
+      { new: true }
+    );
+
+    if (!updSellerApproval) {
+      return res.status(404).json({ message: "Seller not found" });
+    }
+
+    return res.status(200).json({
+      message: "Seller approval status is updated successfully",
+      data: updSellerApproval,
+    });
+  } catch (error) {
+    console.log("Error on updating approval status for sellers", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
 module.exports = {
   sellerSignup,
   sellerSignin,
   fetchSellerDetails,
   editSellerDetails,
   sellerMetrics,
+  sellerList,
+  sellerApprovalUpdate,
 };

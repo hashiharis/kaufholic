@@ -17,6 +17,8 @@ const {
   fetchSellerDetails,
   editSellerDetails,
   sellerMetrics,
+  sellerList,
+  sellerApprovalUpdate,
 } = require("../controller/seller.controller");
 const {
   validateEmailPasswordRequired,
@@ -55,5 +57,7 @@ sellerRouter.patch(
   editSellerDetails
 );
 sellerRouter.get("/metrics/:sellerId", sellerMetrics);
+sellerRouter.get("/getSellers", sellerList);
+sellerRouter.patch("/updateApproval/:sellerId", sellerApprovalUpdate);
 
 module.exports = sellerRouter;

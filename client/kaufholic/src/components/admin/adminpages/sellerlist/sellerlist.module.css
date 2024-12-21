@@ -1,0 +1,8 @@
+.emptyImage{
+    background: url('../../../../assets/images/noresult.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width:100%;
+    min-height: 400px;
+}

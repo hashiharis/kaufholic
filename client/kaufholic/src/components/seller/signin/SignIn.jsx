@@ -91,10 +91,17 @@ export const SignIn = () => {
         toast.success("Logged in");
         navigate("/seller/dashboard");
       }
+      if (res.status === 202) {
+        toast("Your request is waiting for approval", {
+          icon: "⌛️",
+        });
+      }
     } catch (error) {
       const statusCode = error.response.status;
       if (statusCode === 400 || statusCode === 404) {
         toast.error("Your email id or password is incorrect");
+      } else if (statusCode === 403) {
+        toast.error("Your request is being rejected");
       } else {
         toast.error("Please try again after sometime");
       }

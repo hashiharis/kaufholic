@@ -51,6 +51,10 @@ export const LandingNavbar = () => {
                     <NavDropdown.Item href="/seller/signin">
                       Seller
                     </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/admin/signin">
+                      Admin
+                    </NavDropdown.Item>
                   </NavDropdown>
                 </div>
                 <div className={styles.personIcon}>
