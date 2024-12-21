@@ -7,6 +7,7 @@ const {
   getBuyerById,
   getBuyerByToken,
   updateBuyerProfile,
+  getAllBuyers,
 } = require("../controller/buyer.controller");
 const {
   validateRequiredFields,
@@ -42,5 +43,5 @@ buyerRouter.patch(
   validateEmail,
   updateBuyerProfile
 );
-
+buyerRouter.get("/allBuyers", getAllBuyers);
 module.exports = buyerRouter;

@@ -133,10 +133,28 @@ const updateBuyerProfile = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+const getAllBuyers = async (req, res) => {
+  try {
+    const buyers = await BuyerModel.find();
+
+    if (buyers.length === 0) {
+      return res.status(404).json({ message: "No buyers found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Fetched all buyers successfully", data: buyers });
+  } catch (error) {
+    console.log("Error in fetching all buyers", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
 module.exports = {
   buyerSignup,
   buyerSignin,
   getBuyerById,
   getBuyerByToken,
   updateBuyerProfile,
+  getAllBuyers,
 };
