@@ -375,6 +375,23 @@ const fetchDeliveredOrders = async (req, res) => {
   }
 };
 
+const fetchAllOrders = async (req, res) => {
+  try {
+    const orders = await OrderModel.find()
+      .populate("orderedProducts.productId")
+      .exec();
+
+    if (orders.length === 0) {
+      return res.status(404).json({ message: "No orders found" });
+    }
+    return res
+      .status(200)
+      .json({ message: "Orders fetched successfully", data: orders });
+  } catch (error) {
+    console.log("Error on fetching orders", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
 module.exports = {
   addOrder,
   fetchPendingOrdersByBuyerId,
@@ -383,4 +400,5 @@ module.exports = {
   setDeliveryDate,
   fetchConfirmedOrders,
   fetchDeliveredOrders,
+  fetchAllOrders,
 };

@@ -76,7 +76,7 @@ const getProducts = async (req, res) => {
   try {
     const products = await ProductModel.find();
 
-    if (products.length === 0 || products.isSold) {
+    if (products.length === 0) {
       return res.status(404).json({ message: "Products is not found" });
     }
 
