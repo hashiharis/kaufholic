@@ -228,6 +228,10 @@ export const BuyerNav = () => {
                         Profile Page
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
+                      <NavDropdown.Item href="/buyer/complaints">
+                        Register Complaints
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
                       <NavDropdown.Item onClick={handleLogout}>
                         Logout
                       </NavDropdown.Item>

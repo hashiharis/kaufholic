@@ -24,4 +24,17 @@ const validateSellerRequiredFields = (req, res, next) => {
   }
   next();
 };
-module.exports = { validateRequiredFields, validateSellerRequiredFields };
+
+const validateComplaintsRequiredFields = (req, res, next) => {
+  const { name, email, complaint } = req.body;
+
+  if (!name || !email || !complaint) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+  next();
+};
+module.exports = {
+  validateRequiredFields,
+  validateSellerRequiredFields,
+  validateComplaintsRequiredFields,
+};

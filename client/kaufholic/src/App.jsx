@@ -18,6 +18,7 @@ import { BuyerProfile } from "./components/buyer/profile/BuyerProfile";
 import { OrderCategories } from "./components/buyer/orders/OrderCategories";
 import { AdminDashboard } from "./components/admin/admindashboard/AdminDashboard";
 import { AdminSignin } from "./components/admin/AdminSignin";
+import { Complaints } from "./components/buyer/complaints/Complaints";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/signin" element={<AdminSignin />} />
+        <Route path="/buyer/complaints" element={<Complaints />} />
       </Routes>
     </BrowserRouter>
   );
