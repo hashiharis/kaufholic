@@ -1,23 +1,23 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-// import Table from "react-bootstrap/Table";
+import { Tables } from "./Tables";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
-import { Tables } from "./Tables";
-export const Buyers = ({ activePage }) => {
-  const [buyerDetails, setBuyerDetails] = useState([]);
-  const buyerHeader = ["Name", "Title"];
+
+export const BuyerComplaints = ({ activePage }) => {
+  const [complaints, setComplaints] = useState([]);
+  const complaintHeaders = ["Buyer Name", "Buyer Email", "Complaint"];
 
   useEffect(() => {
-    fetchAllBuyers();
+    getComplaints();
   }, []);
 
-  const fetchAllBuyers = async () => {
+  const getComplaints = async () => {
     try {
-      const res = await axiosInstance.get("/buyer/allBuyers");
+      const res = await axiosInstance.get("/complaints/getComplaints");
 
       if (res.status === 200) {
-        setBuyerDetails(res?.data?.data);
+        setComplaints(res?.data?.data);
       }
     } catch (error) {
       const statusCode = error.response.status;
@@ -26,18 +26,16 @@ export const Buyers = ({ activePage }) => {
       } else {
         toast.error("Please try again after sometime");
       }
-      console.log("Error on fetching buyer details");
+      console.log("Error on fetching complaint details");
     }
   };
-
-  console.log(buyerDetails);
-
+  console.log(complaints);
   return (
     <div>
-      <h4 style={{ marginBlock: "2em" }}>List of buyers</h4>
+      <h4 style={{ marginBlock: "2em" }}>List of Complaints</h4>
       <Tables
-        headers={buyerHeader}
-        data={buyerDetails}
+        headers={complaintHeaders}
+        data={complaints}
         activePage={activePage}
       />
     </div>

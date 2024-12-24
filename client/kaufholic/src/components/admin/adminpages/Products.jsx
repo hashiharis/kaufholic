@@ -1,9 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import Table from "react-bootstrap/Table";
+// import Table from "react-bootstrap/Table";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
-export const Products = () => {
+import { Tables } from "./Tables";
+export const Products = ({ activePage }) => {
   const [products, setProducts] = useState([]);
+  const productHeader = ["Title", "Subtitle", "Category", "Description"];
 
   useEffect(() => {
     getAllProducts();
@@ -28,28 +31,7 @@ export const Products = () => {
   return (
     <div>
       <h4 style={{ marginBlock: "2em" }}>List of Products</h4>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Subtitle</th>
-            <th>Category</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((item, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{item.title}</td>
-              <td>{item.subtitle}</td>
-              <td>{item.category}</td>
-              <td>{item.description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <Tables headers={productHeader} data={products} activePage={activePage} />
     </div>
   );
 };

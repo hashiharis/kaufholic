@@ -17,6 +17,7 @@ import { FcDisclaimer } from "react-icons/fc";
 import { LuLogOut } from "react-icons/lu";
 
 import styles from "./admindashboard.module.css";
+import { BuyerComplaints } from "../adminpages/BuyerComplaints";
 
 export const AdminDashboard = () => {
   const [activePage, setActivePage] = useState("Buyers");
@@ -92,10 +93,13 @@ export const AdminDashboard = () => {
         </Col>
         {!showMenu && (
           <Col>
-            {activePage === "Buyers" && <Buyers />}
+            {activePage === "Buyers" && <Buyers activePage={activePage} />}
             {activePage === "Sellers" && <Sellers />}
-            {activePage === "Products" && <Products />}
-            {activePage === "Orders" && <TotalOrders />}
+            {activePage === "Products" && <Products activePage={activePage} />}
+            {activePage === "Orders" && <TotalOrders activePage={activePage} />}
+            {activePage === "Take Actions" && (
+              <BuyerComplaints activePage={activePage} />
+            )}
           </Col>
         )}
       </Row>

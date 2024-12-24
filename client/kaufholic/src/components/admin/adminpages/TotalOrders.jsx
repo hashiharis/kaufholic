@@ -1,9 +1,16 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import Table from "react-bootstrap/Table";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
-export const TotalOrders = () => {
+import { Tables } from "./Tables";
+export const TotalOrders = ({ activePage }) => {
   const [orders, setOrders] = useState([]);
+  const orderHeaders = [
+    "OrderId",
+    "BuyerName",
+    "Product Details",
+    "Total Order Price",
+  ];
   useEffect(() => {
     getOrders();
   }, []);
@@ -29,36 +36,7 @@ export const TotalOrders = () => {
   return (
     <div>
       <h4 style={{ marginBlock: "2em" }}>List of Orders</h4>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Order Id</th>
-            <th>Product Details</th>
-            <th>Total Order Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order) => {
-            const productDetails = order.orderedProducts
-              .map(
-                (product) =>
-                  `Product Name:${product.productId.title}
-                   (Category-${product.productId.category}) 
-                   Qty:${product.quantity} 
-                   Delivery Status:${product.deliveryStatus}`
-              )
-              .join(",");
-
-            return (
-              <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{productDetails}</td>
-                <td>{order.totalPrice}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+      <Tables headers={orderHeaders} data={orders} activePage={activePage} />
     </div>
   );
 };
