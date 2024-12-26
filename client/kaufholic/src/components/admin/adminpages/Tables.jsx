@@ -1,7 +1,42 @@
 /* eslint-disable react/prop-types */
 import Table from "react-bootstrap/Table";
-export const Tables = ({ headers, data, activePage }) => {
-  console.log("activepage", activePage);
+import Button from "react-bootstrap/Button";
+import { axiosInstance } from "../../../apis/axiosInstance";
+import toast from "react-hot-toast";
+export const Tables = ({ headers, data, activePage, fetchApi }) => {
+  const handleActivate = (id) => {
+    updateStatus(id, true);
+  };
+
+  const handleDeactivate = (id) => {
+    updateStatus(id, false);
+  };
+
+  const updateStatus = async (id, status) => {
+    try {
+      const res = await axiosInstance.patch(
+        `/auth/updateAccountStatus/${id}?isActive=${status}`
+      );
+      // console.log("statusdeactivate", status);
+      if (res.status === 200) {
+        if (status) {
+          toast.success("Account Status activated successfully");
+        } else {
+          toast.success("Account status deactivated successfully");
+        }
+      }
+    } catch (error) {
+      const statusCode = error.response.status;
+      if (statusCode === 400 || statusCode === 404) {
+        toast.error("Something went wrong");
+      } else {
+        toast.error("Please try again after sometime");
+      }
+      console.log("Error on updating account status");
+    } finally {
+      fetchApi();
+    }
+  };
   return (
     <Table striped bordered hover>
       <thead>
@@ -63,6 +98,38 @@ export const Tables = ({ headers, data, activePage }) => {
               <td>{item.name}</td>
               <td>{item.email}</td>
               <td>{item.complaint}</td>
+            </tr>
+          ))}
+        {activePage === "Deactivate Seller/Buyer" &&
+          data.map((item, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{item.name}</td>
+              <td>{item.email}</td>
+              {item.description && <td>{item.description}</td>}
+              {item.isActive ? (
+                <td>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      handleDeactivate(item._id);
+                    }}
+                  >
+                    Deactivate
+                  </Button>
+                </td>
+              ) : (
+                <td>
+                  <Button
+                    variant="success"
+                    onClick={() => {
+                      handleActivate(item._id);
+                    }}
+                  >
+                    Activate
+                  </Button>
+                </td>
+              )}
             </tr>
           ))}
       </tbody>

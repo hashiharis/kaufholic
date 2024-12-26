@@ -75,6 +75,10 @@ const sellerSignin = async (req, res) => {
         .json({ message: "Sign in request has been rejected" });
     }
 
+    if (!sellerDetails.isActive) {
+      return res.status(403).json({ message: "Seller account is inactive" });
+    }
+
     return res.status(200).json({
       message: "Login success",
       token: accessToken,
@@ -239,6 +243,31 @@ const sellerApprovalUpdate = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+const fetchAllSellers = async (req, res) => {
+  try {
+    const { isActive } = req.query;
+
+    const activeStatusFilter = {};
+
+    if (isActive === "true" || isActive === "false") {
+      activeStatusFilter.isActive = isActive === "true"; //Converting to boolean value
+    }
+
+    const allSellers = await SellerModel.find(activeStatusFilter);
+
+    if (allSellers.length === 0) {
+      return res.status(404).json({ message: "Sellers not found" });
+    }
+    return res
+      .status(200)
+      .json({ message: "Sellers fetched successfully", data: allSellers });
+  } catch (error) {
+    console.log("Error on fetching sellers", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
 module.exports = {
   sellerSignup,
   sellerSignin,
@@ -247,4 +276,5 @@ module.exports = {
   sellerMetrics,
   sellerList,
   sellerApprovalUpdate,
+  fetchAllSellers,
 };

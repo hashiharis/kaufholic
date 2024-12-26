@@ -18,6 +18,7 @@ import { LuLogOut } from "react-icons/lu";
 
 import styles from "./admindashboard.module.css";
 import { BuyerComplaints } from "../adminpages/BuyerComplaints";
+import { Deactivate } from "../adminpages/Deactivate";
 
 export const AdminDashboard = () => {
   const [activePage, setActivePage] = useState("Buyers");
@@ -99,6 +100,9 @@ export const AdminDashboard = () => {
             {activePage === "Orders" && <TotalOrders activePage={activePage} />}
             {activePage === "Take Actions" && (
               <BuyerComplaints activePage={activePage} />
+            )}
+            {activePage === "Deactivate Seller/Buyer" && (
+              <Deactivate activePage={activePage} />
             )}
           </Col>
         )}

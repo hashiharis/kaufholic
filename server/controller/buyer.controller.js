@@ -56,6 +56,10 @@ const buyerSignin = async (req, res) => {
 
     const accessToken = generateAccessToken(buyerDetails);
 
+    if (!buyerDetails.isActive) {
+      return res.status(403).json({ message: "Buyer account is inactive" });
+    }
+
     return res.status(200).json({
       message: "Login successful",
       token: accessToken,
@@ -150,6 +154,33 @@ const getAllBuyers = async (req, res) => {
     return res.status(500).json({ message: "Server Error" });
   }
 };
+
+const getBuyersByAccountStatus = async (req, res) => {
+  try {
+    const { isActive } = req.query;
+
+    const isActiveBool = {};
+
+    if (isActive === "true" || isActive === "false") {
+      isActiveBool.isActive = isActive === "true";
+    }
+
+    const allBuyers = await BuyerModel.find({
+      isActive: isActiveBool.isActive,
+    });
+
+    if (allBuyers.length === 0) {
+      return res.status(404).json({ message: "Buyers not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Fetched buyers successfully", data: allBuyers });
+  } catch (error) {
+    console.log("Error on fetching buyers", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
 module.exports = {
   buyerSignup,
   buyerSignin,
@@ -157,4 +188,5 @@ module.exports = {
   getBuyerByToken,
   updateBuyerProfile,
   getAllBuyers,
+  getBuyersByAccountStatus,
 };
