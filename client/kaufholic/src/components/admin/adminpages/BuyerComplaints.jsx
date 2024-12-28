@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Tables } from "./Tables";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
+import noresult from "../../../assets/images/noresult.png";
 
 export const BuyerComplaints = ({ activePage }) => {
   const [complaints, setComplaints] = useState([]);
@@ -33,11 +34,26 @@ export const BuyerComplaints = ({ activePage }) => {
   return (
     <div>
       <h4 style={{ marginBlock: "2em" }}>List of Complaints</h4>
-      <Tables
-        headers={complaintHeaders}
-        data={complaints}
-        activePage={activePage}
-      />
+      {complaints.length !== 0 ? (
+        <Tables
+          headers={complaintHeaders}
+          data={complaints}
+          activePage={activePage}
+        />
+      ) : (
+        <div
+          style={{
+            backgroundImage: `url(${noresult})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            width: "100%",
+            minHeight: "300px",
+          }}
+        >
+          <h5 style={{ textAlign: "center" }}>No Results Found !!!</h5>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-// import Table from "react-bootstrap/Table";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { Tables } from "./Tables";
+import noresult from "../../../assets/images/noresult.png";
 export const Products = ({ activePage }) => {
   const [products, setProducts] = useState([]);
   const productHeader = ["Title", "Subtitle", "Category", "Description"];
@@ -31,7 +31,26 @@ export const Products = ({ activePage }) => {
   return (
     <div>
       <h4 style={{ marginBlock: "2em" }}>List of Products</h4>
-      <Tables headers={productHeader} data={products} activePage={activePage} />
+      {products.length !== 0 ? (
+        <Tables
+          headers={productHeader}
+          data={products}
+          activePage={activePage}
+        />
+      ) : (
+        <div
+          style={{
+            backgroundImage: `url(${noresult})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            width: "100%",
+            minHeight: "300px",
+          }}
+        >
+          <h5 style={{ textAlign: "center" }}>No Results Found !!!</h5>
+        </div>
+      )}
     </div>
   );
 };

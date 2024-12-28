@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Tables } from "./Tables";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import noresult from "../../../assets/images/noresult.png";
 
 export const Deactivate = ({ activePage }) => {
   const [activeSellers, setActiveSellers] = useState([]);
@@ -134,36 +135,96 @@ export const Deactivate = ({ activePage }) => {
         }}
       >
         <Tab eventKey="active_sellers" title="Active Sellers">
-          <Tables
-            headers={activeSellerHeaders}
-            data={activeSellers}
-            activePage={activePage}
-            fetchApi={getActiveSellers}
-          />
+          {activeSellers.length !== 0 ? (
+            <Tables
+              headers={activeSellerHeaders}
+              data={activeSellers}
+              activePage={activePage}
+              fetchApi={getActiveSellers}
+            />
+          ) : (
+            <div
+              style={{
+                backgroundImage: `url(${noresult})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                width: "100%",
+                minHeight: "300px",
+              }}
+            >
+              <h5 style={{ textAlign: "center" }}>No Results Found !!!</h5>
+            </div>
+          )}
         </Tab>
         <Tab eventKey="inactive_sellers" title="Inactive Sellers">
-          <Tables
-            headers={inactiveSellerHeaders}
-            data={inactiveSellers}
-            activePage={activePage}
-            fetchApi={getInActiveSellers}
-          />
+          {inactiveSellers.length !== 0 ? (
+            <Tables
+              headers={inactiveSellerHeaders}
+              data={inactiveSellers}
+              activePage={activePage}
+              fetchApi={getInActiveSellers}
+            />
+          ) : (
+            <div
+              style={{
+                backgroundImage: `url(${noresult})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                width: "100%",
+                minHeight: "300px",
+              }}
+            >
+              <h5 style={{ textAlign: "center" }}>No Results Found !!!</h5>
+            </div>
+          )}
         </Tab>
         <Tab eventKey="active_buyers" title="Active Buyers">
-          <Tables
-            headers={activeBuyerHeaders}
-            data={activeBuyers}
-            activePage={activePage}
-            fetchApi={getActiveBuyers}
-          />
+          {activeBuyers.length !== 0 ? (
+            <Tables
+              headers={activeBuyerHeaders}
+              data={activeBuyers}
+              activePage={activePage}
+              fetchApi={getActiveBuyers}
+            />
+          ) : (
+            <div
+              style={{
+                backgroundImage: `url(${noresult})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                width: "100%",
+                minHeight: "300px",
+              }}
+            >
+              <h5 style={{ textAlign: "center" }}>No Results Found !!!</h5>
+            </div>
+          )}
         </Tab>
         <Tab eventKey="inactive_buyers" title="Inactive Buyers">
-          <Tables
-            headers={inactiveBuyerHeaders}
-            data={inactiveBuyers}
-            activePage={activePage}
-            fetchApi={getInActiveBuyers}
-          />
+          {inactiveBuyers.length !== 0 ? (
+            <Tables
+              headers={inactiveBuyerHeaders}
+              data={inactiveBuyers}
+              activePage={activePage}
+              fetchApi={getInActiveBuyers}
+            />
+          ) : (
+            <div
+              style={{
+                backgroundImage: `url(${noresult})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                width: "100%",
+                minHeight: "300px",
+              }}
+            >
+              <h5 style={{ textAlign: "center" }}>No Results Found !!!</h5>
+            </div>
+          )}
         </Tab>
       </Tabs>
     </>

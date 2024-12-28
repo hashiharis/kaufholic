@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { Tables } from "./Tables";
+import noresult from "../../../assets/images/noresult.png";
 export const TotalOrders = ({ activePage }) => {
   const [orders, setOrders] = useState([]);
   const orderHeaders = [
@@ -36,7 +37,22 @@ export const TotalOrders = ({ activePage }) => {
   return (
     <div>
       <h4 style={{ marginBlock: "2em" }}>List of Orders</h4>
-      <Tables headers={orderHeaders} data={orders} activePage={activePage} />
+      {orders.length !== 0 ? (
+        <Tables headers={orderHeaders} data={orders} activePage={activePage} />
+      ) : (
+        <div
+          style={{
+            backgroundImage: `url(${noresult})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            width: "100%",
+            minHeight: "300px",
+          }}
+        >
+          <h5 style={{ textAlign: "center" }}>No Results Found !!!</h5>
+        </div>
+      )}
     </div>
   );
 };

@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { Tables } from "./Tables";
+import noresult from "../../../assets/images/noresult.png";
 export const Buyers = ({ activePage }) => {
   const [buyerDetails, setBuyerDetails] = useState([]);
   const buyerHeader = ["Name", "Title"];
-
   useEffect(() => {
     fetchAllBuyers();
   }, []);
@@ -35,11 +35,26 @@ export const Buyers = ({ activePage }) => {
   return (
     <div>
       <h4 style={{ marginBlock: "2em" }}>List of buyers</h4>
-      <Tables
-        headers={buyerHeader}
-        data={buyerDetails}
-        activePage={activePage}
-      />
+      {buyerDetails.length != 0 ? (
+        <Tables
+          headers={buyerHeader}
+          data={buyerDetails}
+          activePage={activePage}
+        />
+      ) : (
+        <div
+          style={{
+            backgroundImage: `url(${noresult})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            width: "100%",
+            minHeight: "300px",
+          }}
+        >
+          <h5 style={{ textAlign: "center" }}>No Results Found !!!</h5>
+        </div>
+      )}
     </div>
   );
 };
