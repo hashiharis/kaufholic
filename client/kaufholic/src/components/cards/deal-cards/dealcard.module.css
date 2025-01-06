@@ -78,6 +78,9 @@
     display:flex;
     gap:0.5em;
 }
+.timer{
+    font-weight: var(--fw-semibold);
+}
 
 
 

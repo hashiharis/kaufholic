@@ -1,12 +1,20 @@
 /* eslint-disable react/prop-types */
 import styles from "./dealcard.module.css";
 
-
 export const DealCard = ({ cardDetails }) => {
-    console.log(cardDetails)
+  console.log(cardDetails);
   return (
     <div className={styles.dealCardWrapper}>
-      timer component
+      <div className={styles.timer}>
+        {cardDetails.hours < 10
+          ? `0${cardDetails.hours}`
+          : `${cardDetails.hours}`}{" "}
+        :
+        {cardDetails.mins < 10 ? `0${cardDetails.mins}` : `${cardDetails.mins}`}
+        :
+        {cardDetails.secs < 10 ? `0${cardDetails.secs}` : `${cardDetails.secs}`}
+      </div>
+
       <div className={styles.dealProduct}>
         <img src={cardDetails.dealProductUrl} alt="deal-product" />
       </div>

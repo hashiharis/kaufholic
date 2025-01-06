@@ -19,7 +19,13 @@ const calculateAvgRating = async (req, res, next) => {
       (sum, review) => sum + review.rating,
       0
     );
-    const avgRating = totalRatings / totalReviews;
+
+    let avgRating;
+    if (totalRatings > 0 && totalReviews > 0) {
+      avgRating = totalRatings / totalReviews;
+    } else {
+      avgRating = 0;
+    }
 
     await ProductModel.findByIdAndUpdate(productId, { avgRating });
 

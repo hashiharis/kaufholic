@@ -28,18 +28,18 @@ export const LandingPageWrapper = () => {
       <div className={styles.cardSection}>
         <div className={styles.headers}>
           <h6>Flash Sales</h6>
-          <Link>View all</Link>
+          <Link to="/buyer/viewproducts">View all</Link>
         </div>
         <DealCardWrapper />
         <div className={styles.headers}>
           <h6>Trending Must-Haves</h6>
-          <Link>View all</Link>
+          <Link to="/buyer/viewproducts">View all</Link>
         </div>
 
         <TrendingCardWrapper />
         <div className={styles.headers}>
           <h6>Explore our Categories</h6>
-          <Link>View all</Link>
+          <Link to="/buyer/viewproducts">View all</Link>
         </div>
         <CategoryCardWrapper />
       </div>
