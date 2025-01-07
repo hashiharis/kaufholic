@@ -76,6 +76,13 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.paginationSection{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-block:1em;
+}
 @media (min-width:768px){
     .productCardWrapper{
         display:grid;
@@ -97,6 +104,13 @@
     .searchSection{
         padding-right:12em;
     }
+.paginationSection{
+    display: flex;
+    gap: 1em;
+    grid-area: 5 / 1 / 5 / -1;
+    justify-self: center;
+}
+   
    
 }
 

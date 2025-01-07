@@ -10,6 +10,7 @@ import { IoFilterOutline } from "react-icons/io5";
 import Slider from "@mui/material/Slider";
 import { CiSearch } from "react-icons/ci";
 import { Footer } from "../../footer/Footer";
+import { PaginationButton } from "./PaginationButton";
 
 export const ProductCardWrapper = () => {
   const [productView, setProductView] = useState([]);
@@ -20,7 +21,12 @@ export const ProductCardWrapper = () => {
   const [dropdownValue, setDropdownValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [resultsFound, setResultsFound] = useState("results found");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(8);
   const isFav = false;
+
+  const lastProductIndex = currentPage * productsPerPage; //pagination index
+  const firstProductIndex = lastProductIndex - productsPerPage; //pagination index
 
   const mark = [
     {
@@ -57,6 +63,11 @@ export const ProductCardWrapper = () => {
       fetchWishlistProducts(buyerId);
     }
   }, [isFav]);
+
+  const currentProducts = productView.slice(
+    firstProductIndex,
+    lastProductIndex
+  );
 
   //  Debouncing for search results
   useEffect(() => {
@@ -352,7 +363,7 @@ export const ProductCardWrapper = () => {
       )}
       {resultsFound === "results found" ? (
         <div className={styles.productCardWrapper}>
-          {productView?.map((item, index) => {
+          {currentProducts?.map((item, index) => {
             const isFavourite = isProductInWishlist(item._id);
             return (
               <ProductCard
@@ -365,6 +376,14 @@ export const ProductCardWrapper = () => {
               />
             );
           })}
+          <div className={styles.paginationSection}>
+            <PaginationButton
+              totalProducts={productView.length}
+              productsPerPage={productsPerPage}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+            />
+          </div>
         </div>
       ) : (
         <div className={styles.noResults}></div>

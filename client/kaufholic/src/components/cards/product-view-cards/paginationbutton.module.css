@@ -1,0 +1,13 @@
+.paginationBtn{
+
+    border:none;
+    background:grey;
+    color:#ffff;
+    padding:0.5em 1em ;
+    border-radius: 1.5em;
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+}
+
+ .active{
+    background-color: #0033cc;
+}
