@@ -197,7 +197,7 @@ export const BuyerSignIn = () => {
             </Button>
           </Form>
           <div className={styles.bsignUpLink}>
-            Don't have an account? <a href="#">Sign up</a>
+            Don't have an account? <a href="/buyer/signup">Sign up</a>
           </div>
         </div>
       </div>

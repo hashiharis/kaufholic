@@ -19,6 +19,10 @@ import { OrderCategories } from "./components/buyer/orders/OrderCategories";
 import { AdminDashboard } from "./components/admin/admindashboard/AdminDashboard";
 import { AdminSignin } from "./components/admin/AdminSignin";
 import { Complaints } from "./components/buyer/complaints/Complaints";
+import {
+  BuyerProtectedPages,
+  SellerProtectedPages,
+} from "./components/protectedroutes/ProtectedPages";
 
 function App() {
   return (
@@ -27,26 +31,33 @@ function App() {
         <Toaster />
       </div>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<LandingPageWrapper />} />
-        <Route path="/cart/:buyerId/" element={<CartPaymentTab />} />
         <Route path="/seller/signup" element={<SignUp />} />
         <Route path="/seller/signin" element={<SignIn />} />
         <Route path="/buyer/signin" element={<BuyerSignIn />} />
         <Route path="/buyer/signup" element={<BuyerSignUp />} />
-        <Route path="/buyer/wishlist" element={<WishlistWrapper />} />
-        <Route path="/buyer/viewproducts" element={<ProductCardWrapper />} />
-        <Route path="/productdetail/:productId" element={<ProductDetail />} />
-        <Route path="/seller/dashboard" element={<SellerDashboard />} />
-        <Route
-          path="/seller/editproductdetails/:productId"
-          element={<SellerProductEdit />}
-        />
-        <Route path="/buyer/orders/" element={<OrderCategories />} />
-        <Route path="/buyer/profile/" element={<BuyerProfile />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        {/* Protected Routes */}
+        <Route element={<BuyerProtectedPages />}>
+          <Route path="/cart/:buyerId/" element={<CartPaymentTab />} />
+          <Route path="/buyer/wishlist" element={<WishlistWrapper />} />
+          <Route path="/buyer/viewproducts" element={<ProductCardWrapper />} />
+          <Route path="/productdetail/:productId" element={<ProductDetail />} />
+          <Route path="/buyer/orders/" element={<OrderCategories />} />
+          <Route path="/buyer/profile/" element={<BuyerProfile />} />
+          <Route path="/buyer/complaints" element={<Complaints />} />
+        </Route>
+        <Route element={<SellerProtectedPages />}>
+          <Route path="/seller/dashboard" element={<SellerDashboard />} />
+          <Route
+            path="/seller/editproductdetails/:productId"
+            element={<SellerProductEdit />}
+          />
+        </Route>
+
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/signin" element={<AdminSignin />} />
-        <Route path="/buyer/complaints" element={<Complaints />} />
       </Routes>
     </BrowserRouter>
   );
