@@ -12,8 +12,8 @@ export const AdminSignin = () => {
   const [validated, setValidated] = useState(false);
   const [showPassword, setShowPassword] = useState("password");
   const [adminLogin, setAdminLogin] = useState({
-    email: "admin123@gmail.com",
-    password: "Admin123",
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
 
@@ -76,6 +76,7 @@ export const AdminSignin = () => {
     try {
       const res = await axiosInstance.post("/admin/signin", adminLogin);
       if (res.status === 200) {
+        localStorage.setItem("kh-admin", res?.data?.data?.email);
         toast.success("You are successfully logged in");
         navigate("/admin/dashboard");
       }

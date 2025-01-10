@@ -68,6 +68,18 @@ export const Sidebar = ({
                     navigate("/seller/signin");
                   }
                 }
+                if (
+                  item.sidebarLink === "Logout" &&
+                  location.pathname === "/admin/dashboard"
+                ) {
+                  const adminCred = localStorage.getItem("kh-admin");
+
+                  if (adminCred) {
+                    localStorage.removeItem("kh-admin");
+                    toast.success("Logged out successfully");
+                    navigate("/admin/signin");
+                  }
+                }
               }}
             >
               {item.sidebarLink}

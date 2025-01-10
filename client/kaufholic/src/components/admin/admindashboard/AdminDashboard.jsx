@@ -42,37 +42,37 @@ export const AdminDashboard = () => {
     },
     {
       sidebarLink: "Buyers",
-      icon: <FcConferenceCall size={"30px"} />,
+      icon: <FcConferenceCall size={"20px"} />,
       cName: "sidebarLink",
     },
     {
       sidebarLink: "Sellers",
-      icon: <FcShop size={"30px"} />,
+      icon: <FcShop size={"20px"} />,
       cName: "sidebarLink",
     },
     {
       sidebarLink: "Products",
-      icon: <FcRating size={"30px"} />,
+      icon: <FcRating size={"20px"} />,
       cName: "sidebarLink",
     },
     {
       sidebarLink: "Orders",
-      icon: <FcShipped size={"30px"} />,
+      icon: <FcShipped size={"20px"} />,
+      cName: "sidebarLink",
+    },
+    {
+      sidebarLink: "Complaints",
+      icon: <FcMakeDecision size={"20px"} />,
       cName: "sidebarLink",
     },
     {
       sidebarLink: "Take Actions",
-      icon: <FcMakeDecision size={"30px"} />,
-      cName: "sidebarLink",
-    },
-    {
-      sidebarLink: "Deactivate Seller/Buyer",
-      icon: <FcDisclaimer size={"30px"} />,
+      icon: <FcDisclaimer size={"20px"} />,
       cName: "sidebarLink",
     },
     {
       sidebarLink: "Logout",
-      icon: <LuLogOut size={"30px"} />,
+      icon: <LuLogOut size={"20px"} />,
       cName: "sidebarLink",
     },
   ];
@@ -98,10 +98,10 @@ export const AdminDashboard = () => {
             {activePage === "Sellers" && <Sellers />}
             {activePage === "Products" && <Products activePage={activePage} />}
             {activePage === "Orders" && <TotalOrders activePage={activePage} />}
-            {activePage === "Take Actions" && (
+            {activePage === "Complaints" && (
               <BuyerComplaints activePage={activePage} />
             )}
-            {activePage === "Deactivate Seller/Buyer" && (
+            {activePage === "Take Actions" && (
               <Deactivate activePage={activePage} />
             )}
           </Col>

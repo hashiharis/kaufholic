@@ -9,16 +9,23 @@ const adminSignin = async (req, res) => {
       password: "Admin123",
     };
 
-    const isPasswordMatch = await comparePassword(
-      adminCredentials.password,
-      req.hashedPassword
-    );
+    // const isPasswordMatch = await comparePassword(
+    //   adminCredentials.password,
+    //   req.hashedPassword
+    // );
 
-    if (!isPasswordMatch) {
+    // if (!isPasswordMatch) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Incorrect email id or password" });
+    // }
+
+    if (adminCredentials.password !== password) {
       return res
         .status(400)
         .json({ message: "Incorrect email id or password" });
     }
+
     if (adminCredentials.email === email) {
       delete adminCredentials.password;
       return res.status(200).json({

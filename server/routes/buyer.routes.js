@@ -9,6 +9,8 @@ const {
   updateBuyerProfile,
   getAllBuyers,
   getBuyersByAccountStatus,
+  buyerGoogleSignup,
+  buyerGoogleSignin,
 } = require("../controller/buyer.controller");
 const {
   validateRequiredFields,
@@ -28,6 +30,9 @@ buyerRouter.post(
   validatePassword,
   buyerSignup
 );
+
+buyerRouter.post("/google/signup", buyerGoogleSignup);
+buyerRouter.post("/google/signin", buyerGoogleSignin);
 
 buyerRouter.post(
   "/signin",

@@ -182,18 +182,9 @@ export const SignIn = () => {
           >
             Sign In
           </Button>
-          <div className={styles.divider}>OR</div>
-          <Button className={`${styles.signInBtn} ${styles.googleSignIn}`}>
-            <img
-              src={googleIcon}
-              alt="icon-svg"
-              className={styles.googleIcon}
-            />
-            Sign in by Google
-          </Button>
         </Form>
         <div className={styles.signUpLink}>
-          Don't have an account? <Link to="#">Sign up</Link>
+          Don't have an account? <Link to="/seller/signup">Sign up</Link>
         </div>
       </div>
     </div>

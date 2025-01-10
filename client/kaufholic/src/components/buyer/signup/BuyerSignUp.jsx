@@ -11,6 +11,7 @@ import { axiosInstance } from "../../../apis/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Footer } from "../../footer/Footer";
+import { useGoogleLogin } from "@react-oauth/google";
 export const BuyerSignUp = () => {
   const [validated, setValidated] = useState(false);
   const [showPassword, setShowPassword] = useState("password");
@@ -103,6 +104,40 @@ export const BuyerSignUp = () => {
       console.log("Error on signup frontend", error);
     }
   };
+
+  const googleSignup = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        const token = response.access_token;
+
+        if (!token) {
+          console.log("Token not found in response");
+          return false;
+        }
+
+        const res = await axiosInstance.post("/buyer/google/signup", {
+          token,
+        });
+
+        console.log("Signed up ", res);
+
+        if (res.status === 201) {
+          toast.success("Signed up successfully");
+          navigate("/buyer/signin");
+        }
+      } catch (error) {
+        const statusCode = error.response.status;
+        if (statusCode === 400 || statusCode === 404) {
+          toast.error("Something went wrong");
+        } else {
+          toast.error("Please try again after sometime");
+        }
+        console.log("Error on signup frontend", error);
+      }
+    },
+    onError: console.log("Error on google sign up"),
+    flow: "implicit",
+  });
   return (
     <>
       <LandingNavbar />
@@ -199,8 +234,8 @@ export const BuyerSignUp = () => {
             <div className={styles.divider}>OR</div>
             <Button
               variant="primary"
-              type="submit"
               className={`${styles.bsignUpBtn} ${styles.googleSignUp}`}
+              onClick={googleSignup}
             >
               <img
                 src={googleIcon}

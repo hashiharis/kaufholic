@@ -20,6 +20,7 @@ import { AdminDashboard } from "./components/admin/admindashboard/AdminDashboard
 import { AdminSignin } from "./components/admin/AdminSignin";
 import { Complaints } from "./components/buyer/complaints/Complaints";
 import {
+  AdminProtectedPages,
   BuyerProtectedPages,
   SellerProtectedPages,
 } from "./components/protectedroutes/ProtectedPages";
@@ -36,6 +37,7 @@ function App() {
         <Route path="/seller/signup" element={<SignUp />} />
         <Route path="/seller/signin" element={<SignIn />} />
         <Route path="/buyer/signin" element={<BuyerSignIn />} />
+        <Route path="/admin/signin" element={<AdminSignin />} />
         <Route path="/buyer/signup" element={<BuyerSignUp />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         {/* Protected Routes */}
@@ -55,9 +57,9 @@ function App() {
             element={<SellerProductEdit />}
           />
         </Route>
-
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/signin" element={<AdminSignin />} />
+        <Route element={<AdminProtectedPages />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

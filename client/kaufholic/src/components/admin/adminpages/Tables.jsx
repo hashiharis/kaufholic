@@ -91,7 +91,7 @@ export const Tables = ({ headers, data, activePage, fetchApi }) => {
               </tr>
             );
           })}
-        {activePage === "Take Actions" &&
+        {activePage === "Complaints" &&
           data.map((item, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
@@ -100,7 +100,7 @@ export const Tables = ({ headers, data, activePage, fetchApi }) => {
               <td>{item.complaint}</td>
             </tr>
           ))}
-        {activePage === "Deactivate Seller/Buyer" &&
+        {activePage === "Take Actions" &&
           data.map((item, index) => (
             <tr key={index}>
               <td>{index + 1}</td>

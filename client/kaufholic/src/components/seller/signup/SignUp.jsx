@@ -286,19 +286,6 @@ export const SignUp = () => {
           >
             Sign up
           </Button>
-          <div className={styles.divider}>OR</div>
-          <Button
-            variant="primary"
-            type="submit"
-            className={`${styles.signUpBtn} ${styles.googleSignUp}`}
-          >
-            <img
-              src={googleIcon}
-              alt="icon-svg"
-              className={styles.googleIcon}
-            />
-            Sign up by Google
-          </Button>
         </Form>
       </div>
     </div>

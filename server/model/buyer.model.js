@@ -13,12 +13,25 @@ const buyerSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: function () {
+        this.signupMethod !== "google";
+      },
     },
     isActive: {
       type: Boolean,
       default: true,
       required: true,
+    },
+    googleId: {
+      type: String,
+      required: function () {
+        this.signupMethod === "google";
+      },
+    },
+    signupMethod: {
+      type: String,
+      enum: ["google", "manual"],
+      default: "manual",
     },
   },
   { timestamps: true }

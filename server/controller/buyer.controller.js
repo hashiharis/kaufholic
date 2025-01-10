@@ -2,6 +2,7 @@ const BuyerModel = require("../model/buyer.model");
 const { comparePassword } = require("../utils/comparePassword");
 const generateAccessToken = require("../utils/generateToken");
 const isValidId = require("../utils/validId");
+const axios = require("axios");
 
 const buyerSignup = async (req, res) => {
   try {
@@ -17,6 +18,7 @@ const buyerSignup = async (req, res) => {
       name,
       email,
       password: req.hashedPassword,
+      signupMethod: "manual",
     });
 
     await newBuyer.save();
@@ -25,6 +27,74 @@ const buyerSignup = async (req, res) => {
   } catch (error) {
     console.log("Error on signup", error);
     return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+const buyerGoogleSignup = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    // Make a request to the Google UserInfo API using the access token
+
+    const googleUser = await axios.get(
+      `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`
+    );
+
+    // Get user data from the Google response
+    const { name, email, sub: googleId } = googleUser.data;
+
+    const isBuyerFound = await BuyerModel.findOne({ googleId });
+
+    if (!isBuyerFound) {
+      const buyer = new BuyerModel({
+        name,
+        email,
+        googleId,
+        signupMethod: "google",
+      });
+
+      await buyer.save();
+
+      return res.status(201).json({ message: "Google sign up successful" });
+    }
+  } catch (error) {
+    console.log("Error on google signup", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+const buyerGoogleSignin = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    const googleUser = await axios(
+      `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`
+    );
+
+    const { name, email, sub: googleId } = googleUser.data;
+
+    const isBuyerFound = await BuyerModel.findOne({ googleId });
+
+    if (!isBuyerFound) {
+      return res.status(404).json({ message: "Buyer not found" });
+    }
+
+    const buyerDetails = isBuyerFound.toObject();
+
+    const accessToken = generateAccessToken(buyerDetails);
+
+    if (!buyerDetails.isActive) {
+      return res.status(403).json({ message: "Buyer account is inactive" });
+    }
+
+    return res.status(200).json({
+      message: "Google sign in successful",
+      token: accessToken,
+      data: buyerDetails,
+    });
+  } catch (error) {
+    console.log("Error on google sign in ", error);
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -183,6 +253,8 @@ const getBuyersByAccountStatus = async (req, res) => {
 };
 module.exports = {
   buyerSignup,
+  buyerGoogleSignup,
+  buyerGoogleSignin,
   buyerSignin,
   getBuyerById,
   getBuyerByToken,

@@ -12,6 +12,7 @@ import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { Footer } from "../../footer/Footer";
+import { useGoogleLogin } from "@react-oauth/google";
 export const BuyerSignIn = () => {
   const [showPassword, setShowPassword] = useState("password");
   const [validated, setValidated] = useState(false);
@@ -106,6 +107,41 @@ export const BuyerSignIn = () => {
       console.log("Error in sign in", error);
     }
   };
+
+  const googleSignIn = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        const accessToken = response.access_token;
+
+        if (!accessToken) {
+          console.log("Google Access token not found in the response");
+        }
+
+        const res = await axiosInstance.post("/buyer/google/signin", {
+          token: accessToken,
+        });
+
+        if (res.status === 200) {
+          console.log("res", res);
+          const buyerId = res?.data?.data?._id;
+          const token = res?.data?.token;
+          localStorage.setItem("kh-buyerId", buyerId);
+          localStorage.setItem("kh-buyerToken", token);
+          toast.success("You are logged in");
+          navigate("/");
+        }
+      } catch (error) {
+        const statusCode = error.response.status;
+        if (statusCode === 400 || statusCode === 404) {
+          toast.error("Your email id or password is incorrect");
+        } else {
+          toast.error("Please try again after sometime");
+        }
+        console.log("Error in google sign in", error);
+      }
+    },
+    onError: console.log("Error in google sign in"),
+  });
   return (
     <>
       <LandingNavbar />
@@ -186,7 +222,7 @@ export const BuyerSignIn = () => {
             <div className={styles.divider}>OR</div>
             <Button
               className={`${styles.bsignInBtn} ${styles.googleSignIn}`}
-              type="submit"
+              onClick={googleSignIn}
             >
               <img
                 src={googleIcon}
