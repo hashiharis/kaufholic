@@ -1,12 +1,6 @@
 /* eslint-disable react/prop-types */
-// import { IoIosPerson } from "react-icons/io";
-// import { FaCartArrowDown } from "react-icons/fa";
-// import { IoBagCheck } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
-// import { IoMdHome } from "react-icons/io";
-// import { FaBoxOpen } from "react-icons/fa";
-// import { FaPowerOff } from "react-icons/fa";
 import styles from "./sidebar.module.css";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";

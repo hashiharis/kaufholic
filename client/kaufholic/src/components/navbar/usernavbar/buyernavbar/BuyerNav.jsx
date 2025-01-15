@@ -228,7 +228,7 @@ export const BuyerNav = () => {
                         Profile Page
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item href="/buyer/complaints">
+                      <NavDropdown.Item href="/contactus">
                         Register Complaints
                       </NavDropdown.Item>
                       <NavDropdown.Divider />

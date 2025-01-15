@@ -8,8 +8,9 @@
 .buyerNavWrapper{
     height:15vh;
 }
+
 .logo{
-    background-image: url('../../../../assets/svg/logo-no-background.svg');
+    background-image: url('../../../../assets/images/logo-no-background.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: left;
@@ -45,9 +46,9 @@
     background-color: var(--navbar-background)!important; 
     }
     .logo{
-        background-image: url('../../../../assets/svg/logo-white.svg');
+        background-image: url('../../../../assets/images/logo-no-background1.png');
         background-position: left;
-        min-height:200px;
+        min-height:50px;
     }
     .link{
         color:var(--navbar-color)!important;
@@ -67,9 +68,7 @@
     .buyerNavWrapper{
         height:12vh;
      }
-     .logo{
-        min-height:250px;
-     }
+     
    
   
 }
