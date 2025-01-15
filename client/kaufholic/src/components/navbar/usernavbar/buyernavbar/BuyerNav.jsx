@@ -237,7 +237,9 @@ export const BuyerNav = () => {
                       </NavDropdown.Item>
                     </NavDropdown>
                   ) : (
-                    <Nav.Link href="/buyer/signin">Sign in</Nav.Link>
+                    <Nav.Link href="/buyer/signin" className={`${styles.link}`}>
+                      Sign in
+                    </Nav.Link>
                   )}
                 </div>
               </Nav>

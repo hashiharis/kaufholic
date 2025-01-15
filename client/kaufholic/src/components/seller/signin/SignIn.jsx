@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import styles from "./signin.module.css";
 import hidePassIcon from "../../../assets/svg/hidePassIcon.svg";
 import showPassIcon from "../../../assets/svg/showpassIcon.svg";
-import googleIcon from "../../../assets/svg/googleLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";

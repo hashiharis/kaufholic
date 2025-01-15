@@ -1,7 +1,5 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
-import { Footer } from "../../footer/Footer";
 import { useSelector } from "react-redux";
 import { selectCurrentBuyerDetails } from "../../navbar/usernavbar/buyernavbar/buyerSlice";
 import { useEffect, useState } from "react";
@@ -81,7 +79,6 @@ export const Complaints = () => {
 
   return (
     <>
-      <BuyerNav />
       <div className={styles.complaintWrapper}>
         <h4 className={styles.headline}>
           Have any concerns??? Feel free to report them to our team
@@ -131,7 +128,6 @@ export const Complaints = () => {
           </Button>
         </Form>
       </div>
-      <Footer />
     </>
   );
 };

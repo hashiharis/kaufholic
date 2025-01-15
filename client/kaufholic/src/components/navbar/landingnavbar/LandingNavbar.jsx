@@ -76,26 +76,10 @@ export const LandingNavbar = () => {
                     </NavDropdown.Item>
                   </NavDropdown>
                 </div>
-                {/* <NavDropdown
-                  title="Sign up"
-                  id="basic-nav-dropdown"
-                  className={`${styles.signDropdown}`}
-                >
-                  <NavDropdown.Item
-                    href="/buyer/signup"
-                    className={styles.buyerSignin}
-                  >
-                    Buyer
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="/seller/signup">
-                    Seller
-                  </NavDropdown.Item>
-                </NavDropdown> */}
                 <Nav.Link href="#action2" className={`${styles.link}`}>
                   About us
                 </Nav.Link>
-                <Nav.Link href="#action2" className={`${styles.link}`}>
+                <Nav.Link href="/contactus" className={`${styles.link}`}>
                   Contact us
                 </Nav.Link>
               </Nav>

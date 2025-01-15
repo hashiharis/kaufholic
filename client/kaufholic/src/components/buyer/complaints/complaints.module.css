@@ -2,6 +2,7 @@
     margin:0 auto;
     width:100%;
     padding-inline:2em;
+    background-color: #F7F7F7;
 }
 .headline{
     text-align: center;
@@ -16,11 +17,6 @@
 @media(min-width:768px){
     .complaintWrapper{
         width:80%;
-    }
-}
-
-@media (min-width:1024px){
-    .complaintWrapper{
-        width:50%;
+        margin-block:1em;
     }
 }

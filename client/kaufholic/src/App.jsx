@@ -24,6 +24,7 @@ import {
   BuyerProtectedPages,
   SellerProtectedPages,
 } from "./components/protectedroutes/ProtectedPages";
+import { ContactComplaintWrapper } from "./components/buyer/complaints/ContactComplaintWrapper";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path="/admin/signin" element={<AdminSignin />} />
         <Route path="/buyer/signup" element={<BuyerSignUp />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/contactus" element={<ContactComplaintWrapper />} />
         {/* Protected Routes */}
         <Route element={<BuyerProtectedPages />}>
           <Route path="/cart/:buyerId/" element={<CartPaymentTab />} />

@@ -1,0 +1,10 @@
+
+
+@media(min-width:768px){
+    .wrapper{
+        display: grid;
+        grid-template-columns: repeat(2,0.5fr);
+        align-items: center;
+        justify-content: center;
+    }
+}

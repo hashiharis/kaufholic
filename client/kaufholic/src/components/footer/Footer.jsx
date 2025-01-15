@@ -34,7 +34,7 @@ export const Footer = () => {
             <Link>About Us</Link>
           </div>
           <div>
-            <Link>Contact Us</Link>
+            <Link to="/contactus">Contact Us</Link>
           </div>
           <div>
             <Link>Privacy Policy</Link>
@@ -47,23 +47,19 @@ export const Footer = () => {
           <p className={styles.footerHeader}>Information</p>
           <div>
             {" "}
-            <Link>My Account</Link>
+            <Link to="/buyer/profile">My Account</Link>
           </div>
           <div>
-            <Link>Login</Link>
+            <Link to="/">Login</Link>
           </div>
           <div>
-            <Link>My Cart</Link>
+            <Link to="/cart/:buyerId/">My Cart</Link>
           </div>
           <div>
-            <Link>My Wishlist</Link>
+            <Link to="/buyer/wishlist">My Wishlist</Link>
           </div>
           <div>
-            {" "}
-            <Link>Checkout</Link>
-          </div>
-          <div>
-            <Link>FAQ</Link>
+            <Link to="/buyer/orders/">Orders</Link>
           </div>
         </Col>
       </Row>

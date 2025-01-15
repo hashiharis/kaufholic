@@ -3,7 +3,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import hidePassIcon from "../../../assets/svg/hidePassIcon.svg";
 import showPassIcon from "../../../assets/svg/showpassIcon.svg";
-import googleIcon from "../../../assets/svg/googleLogo.svg";
 import styles from "./signup.module.css";
 import { useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";

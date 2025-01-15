@@ -30,6 +30,8 @@
     align-items: baseline;
     gap:0.1em;
 }
+
+
 .titleDropdown a:nth-child(1)[aria-expanded]{
     color:var(--navbar-color);
    
@@ -58,7 +60,6 @@
         align-items: center;
       
     }
-  
    
 }
 
