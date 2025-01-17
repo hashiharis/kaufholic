@@ -1,8 +1,6 @@
 # kaufholic
 
-### Ecommerce Application
-
-The application has three users - Buyer , Seller and Admin
+kaufholic is an e-commerce application focusing on shopping of various clothing brands. kaufholic provides seamless experience for buyers and sellers to buy and sell products. kaufholic is built using React JS for frontend and Express.js and MongoDB for the backend. kaufholic is developed inspired by the real world ecommerce applications and covers most of the features that a real world e-commerce application provides like user authentication, viewing products, adding reviews and ratings for the products, adding them to wishlist and shopping carts, placing orders at checkout, posting any concerns about any product or seller.  The application has three types of users - Buyer , Seller and Admin. Buyers can view different products, post reviews and ratings, add their favourite products to wishlist, add products to cart, place orders and can post any concerns about product or sellers. Seller can add and edit products that they wish to sell in the platform, they can confirm the orders placed by the buyers, by assigning delivery dates for incoming orders. Admin can view the list of buyers,sellers,products added and orders placed. Admin can also view any complaints posted by the buyers and has the right to take action against sellers and buyers by deactivating and activating their accounts respectively. Additionaly, sellers can access the application only when the admin approves their sign in request. 
 
 #### Number of Pages 
 
