@@ -31,7 +31,7 @@ export const Footer = () => {
         <Col xs={6} md={4}>
           <p className={styles.footerHeader}>Company</p>
           <div>
-            <Link>About Us</Link>
+            <Link to="/aboutus">About Us</Link>
           </div>
           <div>
             <Link to="/contactus">Contact Us</Link>

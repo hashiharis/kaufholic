@@ -25,6 +25,7 @@ import {
   SellerProtectedPages,
 } from "./components/protectedroutes/ProtectedPages";
 import { ContactComplaintWrapper } from "./components/buyer/complaints/ContactComplaintWrapper";
+import { AboutUs } from "./components/about-us/AboutUs";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/buyer/signup" element={<BuyerSignUp />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/contactus" element={<ContactComplaintWrapper />} />
+        <Route path="/aboutus" element={<AboutUs />} />
         {/* Protected Routes */}
         <Route element={<BuyerProtectedPages />}>
           <Route path="/cart/:buyerId/" element={<CartPaymentTab />} />
