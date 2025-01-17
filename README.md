@@ -205,38 +205,44 @@ Kaufholic
 |   |──package.json
 ```
 
-#### Number of Pages 
+## Frontend
+
+The frontend of kaufholic is built using React. It provides a user friendly and engaging user interface for shopping. 
+
+
+### Pages and Components
 
 1. Pages common for buyer and seller
 
   - Landing Page
   - Sign up Page
-  - Login Page
+  - Sign in Page
   - Profile Page
   - Profile Editing Page
+  - About us Page
+  - Contact us Page
 
 2. Pages for Buyer
 
-  - Home Page
-  - Product Listing Page(view all products)
-  - Product description Page(view single product page=> it should include features of add to cart, wishlist, buy option, view other users review)
-    - add to wishlist(and remove from woshlist)
-  - report complaints against sellers
+  - Product Listing Page(view all products, search(debounce), filter by category, price , sort by price and customer ratings, add to wishlist)
+  - Product description Page(view single product page- it includes features of add to cart, buy option, view other users review)
+  - Wishlist Page-(add to wishlist and remove from wishlist)
+  - Register Complaints Page
   - Logout
 
-3. Seller( seller must have a seller dashboard)
-   Once seller logins , seller should be redirected to dashboard page
-   - Add product Page(form => form fields are product details, images,
-     product price, title, description,category(dropdown eg: electronics,clothes, furniture,etc))
-   - View Orders
+3. Seller
+   - Seller Dashboard Page
+   - Dashboard Home page showing metrics such as total buyers, total products added , total orders placed
+   - Add product Page (Seller adds product details with image)
+   - Edit Product Details (Seller can edit the added product details)
+   - View Orders Page
    - Logout
 
-4. Admin ( must have a dashboard)
-
-   - View all users
-   - View all sellers(after signup admin should approve seller)
+5. Admin 
+   - View all buyers
+   - View all sellers(after seller ignup admin should approve seller)
    - View all products
    - View all orders
    - Take actions(view complaints ->take action against sellers)
-   - Remove/Deactivate seller or user
+   - Remove/Deactivate seller or buyer
    - Logout
