@@ -1,5 +1,5 @@
 import styles from "./cartpage.module.css";
-import { MdOutlineDelete } from "react-icons/md";
+import { BsFillTrash3Fill } from "react-icons/bs";
 import { QuantityCounter } from "./QuantityCounter";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -224,9 +224,10 @@ export const CartPage = ({ eventKey, setKey }) => {
                   </p>
 
                   <p className={styles.delete}>
-                    <MdOutlineDelete
-                      size={"20px"}
+                    <BsFillTrash3Fill
+                      size={"25px"}
                       style={{ cursor: "pointer" }}
+                      color="red"
                       onClick={() => {
                         removeCartItem(buyerId, item.productId._id);
                       }}

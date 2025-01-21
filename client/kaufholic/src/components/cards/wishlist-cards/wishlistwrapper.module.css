@@ -7,6 +7,11 @@
     min-height:300px;
 }
 
+.wishlistWrapper{
+    margin-block:2em;
+    padding-inline:1em;   
+}
+
 @media (min-width:768px){
     .wishlistWrapper{
         display:grid;
@@ -17,5 +22,6 @@
 @media (min-width:1024px){
     .wishlistWrapper{
         grid-template-columns: repeat(4,1fr);
+        margin-inline:2em;
     }
 }

@@ -117,7 +117,7 @@ export const BuyerProfile = () => {
       getBuyer(id);
     }
   };
-  // updCrntBuyer={crntBuyer}
+
   return (
     <>
       <BuyerNav />
@@ -160,11 +160,18 @@ export const BuyerProfile = () => {
             <Button className={styles.updateBtn} type="submit">
               Update
             </Button>
+            <Button
+              className="mx-2"
+              variant="secondary"
+              onClick={() => setIsEditing("not_edit")}
+            >
+              Back
+            </Button>
           </Form>
         ) : (
           <div className={styles.buyerDetails}>
-            <p>Name:{buyerProfile.name} </p>
-            <p>Email:{buyerProfile.email}</p>
+            <p>Name: {buyerProfile.name} </p>
+            <p>Email: {buyerProfile.email}</p>
             <Button
               className={styles.editBtn}
               onClick={() => {

@@ -8,6 +8,8 @@ import Button from "react-bootstrap/Button";
 import { axiosInstance } from "../../apis/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { LandingNavbar } from "../navbar/landingnavbar/LandingNavbar";
+import { Footer } from "../footer/Footer";
 export const AdminSignin = () => {
   const [validated, setValidated] = useState(false);
   const [showPassword, setShowPassword] = useState("password");
@@ -92,61 +94,67 @@ export const AdminSignin = () => {
   };
 
   return (
-    <div className={styles.adminSigninWrapper}>
-      <div className={styles.adminIllustration}></div>
-      <div className={styles.adminDetailSection}>
-        <h2>Admin Sign In</h2>
-        <Form
-          noValidate
-          validated={validated}
-          onSubmit={handleSubmit}
-          className={styles.adminForm}
-        >
-          <Form.Group id="validationcustom01">
-            <Form.Label>Email</Form.Label>
-            <InputGroup hasValidation className={styles.inputField}>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                name="email"
-                value={email}
-                onChange={handleChange}
-                required
-              />
-              <Form.Control.Feedback type="invalid">
-                Email is required
-              </Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
-          <Form.Group id="validationcustom02">
-            <Form.Label>Password</Form.Label>
-            <InputGroup className={styles.inputField}>
-              <Form.Control
-                type={showPassword}
-                placeholder="Enter password"
-                name="password"
-                value={password}
-                onChange={handleChange}
-                required
-              />
-              <InputGroup.Text>
-                <button onClick={handlePassword} className={styles.iconBtn}>
-                  <img
-                    src={showPassword === "password" ? passIcon : hidePassIcon}
-                    alt="password-show-hide-icon"
-                  />
-                </button>
-              </InputGroup.Text>
-              <Form.Control.Feedback type="invalid">
-                Password is required
-              </Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
-          <Button type="submit" className={styles.adminBtn}>
-            Sign In
-          </Button>
-        </Form>
+    <>
+      <LandingNavbar />
+      <div className={styles.adminSigninWrapper}>
+        <div className={styles.adminIllustration}></div>
+        <div className={styles.adminDetailSection}>
+          <h2>Admin Sign In</h2>
+          <Form
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmit}
+            className={styles.adminForm}
+          >
+            <Form.Group id="validationcustom01">
+              <Form.Label>Email</Form.Label>
+              <InputGroup hasValidation className={styles.inputField}>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  name="email"
+                  value={email}
+                  onChange={handleChange}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Email is required
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+            <Form.Group id="validationcustom02">
+              <Form.Label>Password</Form.Label>
+              <InputGroup className={styles.inputField}>
+                <Form.Control
+                  type={showPassword}
+                  placeholder="Enter password"
+                  name="password"
+                  value={password}
+                  onChange={handleChange}
+                  required
+                />
+                <InputGroup.Text>
+                  <button onClick={handlePassword} className={styles.iconBtn}>
+                    <img
+                      src={
+                        showPassword === "password" ? passIcon : hidePassIcon
+                      }
+                      alt="password-show-hide-icon"
+                    />
+                  </button>
+                </InputGroup.Text>
+                <Form.Control.Feedback type="invalid">
+                  Password is required
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+            <Button type="submit" className={styles.adminBtn}>
+              Sign In
+            </Button>
+          </Form>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };

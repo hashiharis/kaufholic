@@ -18,6 +18,7 @@ import { FaBoxOpen } from "react-icons/fa";
 import { FaBox } from "react-icons/fa";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useLocation, useNavigate } from "react-router-dom";
+import { FiLogOut } from "react-icons/fi";
 
 export const BuyerNav = () => {
   const [buyerData, setBuyerData] = useState({
@@ -232,7 +233,15 @@ export const BuyerNav = () => {
                         Register Complaints
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item onClick={handleLogout}>
+                      <NavDropdown.Item
+                        onClick={handleLogout}
+                        style={{ color: "red" }}
+                      >
+                        <FiLogOut
+                          size={"20px"}
+                          style={{ marginRight: "0.3em" }}
+                          color={"red"}
+                        />
                         Logout
                       </NavDropdown.Item>
                     </NavDropdown>

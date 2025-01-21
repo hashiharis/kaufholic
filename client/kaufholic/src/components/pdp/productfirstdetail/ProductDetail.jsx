@@ -93,8 +93,6 @@ export const ProductDetail = () => {
         <div className={styles.productIntro}>
           <div className={styles.productTitleSection}>
             <p className={styles.title}>{title}</p>
-
-            <FaRegHeart size="20px" />
           </div>
           <p>{subtitle}</p>
           <p>
@@ -105,25 +103,14 @@ export const ProductDetail = () => {
             <span> ₹{actualPrice}</span>
             <span>{discountPercent}%</span>
           </p>
-          <Dropdown as={ButtonGroup}>
-            <Button variant="secondary">Qty</Button>
-
-            <Dropdown.Toggle
-              split
-              variant="secondary"
-              id="dropdown-split-basic"
-            />
-
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">1</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">2</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">3</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">4</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">5</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
           <div className={styles.pdpBtnSection}>
-            <button className={`${styles.buyBtn} ${styles.pdpBtn}`}>
+            <button
+              className={`${styles.buyBtn} ${styles.pdpBtn}`}
+              onClick={() => {
+                addProductToCart(buyerId, productId);
+                navigate(`/cart/${buyerId}`);
+              }}
+            >
               Buy Now
             </button>
             {addedToCart === "added to cart" ? (

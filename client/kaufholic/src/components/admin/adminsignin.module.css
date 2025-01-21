@@ -3,7 +3,7 @@
     width:100%;
 }
 .adminDetailSection{
-    padding-inline:1em;
+    padding-inline:2em;
     width:100%;
 }
 .adminIllustration{
@@ -31,10 +31,9 @@
 }
 .adminBtn{
     margin-block:1em;
-    width:50%;
     text-transform: uppercase;
     color:var(--btn-text);
-    padding-block:1.5em;
+    padding-block:1em;
     padding-inline:2em;
 }
 
