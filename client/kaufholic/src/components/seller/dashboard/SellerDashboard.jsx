@@ -95,7 +95,10 @@ export const SellerDashboard = () => {
               />
             )}
             {activePage === "Edit_Products" && (
-              <SellerProductEdit currentProduct={currentProduct} />
+              <SellerProductEdit
+                changeActivePage={changeActivePage}
+                currentProduct={currentProduct}
+              />
             )}
             {activePage === "Orders" && <ReceivedOrders />}
           </Col>

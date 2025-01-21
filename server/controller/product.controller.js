@@ -11,6 +11,8 @@ const addProduct = async (req, res) => {
       actualPrice,
       discountPercent,
       description,
+      specification,
+      care,
       sellerId,
     } = req.body;
 
@@ -31,6 +33,8 @@ const addProduct = async (req, res) => {
       currentPrice: req.currentPrice,
       discountPriceApplied: req.discountPriceApplied,
       description,
+      specification,
+      care,
       sellerId,
       productImage: req.file.filename,
     });
@@ -125,6 +129,8 @@ const editProductDetails = async (req, res) => {
       currentPrice,
       discountPercent,
       description,
+      specification,
+      care,
       productImage,
     } = req.body;
 
@@ -143,6 +149,8 @@ const editProductDetails = async (req, res) => {
         currentPrice,
         discountPercent,
         description,
+        specification,
+        care,
         productImage: req?.file?.filename,
       },
       { new: true }

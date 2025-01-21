@@ -15,6 +15,8 @@ export const SellerAddProduct = ({ changeActivePage }) => {
     actualPrice: "",
     discountPercent: "",
     description: "",
+    specification: "",
+    care: "",
     sellerId: localStorage.getItem("kh-sellerId"),
   });
   const [prodImg, setProdImg] = useState("");
@@ -26,6 +28,8 @@ export const SellerAddProduct = ({ changeActivePage }) => {
     actualPrice,
     discountPercent,
     description,
+    specification,
+    care,
     sellerId,
   } = productData;
 
@@ -36,6 +40,8 @@ export const SellerAddProduct = ({ changeActivePage }) => {
   formData.append("actualPrice", actualPrice);
   formData.append("discountPercent", discountPercent);
   formData.append("description", description);
+  formData.append("specification", specification);
+  formData.append("care", care);
   formData.append("sellerId", sellerId);
   formData.append("productImage", prodImg);
 
@@ -48,7 +54,6 @@ export const SellerAddProduct = ({ changeActivePage }) => {
     }
     setValidated(true);
     if (validationProductFields()) {
-      // addProductDataToServer();
       addProductDataToServer(formData);
     }
   };
@@ -73,6 +78,8 @@ export const SellerAddProduct = ({ changeActivePage }) => {
       actualPrice,
       discountPercent,
       description,
+      specification,
+      care,
     } = productData;
 
     if (
@@ -81,7 +88,9 @@ export const SellerAddProduct = ({ changeActivePage }) => {
       !category ||
       !actualPrice ||
       !discountPercent ||
-      !description
+      !description ||
+      !specification ||
+      !care
     ) {
       alert("Please fill the required fields");
       return false;
@@ -207,6 +216,32 @@ export const SellerAddProduct = ({ changeActivePage }) => {
           />
           <Form.Control.Feedback type="invalid">
             Please enter product details
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group controlId="validationCustom06" className="mb-3">
+          <Form.Label>Product Specifications</Form.Label>
+          <Form.Control
+            as="textarea"
+            placeholder="Product Specifications"
+            required
+            name="specification"
+            onChange={handleChange}
+          ></Form.Control>
+          <Form.Control.Feedback type="invalid">
+            Please enter product specifications
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group controlId="validationCustom06" className="mb-3">
+          <Form.Label>Care Instructions</Form.Label>
+          <Form.Control
+            as="textarea"
+            placeholder="Care Instructions"
+            required
+            name="care"
+            onChange={handleChange}
+          ></Form.Control>
+          <Form.Control.Feedback type="invalid">
+            Please enter care Instructions
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="validationCustom06" className="mb-3">

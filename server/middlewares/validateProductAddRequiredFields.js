@@ -6,6 +6,8 @@ const validateProductAddRequiredFields = (req, res, next) => {
     actualPrice,
     discountPercent,
     description,
+    specification,
+    care,
   } = req.body;
 
   if (
@@ -14,7 +16,9 @@ const validateProductAddRequiredFields = (req, res, next) => {
     !category ||
     !actualPrice ||
     !discountPercent ||
-    !description
+    !description ||
+    !specification ||
+    !care
   ) {
     return res.status(400).json({ message: "All fields are required" });
   }

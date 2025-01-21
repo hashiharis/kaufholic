@@ -35,6 +35,14 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
+    specification: {
+      type: String,
+      required: true,
+    },
+    care: {
+      type: String,
+      required: true,
+    },
     sellerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "seller",
@@ -81,7 +89,6 @@ const productSchema = new Schema(
   }
 );
 
-// Todo=>Second time when seller edits price in my products page, then a separate api call needed for discount updation(calculation)
 const ProductModel = model("product", productSchema);
 
 module.exports = ProductModel;

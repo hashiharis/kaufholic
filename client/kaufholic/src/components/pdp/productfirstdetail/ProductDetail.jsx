@@ -150,7 +150,7 @@ export const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <ProductTab productId={productId} />
+      <ProductTab productId={productId} product={product} />
       <Footer />
     </>
   );

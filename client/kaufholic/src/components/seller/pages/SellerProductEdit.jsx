@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import toast from "react-hot-toast";
 import styles from "./sellerproductedit.module.css";
@@ -13,7 +13,6 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [validated, setValidated] = useState(false);
   const [imgFile, setImgFile] = useState("");
-  //   const { productId } = useParams();
 
   useEffect(() => {
     const sellerId = localStorage.getItem("kh-sellerId");
@@ -52,6 +51,8 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
     currentPrice,
     discountPercent,
     description,
+    specification,
+    care,
     productImage,
     sellerId,
   } = productDetails;
@@ -63,6 +64,8 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
   formData.append("actualPrice", actualPrice);
   formData.append("discountPercent", discountPercent);
   formData.append("description", description);
+  formData.append("specification", specification);
+  formData.append("care", care);
   formData.append("sellerId", sellerId);
   formData.append("productImage", imgFile);
 
@@ -107,6 +110,8 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
       actualPrice,
       discountPercent,
       description,
+      specification,
+      care,
     } = productDetails;
 
     if (
@@ -115,7 +120,9 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
       !category ||
       !actualPrice ||
       !discountPercent ||
-      !description
+      !description ||
+      !specification ||
+      !care
     ) {
       alert("Please fill the required fields");
       return false;
@@ -141,7 +148,7 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
         changeActivePage("My Products");
       }
     } catch (error) {
-      const statusCode = error.response.status;
+      const statusCode = error?.response?.status;
       if (statusCode === 400 || statusCode === 404) {
         toast.error("Something went wrong");
       } else {
@@ -162,6 +169,8 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
           <p>Current Price:{currentPrice}</p>
           <p>Discount Percent:{discountPercent}</p>
           <p>Description:{description}</p>
+          <p>Specification:{specification}</p>
+          <p>Care Insructions:{care}</p>
           <Button variant="primary" onClick={handleEdit}>
             Edit
           </Button>
@@ -266,7 +275,34 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
                 Please enter product details
               </Form.Control.Feedback>
             </Form.Group>
-
+            <Form.Group controlId="validationCustom06" className="mb-3">
+              <Form.Label>Product Specification</Form.Label>
+              <Form.Control
+                as="textarea"
+                placeholder="Product Specification"
+                required
+                name="specification"
+                value={specification}
+                onChange={handleChange}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter product specification
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group controlId="validationCustom07" className="mb-3">
+              <Form.Label>Care Instructions</Form.Label>
+              <Form.Control
+                as="textarea"
+                placeholder="Product Details"
+                required
+                name="care"
+                value={care}
+                onChange={handleChange}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter care instructions
+              </Form.Control.Feedback>
+            </Form.Group>
             <p>{productImage && `Current Product Image:${productImage}`}</p>
             <Form.Group controlId="validationCustom06" className="mb-3">
               <Form.Label>Product Image</Form.Label>
@@ -277,8 +313,15 @@ export const SellerProductEdit = ({ changeActivePage, currentProduct }) => {
               />
             </Form.Group>
 
-            <Button variant="primary" onClick={handleSubmit}>
+            <Button variant="primary" onClick={handleSubmit} className="mb-2">
               Update
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => changeActivePage("My Products")}
+              className="mx-3 mb-2"
+            >
+              Back
             </Button>
           </Form>
         </div>
