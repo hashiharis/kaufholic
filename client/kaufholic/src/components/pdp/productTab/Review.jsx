@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ReactStars from "react-rating-stars-component";
