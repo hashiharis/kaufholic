@@ -15,6 +15,10 @@
     margin-bottom: 1em;
 }
 
+.deliveryStatus{
+    color:var(--required);
+}
+
 .empty_image{
     width:50%;
     object-fit: contain;

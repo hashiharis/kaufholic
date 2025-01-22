@@ -47,5 +47,11 @@
     }
 }
 
+@media (min-width:1024px){
+    .reviewForm{
+        width:50%;
+    }
+}
+
 
 

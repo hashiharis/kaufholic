@@ -66,7 +66,7 @@ export const SellerDashboard = () => {
     },
   ];
   return (
-    <Container fluid>
+    <Container fluid className={styles.sellerDashBoardSection}>
       <Row className={styles.sellerDashboardWrapper}>
         <Col
           lg={3}

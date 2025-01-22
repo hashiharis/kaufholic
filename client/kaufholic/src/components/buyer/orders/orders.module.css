@@ -15,7 +15,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-inline:1em;
 }
+
 
 .productDescription{
     display:grid;
@@ -45,6 +47,15 @@
 }
 .orderLists{
     margin-block:1em;
+}
+
+.deliveryStatus{
+   color:var(--required)
+
+}
+
+.confirmedStatus{
+    color:green;
 }
 @media(min-width:768px){
     .ordersWrapper{

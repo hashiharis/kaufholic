@@ -1,15 +1,16 @@
 /* eslint-disable react/prop-types */
 import Accordion from "react-bootstrap/Accordion";
+import Button from "react-bootstrap/Button";
 import styles from "./orders.module.css";
-// import { BuyerNav } from "../../navbar/usernavbar/buyernavbar/BuyerNav";
-// import { Footer } from "../../footer/Footer";
 import { BASE_URL } from "../../../apis/baseUrl";
 import empty_image from "../../../assets/images/empty_illustration.png";
+import { useNavigate } from "react-router-dom";
 
 export const Orders = ({ orders }) => {
+  const navigate = useNavigate();
+
   return (
     <>
-      {/* <BuyerNav /> */}
       <div className={styles.ordersWrapper}>
         {orders.length === 0 ? (
           <>
@@ -52,9 +53,26 @@ export const Orders = ({ orders }) => {
                         <p className={styles.quantity}>
                           Quantity: {item.quantity}
                         </p>
-                        <p className={styles.deliveryStatus}>
+                        <p
+                          className={
+                            item.deliveryStatus === "pending"
+                              ? `${styles.deliveryStatus}`
+                              : `${styles.confirmedStatus}`
+                          }
+                        >
                           Delivery Status: {item.deliveryStatus}
                         </p>
+                        {item.deliveryStatus === "confirmed" && (
+                          <Button
+                            variant="success"
+                            className="mb-2"
+                            onClick={() =>
+                              navigate(`/productdetail/${item.productId._id}`)
+                            }
+                          >
+                            Buy Again
+                          </Button>
+                        )}
                       </div>
                     </Accordion.Body>
                   </Accordion.Item>
@@ -63,7 +81,6 @@ export const Orders = ({ orders }) => {
           </>
         )}
       </div>
-      {/* <Footer /> */}
     </>
   );
 };

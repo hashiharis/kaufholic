@@ -24,8 +24,13 @@ export const Sidebar = ({
         : `${styles.sidebarHide}`
       : " ";
 
+  const wrapperClass =
+    location.pathname === "/admin/dashboard"
+      ? `${styles.adminSidebarWrapper}`
+      : `${styles.sidebarWrapper}`;
+
   return (
-    <div className={`${styles.sidebarWrapper}`}>
+    <div className={wrapperClass}>
       <nav className={sidebarClass}>
         {showMenu ? (
           <IoClose onClick={toggleMenu} size={30} className={styles.navIcon} />

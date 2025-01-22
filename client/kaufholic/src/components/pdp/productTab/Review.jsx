@@ -148,7 +148,6 @@ export const Review = ({ productId }) => {
           ))
         )}
       </div>
-
       <p className={styles.reviewAddSectionTitle}>Add your Review</p>
       <p className={styles.ratingSectionTitle}>Your rating</p>
       <div>
@@ -159,7 +158,7 @@ export const Review = ({ productId }) => {
           activeColor={"#ffd700"}
         />
       </div>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className={styles.reviewForm}>
         <Form.Group className="mb-3">
           <Form.Label className={styles.reviewLabel}>Name</Form.Label>
           <Form.Control
